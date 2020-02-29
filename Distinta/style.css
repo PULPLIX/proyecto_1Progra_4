@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700,700i|Roboto:300,300i,400,400i,500,700,900');
+
+body {
+  color: #121212;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  visibility: visible;
+  font-family: 'Roboto', sans-serif;
+}
+
+img{
+	width: 125px;
+	height: 50px;
+}
+
+.logo {
+    position: fixed;
+	background-color: #fff;
+	width: 98.8%;
+}
+
+.menu {
+    position: fixed;
+	top: 59px;
+	background-color: #6E2C00;
+	width: 98.8%;
+	opacity: 0.9;
+	font-size: 17px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+li {
+	color: #fff;
+	background-color: #6E2C00;
+	display: block;
+	float: left;
+	padding: 1rem;
+	position: relative;
+	text-decoration: none;
+	transition-duration: 0.5s;
+}
+  
+li a {
+	color: #fff;
+}
+
+li:hover {
+    background: red;
+    cursor: pointer;
+}
+
+ul li ul {
+	visibility: hidden;
+	min-width: 5rem;
+	position: absolute;
+	transition: all 0.5s ease;
+	margin-top: 1rem;
+	left: 0;
+	display: none;
+}
+
+ul li:hover > ul, ul li ul:hover {
+	visibility: visible;
+	padding: 10px;
+	opacity: 1;
+	display: block;
+}
+
+ul li ul li {
+	clear: both;
+	width: 100%;
+}
+
+a, a::before, a::after {
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+}
+
+.cabeza{
+	background-color: #ff7700;
+}
+
+.cabeza-contenido a {
+	background: #ffffff none repeat scroll 0 0;
+	border: medium none;
+	color: #121212;
+	display: inline-block;
+	font-weight: 700;
+	margin-top: 20px;
+	padding: 12px 45px;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.cabeza-contenido a:hover, a:active{
+  background: #ff7700;
+  color: #fff;
+  text-decoration: none;
+}
