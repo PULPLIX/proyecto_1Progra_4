@@ -1,4 +1,15 @@
+/*----------------------------------------*/
+/*  IMPORTAMOS FUENTES DE INTERNET
+/*----------------------------------------*/
+
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700,700i|Roboto:300,300i,400,400i,500,700,900');
+
+/*----------------------------------------*/
+/*  GLOBAL
+/*----------------------------------------*/
+* {
+  box-sizing: border-box;
+}
 
 body {
   color: #121212;
@@ -12,16 +23,26 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-img{
+/*----------------------------------------*/
+/*  1.  LOGO
+/*----------------------------------------*/
+
+.logo img{
 	width: 125px;
 	height: 50px;
+	z-index: 20;
 }
 
 .logo {
     position: fixed;
 	background-color: #fff;
 	width: 98.8%;
+	z-index: 20;
 }
+
+/*----------------------------------------*/
+/*  2. MENÚ
+/*----------------------------------------*/
 
 .menu {
     position: fixed;
@@ -30,15 +51,16 @@ img{
 	width: 98.8%;
 	opacity: 0.9;
 	font-size: 17px;
+	z-index: 20;
 }
 
-ul {
+.menu ul {
     list-style: none;
     margin: 0;
     padding-left: 0;
 }
 
-li {
+.menu li {
 	color: #fff;
 	background-color: #6E2C00;
 	display: block;
@@ -49,16 +71,16 @@ li {
 	transition-duration: 0.5s;
 }
   
-li a {
+.menu li a {
 	color: #fff;
 }
 
-li:hover {
+.menu li:hover {
     background: red;
     cursor: pointer;
 }
 
-ul li ul {
+.menu ul li ul {
 	visibility: hidden;
 	min-width: 5rem;
 	position: absolute;
@@ -68,25 +90,29 @@ ul li ul {
 	display: none;
 }
 
-ul li:hover > ul, ul li ul:hover {
+.menu ul li:hover > ul, ul li ul:hover {
 	visibility: visible;
 	padding: 10px;
 	opacity: 1;
 	display: block;
 }
 
-ul li ul li {
+.menu ul li ul li {
 	clear: both;
 	width: 100%;
 }
 
-a, a::before, a::after {
+.menu a, .menu a::before, .menu a::after {
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
   text-decoration: none;
 }
+
+/*----------------------------------------*/
+/*  3. CABEZA
+/*----------------------------------------*/
 
 .cabeza{
 	background-color: #ff7700;
@@ -108,4 +134,145 @@ a, a::before, a::after {
   background: #ff7700;
   color: #fff;
   text-decoration: none;
+}
+
+/*----------------------------------------*/
+/*  4. CUERPO
+/*----------------------------------------*/
+
+.cuerpo{
+	height: 50vh;
+	width: 90vw;
+	margin: 2rem auto;
+	display: grid;
+	grid-template-areas: "left main right";
+}
+
+.cuerpo-caja {
+	font-size: 2.5rem;
+	text-align: center;
+	padding: 2rem;
+}
+
+.cuerpo-izquierdo {
+	grid-area: left;
+}
+
+.cuerpo-central {
+	grid-area: main;
+}
+
+.cuerpo-derecho {
+	grid-area: right;
+}
+
+.imagen-muestra{
+	list-style-type: none;
+	float: left;
+}
+
+.imagen-muestra li{
+	float: left;
+	padding: 0px;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.imagen-muestra li:hover{
+	box-shadow: 0 6px 20px 0 orange, 0 6px 20px 0 orange;
+}
+
+.imagen-muestra li:hover .muestra{
+	opacity: 1;
+}
+
+.imagen-muestra li:hover img{
+	opacity: 1;
+	transform: scale(1.15,1.15);
+	-webkit-transform:scale(1.15,1.15);
+	-moz-transform:scale(1.15,1.15);
+	-ms-transform:scale(1.15,1.15);
+	-o-transform:scale(1.15,1.15);
+}
+
+.imagen-muestra img{
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	z-index: 0;
+	height: 250px;
+	width: 300px;
+}
+
+.imagen-muestra .muestra{
+	cursor: pointer;
+	position: absolute;
+	opacity: 0;
+	-webkit-transition:all 0.45s ease-in-out;
+	-moz-transition:all 0.45s ease-in-out;
+	transition:all 0.45s ease-in-out;
+}
+
+.imagen-muestra img{
+	-webkit-transition:all 0.25s ease-in-out;
+	-moz-transition:all 0.25s ease-in-out;
+	transition:all 0.25s ease-in-out;
+	height: 250px;
+	width: 300px;
+}
+.imagen-muestra .difuminado{
+	background-color: rgba(0,0,0,0.65);
+	height: 250px;
+	width: 300px;
+	z-index: 5;
+	position: absolute;
+}
+
+.imagen-muestra .muestra-texto h1{
+	font-size: 15px;
+}
+
+.imagen-muestra .muestra-texto{
+	z-index: 10;
+	color: #fff;
+	position: absolute;
+	height: 250px;
+	width: 300px;
+	text-align: center;
+	top:100px;
+}
+
+/*----------------------------------------*/
+/*  5. PIE
+/*----------------------------------------*/
+
+.pie {
+  background-color: #ff7700;
+  padding: 75px 0;
+}
+
+.pie h2 {
+	color: #fff;
+	font-size: 50px;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+/*----------------------------------------*/
+/*  6. COPYRIGHT
+/*----------------------------------------*/
+
+.copyright {
+  background-color: #333;
+  padding: 23px 0;
+}
+
+.copyright h3 {
+	color: #fff;
+	font-weight: 300;
+	letter-spacing: 0.1px;
+	line-height: 22px;
+	font-size: 18px;
+	margin: 0;
 }
