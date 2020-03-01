@@ -23,22 +23,30 @@ body {
 	font-family: 'Roboto', sans-serif;
 	background-image: url("img/bg.jpg");
 	background-repeat: round;
-	background-attachment: fixed
+	background-attachment: fixed;
 }
 
 /*----------------------------------------*/
 /*  1.  LOGO
 /*----------------------------------------*/
 
-.logo img{
-	width: 125px;
-	height: 50px;
+#logoimg{
+	width: 180px;
+	height: 70px;
 	z-index: 20;
 }
 
+#trianguloimg{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+}
+
 .logo {
-	background-color: #fff;
 	z-index: 20;
+	background-color: #fff;
 }
 
 /*----------------------------------------*/
@@ -46,10 +54,11 @@ body {
 /*----------------------------------------*/
 
 .menu {
+	color: #fff;
     position: fixed;
 	background-color: #6E2C00;
 	width: 100%;
-	opacity: 0.9;
+	/*opacity: 0.9;*/
 	font-size: 17px;
 	z-index: 20;
 }
@@ -76,7 +85,7 @@ body {
 }
 
 .menu li:hover {
-    background: red;
+    background: #ca3210;
     cursor: pointer;
 }
 
@@ -114,7 +123,7 @@ a, a::before, a::after {
 /*----------------------------------------*/
 
 .cabeza{
-	background-color: #ff7700;
+	background-color: rgba(255, 170, 15);
 	background-image: url("img/bgcabeza.jpg");
 	background-size:cover;
 	display: grid;
@@ -149,6 +158,134 @@ a, a::before, a::after {
   background: #ff7700;
   color: #fff;
   text-decoration: none;
+}
+
+@-webkit-keyframes fadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}
+
+@-moz-keyframes fadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}
+
+@-o-keyframes fadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}
+
+@keyframes fadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}
+
+#transicion-imagen {
+  position:relative;
+  height:281px;
+  width:450px;
+  margin:0 auto;
+}
+
+#transicion-imagen img {
+	position:absolute;
+	left:0;
+	border-radius: 50%;
+	height: 380px;
+	width: 410px;
+	border-left: 20px solid rgba(243, 139, 0);
+}
+
+#transicion-imagen img {
+  -webkit-animation-name: fadeInOut;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 8s;
+
+  -moz-animation-name: fadeInOut;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-duration: 8s;
+
+  -o-animation-name: fadeInOut;
+  -o-animation-timing-function: ease-in-out;
+  -o-animation-iteration-count: infinite;
+  -o-animation-duration: 8s;
+
+  animation-name: fadeInOut;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 8s;
+}
+#transicion-imagen img:nth-of-type(1) {
+  -webkit-animation-delay: 6s;
+  -moz-animation-delay: 6s;
+  -o-animation-delay: 6s;
+  animation-delay: 6s;
+}
+#transicion-imagen img:nth-of-type(2) {
+  -webkit-animation-delay: 4s;
+  -moz-animation-delay: 4s;
+  -o-animation-delay: 4s;
+  animation-delay: 4s;
+}
+#transicion-imagen img:nth-of-type(3) {
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  -o-animation-delay: 2s;
+  animation-delay: 2s;
 }
 
 /*----------------------------------------*/
@@ -263,7 +400,7 @@ a, a::before, a::after {
 /*----------------------------------------*/
 
 .pie {
-  background-color: #ff7700;
+  background-color: rgba(255, 150, 10);
   padding: 75px 0;
 }
 
