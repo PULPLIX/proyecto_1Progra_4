@@ -1,0 +1,22 @@
+/*----------------------------------------*/
+/*  LOGO
+/*----------------------------------------*/
+
+#logoimg{
+    width: 180px;
+    height: 70px;
+    z-index: 20;
+}
+
+#trianguloimg{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+}
+
+.logo {
+    z-index: 20;
+    background-color: #fff;
+}

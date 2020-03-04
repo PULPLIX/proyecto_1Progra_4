@@ -1,0 +1,169 @@
+/*----------------------------------------*/
+/*  CABEZA
+/*----------------------------------------*/
+
+.cabeza{
+	background-color: rgba(255, 170, 15);
+	background-image: url("/ProyectoBanco/images/bgcabeza.jpg");
+	background-size:cover;
+	display: grid;
+	grid-template-areas: "left right";
+}
+
+.cabeza-caja {
+	padding: 2rem;
+}
+
+.cabeza-izquierdo {
+	grid-area: left;
+}
+
+.cabeza-derecho {
+	grid-area: right;
+}
+
+.cabeza-contenido a {
+	background: #ffffff none repeat scroll 0 0;
+	border: medium none;
+	color: #121212;
+	display: inline-block;
+	font-weight: 700;
+	margin-top: 20px;
+	padding: 12px 45px;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.cabeza-contenido a:hover, a:active{
+	background: #ff7700;
+	color: #fff;
+	text-decoration: none;
+}
+
+@-webkit-keyframes fadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}
+
+@-moz-keyframes fadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}
+
+@-o-keyframes fadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}
+
+@keyframes fadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}
+
+#transicion-imagen {
+	position:relative;
+	height:281px;
+	width:450px;
+	margin:0 auto;
+}
+
+#transicion-imagen img {
+	position:absolute;
+	left:0;
+	border-radius: 50%;
+	height: 380px;
+	width: 410px;
+	border-left: 20px solid rgba(243, 139, 0);
+}
+
+#transicion-imagen img {
+	-webkit-animation-name: fadeInOut;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-duration: 8s;
+
+	-moz-animation-name: fadeInOut;
+	-moz-animation-timing-function: ease-in-out;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-duration: 8s;
+
+	-o-animation-name: fadeInOut;
+	-o-animation-timing-function: ease-in-out;
+	-o-animation-iteration-count: infinite;
+	-o-animation-duration: 8s;
+
+	animation-name: fadeInOut;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	animation-duration: 8s;
+}
+#transicion-imagen img:nth-of-type(1) {
+	-webkit-animation-delay: 6s;
+	-moz-animation-delay: 6s;
+	-o-animation-delay: 6s;
+	animation-delay: 6s;
+}
+#transicion-imagen img:nth-of-type(2) {
+	-webkit-animation-delay: 4s;
+	-moz-animation-delay: 4s;
+	-o-animation-delay: 4s;
+	animation-delay: 4s;
+}
+#transicion-imagen img:nth-of-type(3) {
+	-webkit-animation-delay: 2s;
+	-moz-animation-delay: 2s;
+	-o-animation-delay: 2s;
+	animation-delay: 2s;
+}

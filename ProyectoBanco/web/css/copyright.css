@@ -1,0 +1,17 @@
+/*----------------------------------------*/
+/*  COPYRIGHT
+/*----------------------------------------*/
+
+.copyright {
+	background-color: #333;
+	padding: 23px 0;
+}
+
+.copyright h3 {
+	color: #fff;
+	font-weight: 300;
+	letter-spacing: 0.1px;
+	line-height: 22px;
+	font-size: 18px;
+	margin: 0;
+}

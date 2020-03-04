@@ -1,0 +1,27 @@
+/*----------------------------------------*/
+/*  IMPORTAMOS FUENTES DE INTERNET
+/*----------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700,700i|Roboto:300,300i,400,400i,500,700,900');
+
+/*----------------------------------------*/
+/*  GLOBAL
+/*----------------------------------------*/
+* {
+	box-sizing: border-box;
+}
+
+body {
+	color: #121212;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 24px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	visibility: visible;
+	font-family: 'Roboto', sans-serif;
+	background-image: url("/ProyectoBanco/images/bg.jpg");
+	background-repeat: round;
+	background-attachment: fixed;
+}

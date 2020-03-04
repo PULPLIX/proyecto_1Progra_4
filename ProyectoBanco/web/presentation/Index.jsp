@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@ include file="/presentation/Head.jsp" %>
+        <%@ include file="/presentation/HojaEstiloIndex.jsp" %>
         <title>Banco</title>
     </head>
 
