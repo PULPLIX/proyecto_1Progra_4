@@ -19,7 +19,7 @@
 .menu {
     color: #fff;
 /*    position: relative;*/
-    background-color: #6E2C00;
+    background-color: #30C5E2;
     width: 100%;
     /*opacity: 0.9;*/
     font-size: 17px;
@@ -35,7 +35,7 @@
 
 .menu li {
     color: #fff;
-    background-color: #6E2C00;
+    background-color: #30C5E2;
 /*    display: block;*/
     padding: 1rem;
 /*    position: relative;*/

@@ -3,7 +3,7 @@
 /*----------------------------------------*/
 
 .cabeza{
-	background-color: rgba(255, 170, 15);
+	background-color: #4B6CF6;
 	background-image: url("/ProyectoBanco/images/bgcabeza.jpg");
 	background-size:cover;
 	display: grid;
@@ -25,7 +25,7 @@
 .cabeza-contenido a {
 	background: #ffffff none repeat scroll 0 0;
 	border: medium none;
-	color: #121212;
+	color: #30C5E2;
 	display: inline-block;
 	font-weight: 700;
 	margin-top: 20px;

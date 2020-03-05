@@ -5,7 +5,7 @@
 .menu {
     color: #fff;
     position: fixed;
-    background-color: #6E2C00;
+    background-color: #04A9CA;
     width: 100%;
     /*opacity: 0.9;*/
     font-size: 17px;
@@ -20,7 +20,7 @@
 
 .menu li {
     color: #fff;
-    background-color: #6E2C00;
+    background-color: #04A9CA;
     display: block;
     float: left;
     padding: 1rem;
@@ -34,7 +34,7 @@
 }
 
 .menu li:hover {
-    background: #ca3210;
+    background: #134C58;
     cursor: pointer;
 }
 

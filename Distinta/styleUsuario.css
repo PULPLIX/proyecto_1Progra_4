@@ -1,0 +1,314 @@
+/*----------------------------------------*/
+/*  IMPORTAMOS FUENTES DE INTERNET
+/*----------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700,700i|Roboto:300,300i,400,400i,500,700,900');
+
+/*----------------------------------------*/
+/*  GLOBAL
+/*----------------------------------------*/
+* {
+	box-sizing: border-box;
+}
+
+body {
+	color: #121212;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 24px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	visibility: visible;
+	font-family: 'Roboto', sans-serif;
+	background-image: url("img/bg.jpg");
+	background-repeat: round;
+	background-attachment: fixed;
+}
+
+/*----------------------------------------*/
+/*  1.  LOGO
+/*----------------------------------------*/
+
+#logoimg{
+	width: 110px;
+	height: 40px;
+	z-index: 20;
+}
+
+#trianguloimg{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+}
+
+.logo {
+	z-index: 20;
+	background-color: #fff;
+}
+
+/*----------------------------------------*/
+/*  2. MENÚ
+/*----------------------------------------*/
+
+.menu {
+	color: #fff;
+    position: fixed;
+	top: -1px;
+	background-color: #6E2C00;
+	width: 8%;
+	height: 87%;
+	font-size: 17px;
+	z-index: 20;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0.1rem;
+	display: grid;
+}
+
+.menu li {
+	color: #fff;
+	background-color: #6E2C00;
+	display: grid;
+	float: left;
+	padding: 0.9rem;
+	position: relative;
+	text-decoration: none;
+}
+  
+.menu li a {
+	color: #fff;
+}
+
+li:hover {
+    background: #ca321;
+    cursor: pointer;
+}
+
+
+
+.menu ul li ul {
+	padding-top:0;
+	position: absolute;
+    min-width: 5rem;
+	margin-top: 1rem;
+	margin-left: 7rem;
+	visibility: hidden;
+	transition: padding 400ms ease 0s;
+
+}
+.menu ul:hover{
+	display: grid;	
+	transition: display 1s;
+}
+.menu ul li:hover ul{
+	visibility: visible;
+	padding-top: 10px;
+	opacity: 1; 
+	display: grid;
+}
+
+.menu ul li ul li {
+	clear: both;
+	width: 100%;
+}
+
+a, a::before, a::after {
+  -webkit-transition: padding 0.3s ease;
+  -moz-transition: padding 0.3s ease;
+  -o-transition: padding 0.3s ease;
+  transition: padding 0.3s ease;
+  text-decoration: none;
+}
+
+/*----------------------------------------*/
+/*  3. CABEZA
+/*----------------------------------------*/
+
+.cabeza{
+	background-color: rgba(255, 170, 15);
+	background-image: url("img/bgcabeza.jpg");
+	background-size:cover;
+	display: grid;
+	grid-template-areas: "left right";
+}
+
+.cabeza-caja {
+	padding: 2rem;
+}
+
+.cabeza-izquierdo {
+	grid-area: left;
+}
+
+.cabeza-derecho {
+	grid-area: right;
+}
+
+.cabeza-contenido a {
+	background: #ffffff none repeat scroll 0 0;
+	border: medium none;
+	color: #121212;
+	display: inline-block;
+	font-weight: 700;
+	margin-top: 20px;
+	padding: 12px 45px;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.cabeza-contenido a:hover, a:active{
+	background: #ff7700;
+	color: #fff;
+	text-decoration: none;
+}
+
+/*----------------------------------------*/
+/*  4. CUERPO
+/*----------------------------------------*/
+
+.cuerpo{
+	height: 50vh;
+	width: 90vw;
+	margin: 2rem auto;
+	display: grid;
+	grid-template-areas: "left main right";
+}
+
+.cuerpo-caja {
+	font-size: 2.5rem;
+	text-align: center;
+	padding: 2rem;
+}
+
+.cuerpo-izquierdo {
+	grid-area: left;
+}
+
+.cuerpo-central {
+	grid-area: main;
+}
+
+.cuerpo-derecho {
+	grid-area: right;
+}
+
+.imagen-muestra{
+	list-style-type: none;
+	float: left;
+}
+
+.imagen-muestra li{
+	float: left;
+	padding: 0px;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.imagen-muestra li:hover{
+	box-shadow: 0 6px 20px 0 orange, 0 6px 20px 0 orange;
+}
+
+.imagen-muestra li:hover .muestra{
+	opacity: 1;
+}
+
+.imagen-muestra li:hover img{
+	opacity: 1;
+	transform: scale(1.15,1.15);
+	-webkit-transform:scale(1.15,1.15);
+	-moz-transform:scale(1.15,1.15);
+	-ms-transform:scale(1.15,1.15);
+	-o-transform:scale(1.15,1.15);
+}
+
+.imagen-muestra img{
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	z-index: 0;
+	height: 250px;
+	width: 300px;
+}
+
+.imagen-muestra .muestra{
+	cursor: pointer;
+	position: absolute;
+	opacity: 0;
+	-webkit-transition:all 0.45s ease-in-out;
+	-moz-transition:all 0.45s ease-in-out;
+	transition:all 0.45s ease-in-out;
+}
+
+.imagen-muestra img{
+	-webkit-transition:all 0.25s ease-in-out;
+	-moz-transition:all 0.25s ease-in-out;
+	transition:all 0.25s ease-in-out;
+	height: 250px;
+	width: 300px;
+}
+.imagen-muestra .difuminado{
+	background-color: rgba(0,0,0,0.65);
+	height: 250px;
+	width: 300px;
+	z-index: 5;
+	position: absolute;
+}
+
+.imagen-muestra .muestra-texto h1{
+	font-size: 15px;
+}
+
+.imagen-muestra .muestra-texto{
+	z-index: 10;
+	color: #fff;
+	position: absolute;
+	height: 250px;
+	width: 300px;
+	text-align: center;
+	top:100px;
+}
+
+/*----------------------------------------*/
+/*  5. PIE
+/*----------------------------------------*/
+
+.pie {
+	position: relative;
+	top: 120px;
+	background-color: rgba(225, 150, 10);
+	padding: 18px 0;
+}
+
+.pie h2 {
+	color: #fff;
+	font-size: 20px;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+/*----------------------------------------*/
+/*  6. COPYRIGHT
+/*----------------------------------------*/
+
+.copyright {
+	position: relative;
+	top: 120px;
+	background-color: #333;
+	padding: 12px 0;
+}
+
+.copyright h3 {
+	color: #fff;
+	font-weight: 300;
+	letter-spacing: 0.1px;
+	line-height: 18px;
+	font-size: 14px;
+	margin: 0;
+}
