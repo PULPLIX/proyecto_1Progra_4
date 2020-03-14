@@ -29,16 +29,16 @@
 .menu ul {
     list-style: none;
     margin: 0;
-    padding-left: 0;
+    padding-left: 0.1rem;
 /*    position: relative;*/
 }
 
 .menu li {
     color: #fff;
     background-color: #30C5E2;
-/*    display: block;*/
+    display: block;
     padding: 1rem;
-/*    position: relative;*/
+    position: relative;
     text-decoration: none;
     transition-duration: 0.5s;
 }
@@ -52,33 +52,35 @@
     cursor: pointer;
 }
 
-/*.menu ul li ul {
-    visibility: hidden;
-    min-width: 5rem;
-    position: absolute;
-    transition: all 0.5s ease;
-    margin-top: 1rem;
-    left: 0;
-    display: none;
-}
+.menu ul li ul {
+	padding-top:0;
+	position: absolute;
+        min-width: 5rem;
+	margin-top: 1rem;
+	visibility: hidden;
+	transition: padding 1000ms ease 0s;
 
-.menu ul li:hover > ul, ul li ul:hover {
-    visibility: visible;
-    opacity: 1;
-    display: block;
 }
-
+.menu ul:hover{
+	display: block;	
+	transition: display 1s;
+}
+.menu ul li:hover ul{
+	visibility: visible;
+	padding-top: 10px;
+	opacity: 1; 
+	display: block;
+}
 .menu ul li ul li {
-    clear: both;
-    width: 100%;
-}*/
-
+	clear: both;
+	width: 100%;
+}
 a, a::before, a::after {
-    -webkit-transition: all 0.3s ease 0s;
-    -moz-transition: all 0.3s ease 0s;
-    -o-transition: all 0.3s ease 0s;
-    transition: all 0.3s ease 0s;
-    text-decoration: none;
+  -webkit-transition: padding 0.3s ease;
+  -moz-transition: padding 0.3s ease;
+  -o-transition: padding 0.3s ease;
+  transition: padding 0.3s ease;
+  text-decoration: none;
 }
 
 /*----------------------------------------*/

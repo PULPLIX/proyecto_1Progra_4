@@ -3,9 +3,12 @@
 /*----------------------------------------*/
 
 .cabeza{
-	background-color: #4B6CF6;
-	background-image: url("/ProyectoBanco/images/bgcabeza.jpg");
-	background-size:cover;
+        
+	background-color: #39BCEC;
+	background-image: url("/ProyectoBanco/images/saves2.jpg");
+	background-size:auto;
+        background-repeat: no-repeat; 
+        background-position: center;
 	display: grid;
 	grid-template-areas: "left right";
 }
@@ -32,10 +35,13 @@
 	padding: 12px 45px;
 	text-transform: uppercase;
 	text-decoration: none;
+        transition: background 1000ms ease 0s;
+        position: relative;
+        left: 5rem;
 }
 
 .cabeza-contenido a:hover, a:active{
-	background: #ff7700;
+	background: #30C5E2;
 	color: #fff;
 	text-decoration: none;
 }
@@ -125,7 +131,7 @@
 	border-radius: 50%;
 	height: 380px;
 	width: 410px;
-	border-left: 20px solid rgba(243, 139, 0);
+	border-left: 20px solid #0879AF;
 }
 
 #transicion-imagen img {

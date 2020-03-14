@@ -12,7 +12,7 @@
 }
 
 body {
-	color: #121212;
+	color: #021F20;
 	font-size: 20px;
 	font-style: normal;
 	font-weight: 400;
@@ -21,7 +21,7 @@ body {
 	overflow-y: auto;
 	visibility: visible;
 	font-family: 'Roboto', sans-serif;
-	background-image: url("/ProyectoBanco/images/bg.jpg");
+	background-image: url("/ProyectoBanco/images/bodyBack.png");
 	background-repeat: round;
 	background-attachment: fixed;
 }
