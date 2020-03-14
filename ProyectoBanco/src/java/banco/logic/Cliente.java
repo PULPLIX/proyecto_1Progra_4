@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banca.logic;
+package banco.logic;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +20,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,17 +33,17 @@ import javax.validation.constraints.Size;
  * @author Iván
  */
 @Entity
-@Table(name = "cajero")
+@Table(name = "cliente")
 @NamedQueries({
-    @NamedQuery(name = "Cajero.findAll", query = "SELECT c FROM Cajero c")})
-public class Cajero implements Serializable {
+    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")})
+public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idCajero")
-    private Integer idCajero;
+    @Column(name = "idCliente")
+    private Integer idCliente;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -58,39 +62,36 @@ public class Cajero implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "numCedula")
     private String numCedula;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "salario")
-    private int salario;
-    @Column(name = "cubiculoAsig")
-    private Integer cubiculoAsig;
     @JoinColumns({
-        @JoinColumn(name = "idUsuario_C", referencedColumnName = "idusuario")
-        , @JoinColumn(name = "idUsuario_C", referencedColumnName = "idusuario")})
+        @JoinColumn(name = "idUsuario_Cli", referencedColumnName = "idusuario")
+        , @JoinColumn(name = "idUsuario_Cli", referencedColumnName = "idusuario")})
     @ManyToOne(optional = false)
     private Usuario usuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private Collection<Cuenta> cuentaCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private Cuentasfavoritas cuentasfavoritas;
 
-    public Cajero() {
+    public Cliente() {
     }
 
-    public Cajero(Integer idCajero) {
-        this.idCajero = idCajero;
+    public Cliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public Cajero(Integer idCajero, String nombre, Date fechaNacimiento, String numCedula, int salario) {
-        this.idCajero = idCajero;
+    public Cliente(Integer idCliente, String nombre, Date fechaNacimiento, String numCedula) {
+        this.idCliente = idCliente;
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
         this.numCedula = numCedula;
-        this.salario = salario;
     }
 
-    public Integer getIdCajero() {
-        return idCajero;
+    public Integer getIdCliente() {
+        return idCliente;
     }
 
-    public void setIdCajero(Integer idCajero) {
-        this.idCajero = idCajero;
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getNombre() {
@@ -125,22 +126,6 @@ public class Cajero implements Serializable {
         this.numCedula = numCedula;
     }
 
-    public int getSalario() {
-        return salario;
-    }
-
-    public void setSalario(int salario) {
-        this.salario = salario;
-    }
-
-    public Integer getCubiculoAsig() {
-        return cubiculoAsig;
-    }
-
-    public void setCubiculoAsig(Integer cubiculoAsig) {
-        this.cubiculoAsig = cubiculoAsig;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -149,21 +134,37 @@ public class Cajero implements Serializable {
         this.usuario = usuario;
     }
 
+    public Collection<Cuenta> getCuentaCollection() {
+        return cuentaCollection;
+    }
+
+    public void setCuentaCollection(Collection<Cuenta> cuentaCollection) {
+        this.cuentaCollection = cuentaCollection;
+    }
+
+    public Cuentasfavoritas getCuentasfavoritas() {
+        return cuentasfavoritas;
+    }
+
+    public void setCuentasfavoritas(Cuentasfavoritas cuentasfavoritas) {
+        this.cuentasfavoritas = cuentasfavoritas;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCajero != null ? idCajero.hashCode() : 0);
+        hash += (idCliente != null ? idCliente.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cajero)) {
+        if (!(object instanceof Cliente)) {
             return false;
         }
-        Cajero other = (Cajero) object;
-        if ((this.idCajero == null && other.idCajero != null) || (this.idCajero != null && !this.idCajero.equals(other.idCajero))) {
+        Cliente other = (Cliente) object;
+        if ((this.idCliente == null && other.idCliente != null) || (this.idCliente != null && !this.idCliente.equals(other.idCliente))) {
             return false;
         }
         return true;
@@ -171,7 +172,7 @@ public class Cajero implements Serializable {
 
     @Override
     public String toString() {
-        return "banca.logic.Cajero[ idCajero=" + idCajero + " ]";
+        return "banca.logic.Cliente[ idCliente=" + idCliente + " ]";
     }
     
 }
