@@ -18,7 +18,7 @@
 
 .menu {
     color: #fff;
-/*    position: relative;*/
+    /*    position: relative;*/
     background-color: #30C5E2;
     width: 100%;
     /*opacity: 0.9;*/
@@ -30,7 +30,7 @@
     list-style: none;
     margin: 0;
     padding-left: 0.1rem;
-/*    position: relative;*/
+    /*    position: relative;*/
 }
 
 .menu li {
@@ -53,34 +53,34 @@
 }
 
 .menu ul li ul {
-	padding-top:0;
-	position: absolute;
-        min-width: 5rem;
-	margin-top: 1rem;
-	visibility: hidden;
-	transition: padding 1000ms ease 0s;
+    padding-top:0;
+    position: absolute;
+    min-width: 5rem;
+    margin-top: 1rem;
+    visibility: hidden;
+    transition: padding 1000ms ease 0s;
 
 }
 .menu ul:hover{
-	display: block;	
-	transition: display 1s;
+    display: block;	
+    transition: display 1s;
 }
 .menu ul li:hover ul{
-	visibility: visible;
-	padding-top: 10px;
-	opacity: 1; 
-	display: block;
+    visibility: visible;
+    padding-top: 10px;
+    opacity: 1; 
+    display: block;
 }
 .menu ul li ul li {
-	clear: both;
-	width: 100%;
+    clear: both;
+    width: 100%;
 }
 a, a::before, a::after {
-  -webkit-transition: padding 0.3s ease;
-  -moz-transition: padding 0.3s ease;
-  -o-transition: padding 0.3s ease;
-  transition: padding 0.3s ease;
-  text-decoration: none;
+    -webkit-transition: padding 0.3s ease;
+    -moz-transition: padding 0.3s ease;
+    -o-transition: padding 0.3s ease;
+    transition: padding 0.3s ease;
+    text-decoration: none;
 }
 
 /*----------------------------------------*/
@@ -88,15 +88,15 @@ a, a::before, a::after {
 /*----------------------------------------*/
 
 .cuerpo{
-/*    width: 90vw;
-    margin: 2rem auto;*/
+    /*    width: 90vw;
+        margin: 2rem auto;*/
     display: grid;
     grid-template-areas: "left main right";
     background-color: white;
 }
 
 .cuerpo-caja {
-/*    font-size: 2.5rem;*/
+    /*    font-size: 2.5rem;*/
     text-align: center;
     padding: 2rem;
 }
