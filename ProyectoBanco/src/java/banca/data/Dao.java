@@ -1,5 +1,3 @@
-package banco.data;
-
 //package personas.datos;
 //
 //import java.sql.ResultSet;

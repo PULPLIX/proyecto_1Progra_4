@@ -8,7 +8,7 @@
     <!-- LOGO
             ============================================ -->
     <div class="logo">	
-        <img src="/ProyectoBanco/images/triangulograndeceleste.png" id="trianguloimg">
+        <img src="/ProyectoBanco/images/triangulogrande.png" id="trianguloimg">
         <img src="/ProyectoBanco/images/logo2.png" id="logoimg"> 			
     </div>
 
