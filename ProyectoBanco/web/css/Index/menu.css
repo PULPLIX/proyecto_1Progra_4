@@ -5,7 +5,7 @@
 .menu {
     color: #fff;
     position: fixed;
-    background-color: #04A9CA;
+    background-color: rgb(84, 116, 159);
     width: 100%;
     /*opacity: 0.9;*/
     font-size: 17px;
@@ -20,13 +20,13 @@
 
 .menu li {
     color: #fff;
-    background-color: #04A9CA;
+    background-color: rgb(84, 116, 159);
     display: block;
     float: left;
     padding: 1rem;
     position: relative;
     text-decoration: none;
-    transition: padding 300ms ease 0s;
+    transition: padding 350ms ease 0s;
 }
 
 .menu li a {
@@ -41,32 +41,32 @@
 
 
 .menu ul li ul {
-	padding-top:0;
-	position: absolute;
-        min-width: 5rem;
-	margin-top: 1rem;
-	visibility: hidden;
-	transition: padding 1000ms ease 0s;
+    padding-top:0;
+    position: absolute;
+    min-width: 5rem;
+    margin-top: 1rem;
+    visibility: hidden;
+    transition: padding 1000ms ease 0s;
 
 }
 .menu ul:hover{
-	display: block;	
-	transition: display 1s;
+    display: block;	
+    transition: display 1s;
 }
 .menu ul li:hover ul{
-	visibility: visible;
-	padding-top: 10px;
-	opacity: 1; 
-	display: block;
+    visibility: visible;
+    padding-top: 3px;
+    opacity: 1; 
+    display: block;
 }
 .menu ul li ul li {
-	clear: both;
-	width: 100%;
+    clear: both;
+    width: 100%;
 }
 a, a::before, a::after {
-  -webkit-transition: padding 0.3s ease;
-  -moz-transition: padding 0.3s ease;
-  -o-transition: padding 0.3s ease;
-  transition: padding 0.3s ease;
-  text-decoration: none;
+    -webkit-transition: padding 0.3s ease;
+    -moz-transition: padding 0.3s ease;
+    -o-transition: padding 0.3s ease;
+    transition: padding 0.3s ease;
+    text-decoration: none;
 }
