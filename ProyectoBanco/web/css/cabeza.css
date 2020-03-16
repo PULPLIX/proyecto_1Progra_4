@@ -3,6 +3,7 @@
 /*----------------------------------------*/
 
 .cabeza{
+
     background-color: #39BCEC;
     background-image: url("/ProyectoBanco/images/chanchoazul.jpg");
     background-size:auto;
@@ -12,10 +13,6 @@
     display: grid;
     grid-template-areas: "left right";
     color: white;
-}
-
-.cabeza h2{
-   line-height: 1.2em;
 }
 
 .cabeza-caja {
@@ -33,20 +30,20 @@
 .cabeza-contenido a {
     background: #ffffff none repeat scroll 0 0;
     border: medium none;
-    color: #134C58;
+    color: #30C5E2;
     display: inline-block;
     font-weight: 700;
-    margin-top: 1px;
-    padding: 12px 40px;
+    margin-top: 20px;
+    padding: 12px 45px;
     text-transform: uppercase;
     text-decoration: none;
     transition: background 1000ms ease 0s;
     position: relative;
-    /*left: 5rem;*/
+    left: 5rem;
 }
 
 .cabeza-contenido a:hover, a:active{
-    background: #134C58;
+    background: #30C5E2;
     color: #fff;
     text-decoration: none;
 }

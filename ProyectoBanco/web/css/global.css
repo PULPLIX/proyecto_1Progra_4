@@ -1,13 +1,8 @@
 /*----------------------------------------*/
-/*  IMPORTAMOS FUENTES
+/*  IMPORTAMOS FUENTES DE INTERNET
 /*----------------------------------------*/
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700,700i|Roboto:300,300i,400,400i,500,700,900');
-
-@font-face {
-  font-family: "Axis Bold";
-  src: url("/ProyectoBanco/fonts/AxisBold.otf");
-}
 
 /*----------------------------------------*/
 /*  GLOBAL
@@ -26,10 +21,7 @@ body {
     overflow-y: auto;
     visibility: visible;
     font-family: 'Roboto', sans-serif;
-    background-image: url("/ProyectoBanco/images/bg8.jpg");
-   /* background-repeat: round;*/
-   background-repeat: no-repeat;
-   background-size: 100%;
-   background-position: center;
+    background-image: url("/ProyectoBanco/images/bg2.jpg");
+    background-repeat: round;
     background-attachment: fixed;
 }
