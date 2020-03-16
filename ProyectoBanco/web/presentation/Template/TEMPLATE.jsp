@@ -8,22 +8,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@ include file="/presentation/Template/HojaEstiloTemplate.jsp" %>
+        <%@ include file="/presentation/Template/HojaEstilo.jsp" %>
         <title>TÍTULO</title>
     </head>
 
     <body>
+         <!-- SECCION DE MENU
+                ============================================ -->
+        <%@ include file="/presentation/Template/Menu.jsp" %>
+        
         <!-- SECCION DE CABEZA
                 ============================================ -->
-        <%@ include file="/presentation/Template/CabezaTemplate.jsp" %>
+        <%@ include file="/presentation/Template/Cabeza.jsp" %>
         
         <!-- SECCION DE CUERPO
                 ============================================ -->
-        <%@ include file="/presentation/Template/CuerpoTemplate.jsp" %>
+        <%@ include file="/presentation/Template/Cuerpo.jsp" %>
 
         <!-- SECCION DE PIE
                 ============================================ -->
-        <%@ include file="/presentation/Pie.jsp" %>
+        <!--%@ include file="/presentation/Template/Pie.jsp" %-->
 
     </body>
 

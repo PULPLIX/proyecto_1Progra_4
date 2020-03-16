@@ -1,15 +1,15 @@
 
 <!-- PARA PROBAR INDIVIDUALMENTE DESCOMENTAR LA SIGUIENTE ETIQUETA
 		============================================ -->
-<!--%@ include file="/presentation/Head.jsp" %-->
+<!--%@ include file="/presentation/Index/Head.jsp" %-->
 
 <div class="menu">
 
     <!-- LOGO
             ============================================ -->
     <div class="logo">	
-        <img src="/ProyectoBanco/images/triangulograndeceleste.png" id="trianguloimg">
-        <img src="/ProyectoBanco/images/logo2.png" id="logoimg"> 			
+        <img src="/ProyectoBanco/images/menu/triangulograndeazul.png" id="trianguloimg">
+        <img src="/ProyectoBanco/images/logo/logo2.png" id="logoimg"> 			
     </div>
 
     <ul>
