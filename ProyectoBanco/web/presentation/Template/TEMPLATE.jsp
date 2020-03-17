@@ -13,22 +13,21 @@
     </head>
 
     <body>
+        <!-- SECCION DE INF PERSONAL
+                ============================================ -->
+        <%@ include file="/presentation/Template/InformacionPersonal.jsp" %>
+        
          <!-- SECCION DE MENU
                 ============================================ -->
         <%@ include file="/presentation/Template/Menu.jsp" %>
         
-        <!-- SECCION DE CABEZA
-                ============================================ -->
-        <%@ include file="/presentation/Template/Cabeza.jsp" %>
+        <br><br>
+        <br><br>
         
         <!-- SECCION DE CUERPO
                 ============================================ -->
         <%@ include file="/presentation/Template/Cuerpo.jsp" %>
-
-        <!-- SECCION DE PIE
-                ============================================ -->
-        <!--%@ include file="/presentation/Template/Pie.jsp" %-->
-
+        
     </body>
 
 </html>
