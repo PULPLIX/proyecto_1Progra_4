@@ -1,0 +1,34 @@
+/*----------------------------------------*/
+/*  IMPORTAMOS FUENTES
+/*----------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700,700i|Roboto:300,300i,400,400i,500,700,900');
+
+@font-face {
+    font-family: "Axis Bold";
+    src: url("/ProyectoBanco/fonts/AxisBold.otf");
+}
+
+/*----------------------------------------*/
+/*  GLOBAL
+/*----------------------------------------*/
+.panel{width:100%;margin: auto;   padding: 10px;}
+
+.fila{width:100%}
+
+.encabezado{ text-align:center; font-size: 1.5em;}
+
+.etiqueta{width:20%;display:inline-block}
+
+.campo{width:60%;padding: 5px;display:inline-block}
+
+
+input[type=text].is-invalid,input[type=password].is-invalid{
+    /*border-color: #dc3545;*/
+    padding-right: 20px;
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: 12;
+    background-image: url("/ProyectoBanco/images/is-invalid.png");   
+   
+}
