@@ -4,12 +4,15 @@
     Authors     : Iván Chinchilla - David Aguilar
 --%>
 
+<%@page import="banco.logica.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <%@ include file="/presentation/Index/HojaEstilo.jsp" %>
         <title>Banco Central</title>
+        <% Usuario usuario = (Usuario) session.getAttribute("usuario");  %>
+
     </head>
 
     <body>
@@ -36,7 +39,7 @@
                             +506 12345678</h5>
                         <h5>Dirección electrónica:<br>
                             secretaria@bancocentral.cr</h5>
-                       
+
                         <br>
                         <br>
                     </center>
@@ -53,7 +56,10 @@
                         Cédula: &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<input type="text"><br>
                         <br>
                         Contraseña: &ensp;&ensp;<input type="password"><br><br>-->
-                        <a href="/ProyectoBanco/presentation/login/show">INICIAR SESION</a>
+                    <% if (usuario==null){ %>
+                    <a href="/ProyectoBanco/presentation/login/show">INICIAR SESION</a>
+                    <% }%>             
+
                     <!--/form-->
                 </div>
             </div>
@@ -63,7 +69,7 @@
                 ============================================ -->
 
         <div class="cuerpo">
-            
+
             <div class="cuerpo-caja cuerpo-izquierdo">
                 <div class="imagen-muestra">
                     <ul class="imagen-muestra">
@@ -114,13 +120,13 @@
                     </ul>
                 </div>
             </div>
-            
+
         </div>
 
         <br><br><br>
-        
+
         <!-- SECCION DE PIE
-		============================================ -->
+                ============================================ -->
         <%@ include file="/presentation/Index/Pie.jsp" %>
 
     </body>
