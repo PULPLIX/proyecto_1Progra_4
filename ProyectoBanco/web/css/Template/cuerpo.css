@@ -20,8 +20,10 @@
     /*    width: 90vw;
         margin: 2rem auto;*/
     display: grid;
-    grid-template-areas: "left main right";
-    background-color: white;
+    grid-template-areas: "nocabeza cabeza cabeza"
+                         "left main right"
+                         "nopie pie pie"
+                         "nocr cr cr";
 }
 
 .cuerpo-caja {
@@ -30,15 +32,56 @@
     padding: 2rem;
 }
 
-.cuerpo-izquierdo {
-    grid-area: left;
+.cuerpo-cabeza {
+    grid-area: cabeza;
+    background-color: white;
+}
+.cuerpo-nocabeza {
+    grid-area: nocabeza;
 }
 
 .cuerpo-central {
     grid-area: main;
+    background-color: white;
 }
 
 .cuerpo-derecho {
     grid-area: right;
+    background-color: white;
 }
 
+.pie {
+    grid-area: pie;
+    background-color:#444545;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.pie h2 {
+    color: #fff;
+    font-family: "Axis Bold";
+    font-size: 25px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.pie img{
+    width: 150px;
+    height: 120px;
+}
+.copyright {
+    grid-area: cr;
+    background-color: rgb(84, 116, 159);
+   /* background-color: #134C58;*/
+    padding: 15px 0;
+}
+
+.copyright h3 {
+    color: #fff;
+    font-weight: 200;
+    letter-spacing: 0.1px;
+    line-height: 22px;
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+}
