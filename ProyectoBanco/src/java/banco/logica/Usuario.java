@@ -39,7 +39,7 @@ public class Usuario implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 16)
+    @Size(min = 1, max = 12)
     @Column(name = "id_usuario")
     private String idUsuario;
     @Basic(optional = false)
@@ -55,9 +55,6 @@ public class Usuario implements Serializable {
     private Collection<Cliente> clienteCollection;
 
     public Usuario() {
-        this.idUsuario =  "";
-        this.claveAcceso = "";
-        this.rol = 0;
     }
 
     public Usuario(String idUsuario) {

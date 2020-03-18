@@ -26,7 +26,7 @@ public class clienteDao {
         try {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
-            st.setString(1, cli.getIdCliente());
+            st.setInt(1, cli.getIdCliente());
             st.setString(2, cli.getUsuarioIdUsuario().getIdUsuario());
             st.setString(3, cli.getApellidos());
             st.setString(4, cli.getNombre());
@@ -60,7 +60,7 @@ public class clienteDao {
 
             while (resultado.next()) {
                 cli = new Cliente();
-                cli.setIdCliente(resultado.getString("id_cliente"));
+                cli.setIdCliente(resultado.getInt("id_cliente"));
                 cli.setUsuarioIdUsuario(creaUsuario(resultado));
                 cli.setApellidos(resultado.getString("apellidos"));
                 cli.setNombre(resultado.getString("nombre"));

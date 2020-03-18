@@ -10,7 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -24,14 +23,13 @@ public class MovimientoPK implements Serializable {
     private int idMovimiento;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
     @Column(name = "cuenta_num_cuenta")
-    private String cuentaNumCuenta;
+    private int cuentaNumCuenta;
 
     public MovimientoPK() {
     }
 
-    public MovimientoPK(int idMovimiento, String cuentaNumCuenta) {
+    public MovimientoPK(int idMovimiento, int cuentaNumCuenta) {
         this.idMovimiento = idMovimiento;
         this.cuentaNumCuenta = cuentaNumCuenta;
     }
@@ -44,11 +42,11 @@ public class MovimientoPK implements Serializable {
         this.idMovimiento = idMovimiento;
     }
 
-    public String getCuentaNumCuenta() {
+    public int getCuentaNumCuenta() {
         return cuentaNumCuenta;
     }
 
-    public void setCuentaNumCuenta(String cuentaNumCuenta) {
+    public void setCuentaNumCuenta(int cuentaNumCuenta) {
         this.cuentaNumCuenta = cuentaNumCuenta;
     }
 
@@ -56,7 +54,7 @@ public class MovimientoPK implements Serializable {
     public int hashCode() {
         int hash = 0;
         hash += (int) idMovimiento;
-        hash += (cuentaNumCuenta != null ? cuentaNumCuenta.hashCode() : 0);
+        hash += (int) cuentaNumCuenta;
         return hash;
     }
 
@@ -70,7 +68,7 @@ public class MovimientoPK implements Serializable {
         if (this.idMovimiento != other.idMovimiento) {
             return false;
         }
-        if ((this.cuentaNumCuenta == null && other.cuentaNumCuenta != null) || (this.cuentaNumCuenta != null && !this.cuentaNumCuenta.equals(other.cuentaNumCuenta))) {
+        if (this.cuentaNumCuenta != other.cuentaNumCuenta) {
             return false;
         }
         return true;

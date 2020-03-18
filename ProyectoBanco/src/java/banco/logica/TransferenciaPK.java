@@ -10,7 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -24,22 +23,20 @@ public class TransferenciaPK implements Serializable {
     private int idTransferencia;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "cuenta_origen")
-    private String cuentaOrigen;
+    @Column(name = "cuenta_destino")
+    private int cuentaDestino;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "cuenta_destino")
-    private String cuentaDestino;
+    @Column(name = "cuenta_origen")
+    private int cuentaOrigen;
 
     public TransferenciaPK() {
     }
 
-    public TransferenciaPK(int idTransferencia, String cuentaOrigen, String cuentaDestino) {
+    public TransferenciaPK(int idTransferencia, int cuentaDestino, int cuentaOrigen) {
         this.idTransferencia = idTransferencia;
-        this.cuentaOrigen = cuentaOrigen;
         this.cuentaDestino = cuentaDestino;
+        this.cuentaOrigen = cuentaOrigen;
     }
 
     public int getIdTransferencia() {
@@ -50,28 +47,28 @@ public class TransferenciaPK implements Serializable {
         this.idTransferencia = idTransferencia;
     }
 
-    public String getCuentaOrigen() {
-        return cuentaOrigen;
-    }
-
-    public void setCuentaOrigen(String cuentaOrigen) {
-        this.cuentaOrigen = cuentaOrigen;
-    }
-
-    public String getCuentaDestino() {
+    public int getCuentaDestino() {
         return cuentaDestino;
     }
 
-    public void setCuentaDestino(String cuentaDestino) {
+    public void setCuentaDestino(int cuentaDestino) {
         this.cuentaDestino = cuentaDestino;
+    }
+
+    public int getCuentaOrigen() {
+        return cuentaOrigen;
+    }
+
+    public void setCuentaOrigen(int cuentaOrigen) {
+        this.cuentaOrigen = cuentaOrigen;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) idTransferencia;
-        hash += (cuentaOrigen != null ? cuentaOrigen.hashCode() : 0);
-        hash += (cuentaDestino != null ? cuentaDestino.hashCode() : 0);
+        hash += (int) cuentaDestino;
+        hash += (int) cuentaOrigen;
         return hash;
     }
 
@@ -85,10 +82,10 @@ public class TransferenciaPK implements Serializable {
         if (this.idTransferencia != other.idTransferencia) {
             return false;
         }
-        if ((this.cuentaOrigen == null && other.cuentaOrigen != null) || (this.cuentaOrigen != null && !this.cuentaOrigen.equals(other.cuentaOrigen))) {
+        if (this.cuentaDestino != other.cuentaDestino) {
             return false;
         }
-        if ((this.cuentaDestino == null && other.cuentaDestino != null) || (this.cuentaDestino != null && !this.cuentaDestino.equals(other.cuentaDestino))) {
+        if (this.cuentaOrigen != other.cuentaOrigen) {
             return false;
         }
         return true;
@@ -96,7 +93,7 @@ public class TransferenciaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "banco.logica.TransferenciaPK[ idTransferencia=" + idTransferencia + ", cuentaOrigen=" + cuentaOrigen + ", cuentaDestino=" + cuentaDestino + " ]";
+        return "banco.logica.TransferenciaPK[ idTransferencia=" + idTransferencia + ", cuentaDestino=" + cuentaDestino + ", cuentaOrigen=" + cuentaOrigen + " ]";
     }
     
 }

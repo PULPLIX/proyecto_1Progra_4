@@ -32,11 +32,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Transferencia.findAll", query = "SELECT t FROM Transferencia t")
     , @NamedQuery(name = "Transferencia.findByIdTransferencia", query = "SELECT t FROM Transferencia t WHERE t.transferenciaPK.idTransferencia = :idTransferencia")
-    , @NamedQuery(name = "Transferencia.findByCuentaOrigen", query = "SELECT t FROM Transferencia t WHERE t.transferenciaPK.cuentaOrigen = :cuentaOrigen")
-    , @NamedQuery(name = "Transferencia.findByCuentaDestino", query = "SELECT t FROM Transferencia t WHERE t.transferenciaPK.cuentaDestino = :cuentaDestino")
     , @NamedQuery(name = "Transferencia.findByMonto", query = "SELECT t FROM Transferencia t WHERE t.monto = :monto")
     , @NamedQuery(name = "Transferencia.findByFecha", query = "SELECT t FROM Transferencia t WHERE t.fecha = :fecha")
-    , @NamedQuery(name = "Transferencia.findByAplicado", query = "SELECT t FROM Transferencia t WHERE t.aplicado = :aplicado")})
+    , @NamedQuery(name = "Transferencia.findByAplicado", query = "SELECT t FROM Transferencia t WHERE t.aplicado = :aplicado")
+    , @NamedQuery(name = "Transferencia.findByCuentaDestino", query = "SELECT t FROM Transferencia t WHERE t.transferenciaPK.cuentaDestino = :cuentaDestino")
+    , @NamedQuery(name = "Transferencia.findByCuentaOrigen", query = "SELECT t FROM Transferencia t WHERE t.transferenciaPK.cuentaOrigen = :cuentaOrigen")})
 public class Transferencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,10 +56,10 @@ public class Transferencia implements Serializable {
     @NotNull
     @Column(name = "aplicado")
     private short aplicado;
-    @JoinColumn(name = "cuenta_origen", referencedColumnName = "num_cuenta", insertable = false, updatable = false)
+    @JoinColumn(name = "cuenta_destino", referencedColumnName = "num_cuenta", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Cuenta cuenta;
-    @JoinColumn(name = "cuenta_destino", referencedColumnName = "num_cuenta", insertable = false, updatable = false)
+    @JoinColumn(name = "cuenta_origen", referencedColumnName = "num_cuenta", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Cuenta cuenta1;
 
@@ -77,8 +77,8 @@ public class Transferencia implements Serializable {
         this.aplicado = aplicado;
     }
 
-    public Transferencia(int idTransferencia, String cuentaOrigen, String cuentaDestino) {
-        this.transferenciaPK = new TransferenciaPK(idTransferencia, cuentaOrigen, cuentaDestino);
+    public Transferencia(int idTransferencia, int cuentaDestino, int cuentaOrigen) {
+        this.transferenciaPK = new TransferenciaPK(idTransferencia, cuentaDestino, cuentaOrigen);
     }
 
     public TransferenciaPK getTransferenciaPK() {

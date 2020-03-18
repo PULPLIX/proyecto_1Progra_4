@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -39,11 +41,10 @@ public class Moneda implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
     @Column(name = "nombre")
-    private String nombre;
+    private Integer nombre;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -68,11 +69,11 @@ public class Moneda implements Serializable {
     public Moneda() {
     }
 
-    public Moneda(String nombre) {
+    public Moneda(Integer nombre) {
         this.nombre = nombre;
     }
 
-    public Moneda(String nombre, String descripcion, String simbolo, double tipoCambioCompra, double tipoCambioVenta) {
+    public Moneda(Integer nombre, String descripcion, String simbolo, double tipoCambioCompra, double tipoCambioVenta) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.simbolo = simbolo;
@@ -80,11 +81,11 @@ public class Moneda implements Serializable {
         this.tipoCambioVenta = tipoCambioVenta;
     }
 
-    public String getNombre() {
+    public Integer getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(Integer nombre) {
         this.nombre = nombre;
     }
 

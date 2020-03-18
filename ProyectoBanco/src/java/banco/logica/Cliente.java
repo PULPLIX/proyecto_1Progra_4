@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -42,11 +44,10 @@ public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 16)
     @Column(name = "id_cliente")
-    private String idCliente;
+    private Integer idCliente;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -61,8 +62,8 @@ public class Cliente implements Serializable {
     @Column(name = "telefono")
     private String telefono;
     @JoinTable(name = "favorita", joinColumns = {
-        @JoinColumn(name = "cliente_id_cliente", referencedColumnName = "id_cliente")}, inverseJoinColumns = {
-        @JoinColumn(name = "cuenta_num_cuenta", referencedColumnName = "num_cuenta")})
+        @JoinColumn(name = "cliente_id", referencedColumnName = "id_cliente")}, inverseJoinColumns = {
+        @JoinColumn(name = "cuenta_id", referencedColumnName = "num_cuenta")})
     @ManyToMany
     private Collection<Cuenta> cuentaCollection;
     @JoinColumn(name = "usuario_id_usuario", referencedColumnName = "id_usuario")
@@ -74,21 +75,21 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(String idCliente) {
+    public Cliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 
-    public Cliente(String idCliente, String apellidos, String nombre) {
+    public Cliente(Integer idCliente, String apellidos, String nombre) {
         this.idCliente = idCliente;
         this.apellidos = apellidos;
         this.nombre = nombre;
     }
 
-    public String getIdCliente() {
+    public Integer getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(String idCliente) {
+    public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 

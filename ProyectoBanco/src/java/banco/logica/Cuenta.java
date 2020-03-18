@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -23,7 +25,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -47,11 +48,10 @@ public class Cuenta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
     @Column(name = "num_cuenta")
-    private String numCuenta;
+    private Integer numCuenta;
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_creacion")
@@ -92,18 +92,18 @@ public class Cuenta implements Serializable {
     @JoinColumn(name = "moneda_nombre", referencedColumnName = "nombre")
     @ManyToOne(optional = false)
     private Moneda monedaNombre;
-    @JoinColumn(name = "tipo_cuenta_id_tipo_cuenta", referencedColumnName = "id_tipo_cuenta")
+    @JoinColumn(name = "idTipoCuenta", referencedColumnName = "id_tipo_cuenta")
     @ManyToOne(optional = false)
-    private TipoCuenta tipoCuentaIdTipoCuenta;
+    private TipoCuenta idTipoCuenta;
 
     public Cuenta() {
     }
 
-    public Cuenta(String numCuenta) {
+    public Cuenta(Integer numCuenta) {
         this.numCuenta = numCuenta;
     }
 
-    public Cuenta(String numCuenta, Date fechaCreacion, double limiteTransferenciaDiaria, short activa, double saldoInicial, Date fechaUltimaAplicacion, double saldoFinal) {
+    public Cuenta(Integer numCuenta, Date fechaCreacion, double limiteTransferenciaDiaria, short activa, double saldoInicial, Date fechaUltimaAplicacion, double saldoFinal) {
         this.numCuenta = numCuenta;
         this.fechaCreacion = fechaCreacion;
         this.limiteTransferenciaDiaria = limiteTransferenciaDiaria;
@@ -113,11 +113,11 @@ public class Cuenta implements Serializable {
         this.saldoFinal = saldoFinal;
     }
 
-    public String getNumCuenta() {
+    public Integer getNumCuenta() {
         return numCuenta;
     }
 
-    public void setNumCuenta(String numCuenta) {
+    public void setNumCuenta(Integer numCuenta) {
         this.numCuenta = numCuenta;
     }
 
@@ -221,12 +221,12 @@ public class Cuenta implements Serializable {
         this.monedaNombre = monedaNombre;
     }
 
-    public TipoCuenta getTipoCuentaIdTipoCuenta() {
-        return tipoCuentaIdTipoCuenta;
+    public TipoCuenta getIdTipoCuenta() {
+        return idTipoCuenta;
     }
 
-    public void setTipoCuentaIdTipoCuenta(TipoCuenta tipoCuentaIdTipoCuenta) {
-        this.tipoCuentaIdTipoCuenta = tipoCuentaIdTipoCuenta;
+    public void setIdTipoCuenta(TipoCuenta idTipoCuenta) {
+        this.idTipoCuenta = idTipoCuenta;
     }
 
     @Override

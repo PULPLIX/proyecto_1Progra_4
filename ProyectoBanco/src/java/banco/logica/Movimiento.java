@@ -32,11 +32,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Movimiento.findAll", query = "SELECT m FROM Movimiento m")
     , @NamedQuery(name = "Movimiento.findByIdMovimiento", query = "SELECT m FROM Movimiento m WHERE m.movimientoPK.idMovimiento = :idMovimiento")
-    , @NamedQuery(name = "Movimiento.findByCuentaNumCuenta", query = "SELECT m FROM Movimiento m WHERE m.movimientoPK.cuentaNumCuenta = :cuentaNumCuenta")
     , @NamedQuery(name = "Movimiento.findByMonto", query = "SELECT m FROM Movimiento m WHERE m.monto = :monto")
     , @NamedQuery(name = "Movimiento.findByFecha", query = "SELECT m FROM Movimiento m WHERE m.fecha = :fecha")
     , @NamedQuery(name = "Movimiento.findByAplicado", query = "SELECT m FROM Movimiento m WHERE m.aplicado = :aplicado")
-    , @NamedQuery(name = "Movimiento.findByMovimientocol", query = "SELECT m FROM Movimiento m WHERE m.movimientocol = :movimientocol")})
+    , @NamedQuery(name = "Movimiento.findByMovimientocol", query = "SELECT m FROM Movimiento m WHERE m.movimientocol = :movimientocol")
+    , @NamedQuery(name = "Movimiento.findByCuentaNumCuenta", query = "SELECT m FROM Movimiento m WHERE m.movimientoPK.cuentaNumCuenta = :cuentaNumCuenta")})
 public class Movimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -76,7 +76,7 @@ public class Movimiento implements Serializable {
         this.aplicado = aplicado;
     }
 
-    public Movimiento(int idMovimiento, String cuentaNumCuenta) {
+    public Movimiento(int idMovimiento, int cuentaNumCuenta) {
         this.movimientoPK = new MovimientoPK(idMovimiento, cuentaNumCuenta);
     }
 
