@@ -56,7 +56,7 @@
                         Cédula: &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<input type="text"><br>
                         <br>
                         Contraseña: &ensp;&ensp;<input type="password"><br><br>-->
-                    <a href="/ProyectoBanco/presentation/login/show">INICIAR SESION</a>
+                    <a href="/ProyectoBanco/presentation/login/show">INICIAR SESIÓN</a>
 
                     <!--/form-->
                 </div>
