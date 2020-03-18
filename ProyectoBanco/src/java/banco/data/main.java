@@ -5,6 +5,10 @@
  */
 package banco.data;
 
+import banco.logica.Usuario;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,14 +23,21 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-            
+
         try {
-            if(usuarioDao.find("111", "111") != null)
-                System.out.print("CONECTADO");
+            Connection con = Coneccion.conectar();
+            String SQL = "select * from usuario where id_usuario='111' and clave_acceso='111';";
+            PreparedStatement st = con.prepareStatement(SQL);
+            ResultSet resultado = st.executeQuery();
+ while (resultado.next()) {
+                System.out.print(resultado.getString("id_Usuario"));
+                System.out.print(resultado.getString("clave_acceso"));
+                System.out.print(resultado.getInt("rol"));
+            }
         } catch (Exception ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
 
     }
-    
+
 }

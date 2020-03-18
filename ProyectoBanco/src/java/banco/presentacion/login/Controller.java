@@ -5,8 +5,11 @@
  */
 package banco.presentacion.login;
 
+import banco.data.Coneccion;
 import banco.logica.Usuario;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -41,7 +44,7 @@ public class Controller extends HttpServlet {
                 viewUrl=this.logout(request);
                 break;
         }
-        request.getRequestDispatcher(viewUrl).forward( request, response); 
+        request.getRequestDispatcher(viewUrl).forward(request, response); 
   }
 
     private String login(HttpServletRequest request) { 
@@ -53,7 +56,7 @@ public class Controller extends HttpServlet {
             }
             else{
                 request.setAttribute("errores", errores);
-                return "/presentation/login/View.jsp"; 
+                return "/presentation/cliente/datos/View.jsp"; 
             }            
         }
         catch(Exception e){
@@ -82,26 +85,27 @@ public class Controller extends HttpServlet {
 
         
     public String loginAction(HttpServletRequest request) {
+        
         Model model= (Model) request.getAttribute("model");
         HttpSession session = request.getSession(true);
         try {
+            
             Usuario real = banco.data.usuarioDao.find(model.getCurrent().getIdUsuario(),model.getCurrent().getClaveAcceso());
             session.setAttribute("usuario", real);
             String viewUrl="";
             switch(real.getRol()){
                 case 1:
-                    viewUrl="/presentation/cliente/cuentas/show";
+                    viewUrl="/presentation/cliente/datos/show";
+                    request.setAttribute("mensaje", "SE INGRESO CORRECTAMENTE");
                     break;
                 case 2:
-                     viewUrl="";
+                    viewUrl="";
                     break;             
             }
             return viewUrl;
         } catch (Exception ex) {
-            Map<String,String> errores = new HashMap<>();
-            request.setAttribute("errores", errores);
-            errores.put("cedulaFld","Usuario o clave incorrectos");
-            errores.put("claveFld","Usuario o clave incorrectos");
+            request.setAttribute("mensaje", ex.toString());
+            request.setAttribute("error", "error");
             return "/presentation/login/View.jsp"; 
         }        
     }   
@@ -125,6 +129,8 @@ public class Controller extends HttpServlet {
         Model model= (Model) request.getAttribute("model");
         model.getCurrent().setIdUsuario("");
         model.getCurrent().setClaveAcceso("");
+        
+       request.setAttribute("mensaje", "BIENVENIDO AL HIMALAYA");
         return "/presentation/login/View.jsp"; 
     }    
 

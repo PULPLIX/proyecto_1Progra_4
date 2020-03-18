@@ -14,14 +14,15 @@ import java.util.logging.Logger;
  * @author david
  */
 public class Coneccion {
-    public static Connection conectar() throws Exception{
+
+    public static Connection conectar() throws Exception {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/banco", "root", "root");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/banco?user=root&password=root&useSSL=false");
         } catch (Exception ex) {
             System.out.println(ex.toString());
             return null;
         }
-        
+
     }
 
 }

@@ -34,15 +34,17 @@ public class usuarioDao {
         }
     }
 
-        public static Usuario find(String ced, String clave) throws Exception {
+    public static Usuario find(String ced, String clave) throws Exception {
         String SQL = "select * from usuario where id_usuario=? and clave_acceso=?;";
         Usuario usu = null;
-       
+
         try {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
+
             st.setString(1, ced);
             st.setString(2, clave);
+
             ResultSet resultado = st.executeQuery();
 
             while (resultado.next()) {
@@ -51,14 +53,17 @@ public class usuarioDao {
                 usu.setClaveAcceso(resultado.getString("clave_acceso"));
                 usu.setRol(resultado.getInt("rol"));
             }
+            con.close();
+            resultado.close();
+            st.close();
             return usu;
-            
+
         } catch (SQLException ex) {
             System.out.println(ex);
             return usu;
         }
     }
-        
+
     public static ArrayList<Usuario> listar() throws Exception {
         String SQL = "select * from usuario;";
         try {

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ESCINF
  */
-@WebServlet(name = "Controller", urlPatterns = {"/presentation/cliente/datos/show","/Guia/presentation/datos/update"})
+@WebServlet(name = "Controller", urlPatterns = {"/presentation/cliente/datos/show"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, 
@@ -36,8 +36,8 @@ public class Controller extends HttpServlet {
             case "/presentation/cliente/datos/show":
                 viewUrl=this.show(request);
                 break;           
-            case "/Guia/presentation/datos/update":
-                viewUrl=this.update(request);
+            //case "/Guia/presentation/datos/update":
+          //      viewUrl=this.update(request);
         }
         request.getRequestDispatcher(viewUrl).forward( request, response); 
   }
