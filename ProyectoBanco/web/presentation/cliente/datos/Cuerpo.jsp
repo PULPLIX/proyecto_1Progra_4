@@ -7,8 +7,20 @@
     </div>
 
     <div class="cuerpo-caja cuerpo-derecho">
-        CAMPO<br>
-        Aquí va información
+        <br>
+        <form action="">
+            <table border="1" class="table" width="600" align="center" >
+                <tr bgcolor="skyblue">
+                    <th>Id cuenta </td>
+                    <th>Tipo de Cuenta</th>
+                    <th>Propietario</th>
+                    <th>Límite de transferencia</th>
+                    <th>Saldo Neto</th>
+                </tr>
+
+            </table>
+        </form>
+
         <br><br>
         <br><br>
         <br><br>

@@ -52,6 +52,7 @@ public class usuarioDao {
                 usu.setIdUsuario(resultado.getString("id_Usuario"));
                 usu.setClaveAcceso(resultado.getString("clave_acceso"));
                 usu.setRol(resultado.getInt("rol"));
+                
             }
             con.close();
             resultado.close();
@@ -79,6 +80,7 @@ public class usuarioDao {
                 usu.setIdUsuario(resultado.getString("id_Usuario"));
                 usu.setClaveAcceso(resultado.getString("clave_acceso"));
                 usu.setRol(resultado.getInt("rol"));
+                lista.add(usu);
             }
             return lista;
 
