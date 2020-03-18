@@ -3,7 +3,7 @@
 <html>
     <head>
         <%@ include file="/presentation/Template/HojaEstilo.jsp" %>
-        <title>Mis cuentas</title>
+        <title>TÍTULO</title>
     </head>
 
     <body>

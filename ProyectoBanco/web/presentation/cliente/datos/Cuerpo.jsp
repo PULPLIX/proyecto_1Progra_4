@@ -2,20 +2,22 @@
 
     <div class="cuerpo-caja cuerpo-cabeza">
         <center>
-            <h2>MIS CUENTAS</h2>
+            <h2>APARTADO DE MOVIMIENTOS</h2>
         </center>
     </div>
 
     <div class="cuerpo-caja cuerpo-derecho">
+        <br>
         <form action="">
-            <table border="1" class="table" width="500" align="center" >
+            <table border="1" class="table" width="600" align="center" >
                 <tr bgcolor="skyblue">
-                    <th>Id cuenta </th>
+                    <th>Id cuenta </td>
                     <th>Tipo de Cuenta</th>
                     <th>Propietario</th>
                     <th>Límite de transferencia</th>
                     <th>Saldo Neto</th>
                 </tr>
+
             </table>
         </form>
 
