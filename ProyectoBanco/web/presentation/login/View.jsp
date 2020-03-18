@@ -6,7 +6,7 @@
 <html>
     <head>
         <%@ include file="/presentation/Template/HojaEstilo.jsp" %>
-        <title>Log In</title>
+        <title>Iniciar sesión</title>
     </head>
     <body>
 
@@ -38,12 +38,16 @@
 
             <div class="cuerpo-caja cuerpo-cabeza">
                 <center>
+                    <br><br>
+                    <br>
+
                     <h2>INICIAR SESIÓN</h2>
                 </center>
             </div>
-
+            
             <div class="cuerpo-caja cuerpo-derecho">
                 <center>
+                    <br><br>
                     <form name="form" action="/ProyectoBanco/presentation/login/login" method="post" > 
                         <div class="panel" style="width:30%;">
                             <div class="fila">
@@ -55,10 +59,10 @@
                                 <div class="etiqueta">Clave</div>
                                 <div class="campo"><input class="<%=erroneo("claveFld", errores)%>" placeholder="Clave del usuario" type="password" name="claveFld" value="" title="<%=title("claveFld", errores)%>"></div>
                             </div>
-                            <br>
-                            <div class="fila encabezado"><button  style="margin-bottom: 15px">Ingresar</button> </div>
+                            <br><br>
+                            <div class="fila encabezado"><button class="button">Ingresar</button> </div>
                             <div>
-                                <%=(request.getAttribute("mensaje") != null) ? request.getAttribute("mensaje") : " No se ha hecho ningun cambio"%>
+                                <!--%=(request.getAttribute("mensaje") != null) ? request.getAttribute("mensaje") : " No se ha hecho ningun cambio"%-->
                             </div>
                         </div>
                     </form>

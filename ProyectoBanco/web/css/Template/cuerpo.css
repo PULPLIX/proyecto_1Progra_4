@@ -21,15 +21,15 @@
         margin: 2rem auto;*/
     display: grid;
     grid-template-areas: "nocabeza cabeza cabeza"
-                         "left right right"
-                         "nopie pie pie"
-                         "nocr cr cr";
+        "left right right"
+        "nopie pie pie"
+        "nocr cr cr";
 }
 
 .cuerpo-caja {
     /*    font-size: 2.5rem;*/
-/*    text-align: center;*/
-    padding: 2rem;
+    /*    text-align: center;*/
+    /*    padding: 1rem;*/
 }
 
 .cuerpo-cabeza {
@@ -72,7 +72,7 @@
 .copyright {
     grid-area: cr;
     background-color: rgb(84, 116, 159);
-   /* background-color: #134C58;*/
+    /* background-color: #134C58;*/
     padding: 15px 0;
 }
 
@@ -83,5 +83,49 @@
     line-height: 22px;
     font-size: 14px;
     margin: 0;
+    text-align: center;
+}
+
+.button {
+    background: rgb(84, 116, 159) none repeat scroll 0 0;
+    border: medium none;
+    color: white;
+    display: inline-block;
+    font-weight: 700;
+    margin-top: 1px;
+    padding: 12px 40px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.button:hover {
+    background: #3B5998 none repeat scroll 0 0;
+}
+
+input[type=text]{
+    text-align: center;
+    width: 45%;
+    transition: width 0.4s ease-in-out;
+    padding: 10px;
+}
+
+input[type=text]:focus{
+    border: 1.5px solid #3B5998;
+    text-align: center;
+    width: 50%;
+}
+
+input[type=password]{
+    text-align: center;
+    width: 45%;
+    transition: width 0.4s ease-in-out;
+    padding: 10px;
+}
+
+input[type=password]:focus{
+    width: 50%;
+    border: 2px solid #3B5998;
     text-align: center;
 }
