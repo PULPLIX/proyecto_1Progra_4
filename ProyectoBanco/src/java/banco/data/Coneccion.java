@@ -17,6 +17,7 @@ public class Coneccion {
 
     public static Connection conectar() throws Exception {
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             return DriverManager.getConnection("jdbc:mysql://localhost:3306/banco?user=root&password=root&useSSL=false");
         } catch (Exception ex) {
             System.out.println(ex.toString());
