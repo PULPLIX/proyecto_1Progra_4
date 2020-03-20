@@ -67,6 +67,11 @@ public class Moneda implements Serializable {
     private Collection<Cuenta> cuentaCollection;
 
     public Moneda() {
+        this.nombre = 0;
+        this.descripcion = "";
+        this.simbolo = "";
+        this.tipoCambioCompra = 0;
+        this.tipoCambioVenta = 0;
     }
 
     public Moneda(Integer nombre) {
@@ -154,5 +159,5 @@ public class Moneda implements Serializable {
     public String toString() {
         return "banco.logica.Moneda[ nombre=" + nombre + " ]";
     }
-    
+
 }
