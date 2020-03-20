@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author david
  */
-public class main {
+public class Oscar {
 
     /**
      * @param args the command line arguments
@@ -27,7 +27,7 @@ public class main {
     public static void main(String[] args) throws SQLException {
 
         try {
-           ArrayList<Cliente> list = clienteDao.listar();
+           ArrayList<Cliente> list = ClienteDao.listar();
            
            System.out.print(list.get(0).getApellidos());
            System.out.print(list.get(0).getNombre());

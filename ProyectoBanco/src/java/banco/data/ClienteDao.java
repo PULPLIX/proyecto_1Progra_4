@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author david
  */
-public class clienteDao {
+public class ClienteDao {
 
     public static boolean registrar(Cliente cli) throws Exception {
         String SQL = "insert into cliente values (?,?,?,?,?);";
@@ -49,7 +49,7 @@ public class clienteDao {
     }
 
     public static ArrayList<Cliente> listar() throws Exception {
-        String SQL = "select*from cliente inner join usuario where usuario_id_usuario = id_usuario;";
+        String SQL = "select*from cliente inner join usuario on usuario_id_usuario = id_usuario;";
         try {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
@@ -74,7 +74,7 @@ public class clienteDao {
             return lista;
 
         } catch (Exception ex) {
-            System.out.println(ex.toString());
+            System.out.println(ex);
             return null;
         }
 
