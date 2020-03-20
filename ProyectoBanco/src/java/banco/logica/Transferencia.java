@@ -39,9 +39,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Transferencia.findByCuentaOrigen", query = "SELECT t FROM Transferencia t WHERE t.transferenciaPK.cuentaOrigen = :cuentaOrigen")})
 public class Transferencia implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected TransferenciaPK transferenciaPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -58,35 +55,28 @@ public class Transferencia implements Serializable {
     private short aplicado;
     @JoinColumn(name = "cuenta_destino", referencedColumnName = "num_cuenta", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Cuenta cuenta;
+    private Cuenta cuenta_origen;
     @JoinColumn(name = "cuenta_origen", referencedColumnName = "num_cuenta", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Cuenta cuenta1;
+    private Cuenta cuenta_Destino;
+    private int id_transferencia;
 
-    public Transferencia() {
-    }
-
-    public Transferencia(TransferenciaPK transferenciaPK) {
-        this.transferenciaPK = transferenciaPK;
-    }
-
-    public Transferencia(TransferenciaPK transferenciaPK, String monto, Date fecha, short aplicado) {
-        this.transferenciaPK = transferenciaPK;
+    public Transferencia(String monto, Date fecha, short aplicado, Cuenta cuenta, Cuenta cuenta1, int id_transferencia) {
         this.monto = monto;
         this.fecha = fecha;
         this.aplicado = aplicado;
+        this.cuenta_origen = cuenta;
+        this.cuenta_Destino = cuenta1;
+        this.id_transferencia = id_transferencia;
     }
 
-    public Transferencia(int idTransferencia, int cuentaDestino, int cuentaOrigen) {
-        this.transferenciaPK = new TransferenciaPK(idTransferencia, cuentaDestino, cuentaOrigen);
-    }
-
-    public TransferenciaPK getTransferenciaPK() {
-        return transferenciaPK;
-    }
-
-    public void setTransferenciaPK(TransferenciaPK transferenciaPK) {
-        this.transferenciaPK = transferenciaPK;
+    public Transferencia() {
+        this.monto = "";
+        this.fecha = null;
+        this.aplicado = 1;
+        this.cuenta_origen = null;
+        this.cuenta_Destino = null;
+        this.id_transferencia = 0;
     }
 
     public String getMonto() {
@@ -114,44 +104,27 @@ public class Transferencia implements Serializable {
     }
 
     public Cuenta getCuenta() {
-        return cuenta;
+        return cuenta_origen;
     }
 
     public void setCuenta(Cuenta cuenta) {
-        this.cuenta = cuenta;
+        this.cuenta_origen = cuenta;
     }
 
-    public Cuenta getCuenta1() {
-        return cuenta1;
+    public Cuenta getCuenta_Destino() {
+        return cuenta_Destino;
     }
 
-    public void setCuenta1(Cuenta cuenta1) {
-        this.cuenta1 = cuenta1;
+    public void setCuenta_Destino(Cuenta cuenta_Destino) {
+        this.cuenta_Destino = cuenta_Destino;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (transferenciaPK != null ? transferenciaPK.hashCode() : 0);
-        return hash;
+    public int getId_transferencia() {
+        return id_transferencia;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Transferencia)) {
-            return false;
-        }
-        Transferencia other = (Transferencia) object;
-        if ((this.transferenciaPK == null && other.transferenciaPK != null) || (this.transferenciaPK != null && !this.transferenciaPK.equals(other.transferenciaPK))) {
-            return false;
-        }
-        return true;
+    public void setId_transferencia(int id_transferencia) {
+        this.id_transferencia = id_transferencia;
     }
 
-    @Override
-    public String toString() {
-        return "banco.logica.Transferencia[ transferenciaPK=" + transferenciaPK + " ]";
-    }
-    
 }

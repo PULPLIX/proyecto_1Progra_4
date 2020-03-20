@@ -6,7 +6,7 @@
 package banco.logica;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -79,13 +79,13 @@ public class Cuenta implements Serializable {
     @Column(name = "saldo_final")
     private double saldoFinal;
     @ManyToMany(mappedBy = "cuentaCollection")
-    private Collection<Cliente> clienteCollection;
+    private ArrayList<Cliente> clienteCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta_origen")
+    private ArrayList<Transferencia> transferenciaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta_Destino")
+    private ArrayList<Transferencia> transferenciaCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta")
-    private Collection<Transferencia> transferenciaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta1")
-    private Collection<Transferencia> transferenciaCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta")
-    private Collection<Movimiento> movimientoCollection;
+    private ArrayList<Movimiento> movimientoCollection;
     @JoinColumn(name = "cliente_id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne(optional = false)
     private Cliente clienteIdCliente;
@@ -97,6 +97,16 @@ public class Cuenta implements Serializable {
     private TipoCuenta idTipoCuenta;
 
     public Cuenta() {
+        this.numCuenta = 0;
+        this.fechaCreacion = null;
+        this.limiteTransferenciaDiaria = 0;
+        this.activa = 1;
+        this.saldoInicial = 0;
+        this.fechaUltimaAplicacion = null;
+        this.saldoFinal = 0;
+        this.clienteCollection = new ArrayList<>();
+        this.clienteCollection = new ArrayList<>();
+
     }
 
     public Cuenta(Integer numCuenta) {
@@ -170,38 +180,38 @@ public class Cuenta implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Cliente> getClienteCollection() {
+    public ArrayList<Cliente> getClienteCollection() {
         return clienteCollection;
     }
 
-    public void setClienteCollection(Collection<Cliente> clienteCollection) {
+    public void setClienteCollection(ArrayList<Cliente> clienteCollection) {
         this.clienteCollection = clienteCollection;
     }
 
     @XmlTransient
-    public Collection<Transferencia> getTransferenciaCollection() {
+    public ArrayList<Transferencia> getTransferenciaCollection() {
         return transferenciaCollection;
     }
 
-    public void setTransferenciaCollection(Collection<Transferencia> transferenciaCollection) {
+    public void setTransferenciaCollection(ArrayList<Transferencia> transferenciaCollection) {
         this.transferenciaCollection = transferenciaCollection;
     }
 
     @XmlTransient
-    public Collection<Transferencia> getTransferenciaCollection1() {
+    public ArrayList<Transferencia> getTransferenciaCollection1() {
         return transferenciaCollection1;
     }
 
-    public void setTransferenciaCollection1(Collection<Transferencia> transferenciaCollection1) {
+    public void setTransferenciaCollection1(ArrayList<Transferencia> transferenciaCollection1) {
         this.transferenciaCollection1 = transferenciaCollection1;
     }
 
     @XmlTransient
-    public Collection<Movimiento> getMovimientoCollection() {
+    public ArrayList<Movimiento> getMovimientoCollection() {
         return movimientoCollection;
     }
 
-    public void setMovimientoCollection(Collection<Movimiento> movimientoCollection) {
+    public void setMovimientoCollection(ArrayList<Movimiento> movimientoCollection) {
         this.movimientoCollection = movimientoCollection;
     }
 
@@ -229,12 +239,6 @@ public class Cuenta implements Serializable {
         this.idTipoCuenta = idTipoCuenta;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (numCuenta != null ? numCuenta.hashCode() : 0);
-        return hash;
-    }
 
     @Override
     public boolean equals(Object object) {
@@ -253,5 +257,5 @@ public class Cuenta implements Serializable {
     public String toString() {
         return "banco.logica.Cuenta[ numCuenta=" + numCuenta + " ]";
     }
-    
+
 }

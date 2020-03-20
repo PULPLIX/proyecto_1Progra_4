@@ -41,7 +41,6 @@ public class Movimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected MovimientoPK movimientoPK;
     @Basic(optional = false)
     @NotNull
     @Column(name = "monto")
@@ -61,31 +60,22 @@ public class Movimiento implements Serializable {
     @JoinColumn(name = "cuenta_num_cuenta", referencedColumnName = "num_cuenta", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Cuenta cuenta;
+    private int id_movimiento;
 
     public Movimiento() {
+        this.id_movimiento = 0;
+        this.monto = 0.0;
+        this.fecha = null;
+        this.aplicado = 1;
+        
     }
 
-    public Movimiento(MovimientoPK movimientoPK) {
-        this.movimientoPK = movimientoPK;
-    }
-
-    public Movimiento(MovimientoPK movimientoPK, double monto, Date fecha, short aplicado) {
-        this.movimientoPK = movimientoPK;
+    public Movimiento(int movimiento, double monto, Date fecha, short aplicado) {
+        this.id_movimiento = movimiento;
         this.monto = monto;
         this.fecha = fecha;
         this.aplicado = aplicado;
-    }
 
-    public Movimiento(int idMovimiento, int cuentaNumCuenta) {
-        this.movimientoPK = new MovimientoPK(idMovimiento, cuentaNumCuenta);
-    }
-
-    public MovimientoPK getMovimientoPK() {
-        return movimientoPK;
-    }
-
-    public void setMovimientoPK(MovimientoPK movimientoPK) {
-        this.movimientoPK = movimientoPK;
     }
 
     public double getMonto() {
@@ -128,29 +118,12 @@ public class Movimiento implements Serializable {
         this.cuenta = cuenta;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (movimientoPK != null ? movimientoPK.hashCode() : 0);
-        return hash;
+    public int getId_movimiento() {
+        return id_movimiento;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Movimiento)) {
-            return false;
-        }
-        Movimiento other = (Movimiento) object;
-        if ((this.movimientoPK == null && other.movimientoPK != null) || (this.movimientoPK != null && !this.movimientoPK.equals(other.movimientoPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "banco.logica.Movimiento[ movimientoPK=" + movimientoPK + " ]";
+    public void setId_movimiento(int id_movimiento) {
+        this.id_movimiento = id_movimiento;
     }
     
 }
