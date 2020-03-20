@@ -55,6 +55,9 @@ public class Usuario implements Serializable {
     private Collection<Cliente> clienteCollection;
 
     public Usuario() {
+        this.idUsuario = "";
+        this.claveAcceso = "";
+        this.rol = 0;
     }
 
     public Usuario(String idUsuario) {
@@ -124,5 +127,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "banco.logica.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-    
+
 }

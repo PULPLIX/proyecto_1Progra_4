@@ -56,6 +56,9 @@ public class TipoCuenta implements Serializable {
     private Collection<Cuenta> cuentaCollection;
 
     public TipoCuenta() {
+        this.idTipoCuenta = 0;
+        this.descripción = "";
+        this.tasaInterés = 0;
     }
 
     public TipoCuenta(Integer idTipoCuenta) {
@@ -125,5 +128,5 @@ public class TipoCuenta implements Serializable {
     public String toString() {
         return "banco.logica.TipoCuenta[ idTipoCuenta=" + idTipoCuenta + " ]";
     }
-    
+
 }

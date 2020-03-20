@@ -73,6 +73,9 @@ public class Cliente implements Serializable {
     private Collection<Cuenta> cuentaCollection1;
 
     public Cliente() {
+        this.idCliente = 0;
+        this.apellidos = "";
+        this.nombre = "";
     }
 
     public Cliente(Integer idCliente) {
@@ -167,5 +170,5 @@ public class Cliente implements Serializable {
     public String toString() {
         return "banco.logica.Cliente[ idCliente=" + idCliente + " ]";
     }
-    
+
 }
