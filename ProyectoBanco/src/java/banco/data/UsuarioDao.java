@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author david
  */
-public class usuarioDao {
+public class UsuarioDao {
 
     public static boolean registrar(Usuario usu) throws Exception {
         String SQL = "INSERT INTO usuario (id_usuario, clave_acceso, rol) values (?,?,?);";

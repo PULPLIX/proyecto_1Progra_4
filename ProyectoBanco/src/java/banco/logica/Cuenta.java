@@ -83,8 +83,7 @@ public class Cuenta implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta_origen")
     private ArrayList<Transferencia> transferenciaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta_Destino")
-    private ArrayList<Cuenta> favoritasCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta")
+
     private ArrayList<Movimiento> movimientoCollection;
     @JoinColumn(name = "cliente_id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne(optional = false)
@@ -106,8 +105,7 @@ public class Cuenta implements Serializable {
         this.saldoFinal = 0;
         this.movimientoCollection = new ArrayList<>();
         this.clienteCollection = new ArrayList<>();
-        this.transferenciaCollection= new ArrayList<>();
-        this.favoritasCollection = new ArrayList<>();
+        this.transferenciaCollection = new ArrayList<>();
 
     }
 
@@ -200,15 +198,6 @@ public class Cuenta implements Serializable {
     }
 
     @XmlTransient
-    public ArrayList<Cuenta> getFavoritasCollection() {
-        return favoritasCollection;
-    }
-
-    public void setFavoritasCollection(ArrayList<Cuenta> favoritasCollection) {
-        this.favoritasCollection = favoritasCollection;
-    }
-
-    @XmlTransient
     public ArrayList<Movimiento> getMovimientoCollection() {
         return movimientoCollection;
     }
@@ -240,7 +229,6 @@ public class Cuenta implements Serializable {
     public void setIdTipoCuenta(TipoCuenta idTipoCuenta) {
         this.idTipoCuenta = idTipoCuenta;
     }
-
 
     @Override
     public boolean equals(Object object) {

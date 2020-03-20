@@ -27,12 +27,26 @@ public class Oscar {
     public static void main(String[] args) throws SQLException {
 
         try {
-           ArrayList<Cliente> list = ClienteDao.listar();
+            
+            //Cliente cliente = ClienteDao.find("111");
+            
+            
+//            Cliente cliente = ClienteDao.find("222");
+//            System.out.print(cliente.getFavoritasCollection().toString());
+            
+                    
+//           ArrayList<Cliente> list = ClienteDao.listar();
            
-           System.out.print(list.get(0).getApellidos());
-           System.out.print(list.get(0).getNombre());
-           System.out.print(list.get(0).getUsuarioIdUsuario().getIdUsuario());
-           System.out.print(list.get(0).getTelefono());
+//           System.out.print(list.get(0).getApellidos());
+//           System.out.print(list.get(0).getNombre());
+//           System.out.print(list.get(0).getUsuarioIdUsuario().getIdUsuario());
+//           System.out.print(list.get(0).getTelefono());
+
+
+
+            //FavoritaDao.agregarFavorita(3, 7);
+
+
 
            
         } catch (Exception ex) {

@@ -90,7 +90,7 @@ public class Controller extends HttpServlet {
         HttpSession session = request.getSession(true);
         try {
             
-            Usuario real = banco.data.usuarioDao.find(model.getCurrent().getIdUsuario(),model.getCurrent().getClaveAcceso());
+            Usuario real = banco.data.UsuarioDao.find(model.getCurrent().getIdUsuario(),model.getCurrent().getClaveAcceso());
             session.setAttribute("usuario", real);
             String viewUrl="";
             switch(real.getRol()){

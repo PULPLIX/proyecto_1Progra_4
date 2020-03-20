@@ -19,7 +19,7 @@ public class david {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        ArrayList<Cuenta> cuenta = banco.data.cuentasDao.getCuentasCliente(1);
+        ArrayList<Cuenta> cuenta = banco.data.CuentaDao.getCuentasCliente(1);
         for (int i = 0; i < cuenta.get(0).getMovimientoCollection().size(); i++) {
 //            System.out.println(cuenta.get(i).getClienteIdCliente().getApellidos()+"\n");
 //            System.out.println(cuenta.get(i).getFechaUltimaAplicacion()+"\n");

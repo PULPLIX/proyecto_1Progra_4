@@ -6,6 +6,7 @@
 package banco.data;
 
 import banco.logica.Cliente;
+import banco.logica.Cuenta;
 import banco.logica.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -83,6 +84,7 @@ public class ClienteDao {
     public static Cliente find(String id) throws Exception {
         String SQL = "select*from cliente inner join usuario on usuario_id_usuario = id_usuario where usuario_id_usuario =?";
         Cliente cli = null;
+        ArrayList<Cuenta> fav = new ArrayList<Cuenta>();
 
         try {
             Connection con = Coneccion.conectar();
@@ -97,16 +99,56 @@ public class ClienteDao {
                 cli.setApellidos(resultado.getString("apellidos"));
                 cli.setNombre(resultado.getString("nombre"));
                 cli.setTelefono(resultado.getString("telefono"));
+                llenarFavoritas(cli);
+                
             }
+            
+            
             con.close();
             st.close();
             resultado.close();
-            
+
             return cli;
 
         } catch (SQLException ex) {
             System.out.println(ex);
             return cli;
+        }
+    }
+
+    public static void llenarFavoritas(Cliente cliente) {
+        String SQL = "select * from favorita where cliente_id=?;";
+
+        try {
+            Connection con = Coneccion.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            st.setInt(1, cliente.getIdCliente());
+
+            ResultSet resultado = st.executeQuery();
+
+            while (resultado.next()) {
+                cliente.getFavoritasCollection().add(CuentaDao.getCuenta(resultado.getInt("cuenta_id")));
+            }
+            con.close();
+            st.close();
+            resultado.close();
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public static void agregarFavorita(int clienteId, int cuentaId) throws Exception {
+        String SQL = "insert into favorita (cliente_id, cuenta_id) values (?,?)";
+        try {
+            Connection con = Coneccion.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            st.setInt(1, clienteId);
+            st.setInt(1, cuentaId);
+            st.executeUpdate();
+
+        } catch (Exception e) {
+
         }
     }
 

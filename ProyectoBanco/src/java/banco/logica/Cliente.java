@@ -6,6 +6,7 @@
 package banco.logica;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -71,11 +72,14 @@ public class Cliente implements Serializable {
     private Usuario usuarioIdUsuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteIdCliente")
     private Collection<Cuenta> cuentaCollection1;
+    private ArrayList<Cuenta> favoritasCollection;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
 
     public Cliente() {
         this.idCliente = 0;
         this.apellidos = "";
         this.nombre = "";
+        this.favoritasCollection = new ArrayList<>();
     }
 
     public Cliente(Integer idCliente) {
@@ -86,6 +90,15 @@ public class Cliente implements Serializable {
         this.idCliente = idCliente;
         this.apellidos = apellidos;
         this.nombre = nombre;
+    }
+
+    @XmlTransient
+    public ArrayList<Cuenta> getFavoritasCollection() {
+        return favoritasCollection;
+    }
+
+    public void setFavoritasCollection(ArrayList<Cuenta> favoritasCollection) {
+        this.favoritasCollection = favoritasCollection;
     }
 
     public Integer getIdCliente() {
