@@ -54,9 +54,6 @@ public class Movimiento implements Serializable {
     @NotNull
     @Column(name = "aplicado")
     private short aplicado;
-    @Size(max = 45)
-    @Column(name = "movimientocol")
-    private String movimientocol;
     @JoinColumn(name = "cuenta_num_cuenta", referencedColumnName = "num_cuenta", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Cuenta cuenta;
@@ -100,14 +97,6 @@ public class Movimiento implements Serializable {
 
     public void setAplicado(short aplicado) {
         this.aplicado = aplicado;
-    }
-
-    public String getMovimientocol() {
-        return movimientocol;
-    }
-
-    public void setMovimientocol(String movimientocol) {
-        this.movimientocol = movimientocol;
     }
 
     public Cuenta getCuenta() {

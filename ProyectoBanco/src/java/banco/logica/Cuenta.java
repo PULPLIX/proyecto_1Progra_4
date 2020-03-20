@@ -83,7 +83,7 @@ public class Cuenta implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta_origen")
     private ArrayList<Transferencia> transferenciaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta_Destino")
-    private ArrayList<Transferencia> transferenciaCollection1;
+    private ArrayList<Cuenta> favoritasCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta")
     private ArrayList<Movimiento> movimientoCollection;
     @JoinColumn(name = "cliente_id_cliente", referencedColumnName = "id_cliente")
@@ -104,8 +104,10 @@ public class Cuenta implements Serializable {
         this.saldoInicial = 0;
         this.fechaUltimaAplicacion = null;
         this.saldoFinal = 0;
+        this.movimientoCollection = new ArrayList<>();
         this.clienteCollection = new ArrayList<>();
-        this.clienteCollection = new ArrayList<>();
+        this.transferenciaCollection= new ArrayList<>();
+        this.favoritasCollection = new ArrayList<>();
 
     }
 
@@ -198,12 +200,12 @@ public class Cuenta implements Serializable {
     }
 
     @XmlTransient
-    public ArrayList<Transferencia> getTransferenciaCollection1() {
-        return transferenciaCollection1;
+    public ArrayList<Cuenta> getFavoritasCollection() {
+        return favoritasCollection;
     }
 
-    public void setTransferenciaCollection1(ArrayList<Transferencia> transferenciaCollection1) {
-        this.transferenciaCollection1 = transferenciaCollection1;
+    public void setFavoritasCollection(ArrayList<Cuenta> favoritasCollection) {
+        this.favoritasCollection = favoritasCollection;
     }
 
     @XmlTransient
