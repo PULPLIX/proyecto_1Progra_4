@@ -5,29 +5,41 @@
  */
 package banco.presentacion.cliente.cuentas;
 
-import banco.logica.Cliente;
+import banco.logica.Cuenta;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author ESCINF
+ * @author Escinf
  */
-public class Model {
-    Cliente current;
+public class Model{
+    List<Cuenta> cuentas;
+    Cuenta seleccionado;
 
     public Model() {
         this.reset();
     }
-    
-    public void reset(){
-        setCurrent(new Cliente());        
+
+    public void reset(){ 
+        List<Cuenta> rows = new ArrayList<>();        
+        seleccionado=null;  
+        this.setCuentas(rows);
     }
     
-    public Cliente getCurrent() {
-        return current;
+    public void setCuentas(List<Cuenta> cuentas){
+        this.cuentas =cuentas;    
     }
 
-    public void setCurrent(Cliente current) {
-        this.current = current;
+     public List<Cuenta> getCuentas() {
+        return cuentas;
     }
-   
+
+    public Cuenta getSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(Cuenta seleccionado) {
+        this.seleccionado = seleccionado;
+    }
 }

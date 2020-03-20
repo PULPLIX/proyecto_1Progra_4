@@ -141,7 +141,7 @@ public class cuentasDao {
         TipoCuenta tp = new TipoCuenta();
         
         tp.setIdTipoCuenta(resultado.getInt("id_cliente"));
-        tp.setDescripción("descripción");
+        tp.setDescripción(resultado.getString("descripción"));
         tp.setTasaInterés(resultado.getInt("tasa_interés"));
 
         return tp;
@@ -194,8 +194,5 @@ public class cuentasDao {
             System.out.println(ex);
             return null;
         }
-
     }
-     
-     
 }

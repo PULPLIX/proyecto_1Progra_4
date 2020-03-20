@@ -1,3 +1,12 @@
+<%@page import="java.util.List"%>
+<%@page import="banco.logica.Cuenta"%>
+<%@page import="banco.presentacion.cliente.cuentas.Model"%>
+
+<%
+    Model model = (Model) request.getAttribute("model");
+    List<Cuenta> cuentas = model.getCuentas();
+%>
+
 <div class="cuerpo">
 
     <div class="cuerpo-caja cuerpo-cabeza">
@@ -16,6 +25,19 @@
                     <th>Límite de transferencia</th>
                     <th>Saldo Neto</th>
                 </tr>
+                </thead>
+                <tbody>
+                    <% for (Cuenta c : cuentas) {%>
+                    <tr> 
+                        <td><%=c.getNumCuenta()%> </td> 
+                        <td><%=c.getIdTipoCuenta().getDescripción()%></td>
+                        <td><%=c.getClienteIdCliente().getNombre()%></td>
+                        <td><%=c.getLimiteTransferenciaDiaria()%></td>
+                        <td><%=c.getSaldoFinal()%></td>
+                    </tr>
+
+                    <%}%>
+                </tbody>
             </table>
         </form>
 

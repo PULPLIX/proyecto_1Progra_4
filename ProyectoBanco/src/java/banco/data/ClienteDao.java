@@ -40,7 +40,7 @@ public class ClienteDao {
 
     public static Usuario creaUsuario(ResultSet resultado) throws SQLException {
         Usuario usu = new Usuario();
-        
+
         usu.setIdUsuario(resultado.getString("id_Usuario"));
         usu.setClaveAcceso(resultado.getString("clave_acceso"));
         usu.setRol(resultado.getInt("rol"));
@@ -56,7 +56,7 @@ public class ClienteDao {
             ResultSet resultado = st.executeQuery();
 
             ArrayList<Cliente> lista = new ArrayList<>();
-            Cliente cli ;
+            Cliente cli;
 
             while (resultado.next()) {
                 cli = new Cliente();
@@ -65,7 +65,7 @@ public class ClienteDao {
                 cli.setApellidos(resultado.getString("apellidos"));
                 cli.setNombre(resultado.getString("nombre"));
                 cli.setTelefono(resultado.getString("telefono"));
-               
+
                 lista.add(cli);
             }
             con.close();
@@ -79,30 +79,35 @@ public class ClienteDao {
         }
 
     }
-//
-//    public static Cliente find(String ced, String clave) throws Exception {
-//        String SQL = "select * from usuario where id_usuario=? and clave_acceso=?;";
-//        Cliente usu = null;
-//
-//        try {
-//            Connection con = Coneccion.conectar();
-//            PreparedStatement st = con.prepareStatement(SQL);
-//            st.setString(1, ced);
-//            st.setString(2, clave);
-//            ResultSet resultado = st.executeQuery();
-//
-//            while (resultado.next()) {
-//                usu = new Usuario();
-//                usu.setIdUsuario(resultado.getString("id_Usuario"));
-//                usu.setClaveAcceso(resultado.getString("clave_acceso"));
-//                usu.setRol(resultado.getInt("rol"));
-//            }
-//            return usu;
-//
-//        } catch (SQLException ex) {
-//            System.out.println(ex);
-//            return usu;
-//        }
-//    }
+
+    public static Cliente find(String id) throws Exception {
+        String SQL = "select*from cliente inner join usuario on usuario_id_usuario = id_usuario where usuario_id_usuario =?";
+        Cliente cli = null;
+
+        try {
+            Connection con = Coneccion.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            st.setString(1, id);
+            ResultSet resultado = st.executeQuery();
+
+            while (resultado.next()) {
+                cli = new Cliente();
+                cli.setIdCliente(resultado.getInt("id_cliente"));
+                cli.setUsuarioIdUsuario(creaUsuario(resultado));
+                cli.setApellidos(resultado.getString("apellidos"));
+                cli.setNombre(resultado.getString("nombre"));
+                cli.setTelefono(resultado.getString("telefono"));
+            }
+            con.close();
+            st.close();
+            resultado.close();
+            
+            return cli;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return cli;
+        }
+    }
 
 }

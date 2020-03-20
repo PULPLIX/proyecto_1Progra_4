@@ -8,9 +8,7 @@ package banco.presentacion.cliente.cuentas;
 import banco.logica.Cliente;
 import banco.logica.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
+import banco.data.ClienteDao;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,51 +34,39 @@ public class Controller extends HttpServlet {
             case "/presentation/cliente/datos/show":
                 viewUrl=this.show(request);
                 break;           
-            //case "/Guia/presentation/datos/update":
-          //      viewUrl=this.update(request);
+ 
         }
         request.getRequestDispatcher(viewUrl).forward( request, response); 
   }
 
-    
-    void updateModel(HttpServletRequest request){
-       banco.presentacion.login.Model model= (banco.presentacion.login.Model) request.getAttribute("model");
-       
-        model.getCurrent().setIdUsuario(request.getParameter("cedulaFld"));
-        model.getCurrent().setClaveAcceso(request.getParameter("claveFld"));
-   }
-
+   
     public String show(HttpServletRequest request){
         return this.showAction(request);
     }
     
-     public String update(HttpServletRequest request){
-        return this.updateAction(request);
-    }
      
-     public String updateAction(HttpServletRequest request){
-         return "";
-     }
-        
     public String showAction(HttpServletRequest request){
-        return "/presentation/cliente/datos/View.jsp"; 
+        Model model = (Model) request.getAttribute("model");
+
+ HttpSession session = request.getSession(true);
+ 
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Cliente cliente = null;
+        try {
+            cliente = banco.data.ClienteDao.find(usuario.getIdUsuario());
+        } catch (Exception ex) {
+            System.out.println(ex);
+            cliente=null;
+        }
+        try {        
+            model.setCuentas(banco.data.cuentasDao.getCuentasCliente(cliente.getIdCliente()));
+            request.setAttribute("model", model);
+            return "/presentation/cliente/datos/View.jsp";
+        } catch (Exception ex) {
+            return "";
+        }
     }    
 
-        Map<String,String> validar(HttpServletRequest request){
-        Map<String,String> errores = new HashMap<>();
-        if (request.getParameter("cedulaFld").isEmpty()){
-            errores.put("cedulaFld","Cedula requerida");
-        }
-
-        if (request.getParameter("claveFld").isEmpty()){
-            errores.put("claveFld","Clave requerida");
-        }
-        return errores;
-    }
-    
-    
-    
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
