@@ -59,7 +59,7 @@ public class Controller extends HttpServlet {
             cliente=null;
         }
         try {        
-            model.setCuentas(banco.data.CuentaDao.getCuentasCliente(cliente.getIdCliente()));
+            model.setCuentas(banco.data.CuentaDao.getCuentasCliente(cliente.getUsuarioIdUsuario().getIdUsuario()));
             request.setAttribute("model", model);
             return "/presentation/cliente/datos/View.jsp";
         } catch (Exception ex) {

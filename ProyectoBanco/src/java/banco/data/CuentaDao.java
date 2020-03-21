@@ -178,7 +178,7 @@ public class CuentaDao {
         cliente.setIdCliente(resultado.getInt("id_cliente"));
         cliente.setUsuarioIdUsuario(creaUsuario(resultado));
         cliente.setApellidos(resultado.getString("apellidos"));
-        cliente.setNombre(resultado.getString("nombre"));
+        cliente.setNombre(resultado.getString("cli.nombre"));
         cliente.setTelefono(resultado.getString("telefono"));
 
         return cliente;
@@ -194,21 +194,18 @@ public class CuentaDao {
         return tp;
     }
 
-    public static ArrayList<Cuenta> getCuentasCliente(int id) throws Exception {
-        String SQL = "select * from cuenta c inner join moneda m on "
-                + "c.moneda_nombre = m.nombre "
-                + "inner join cliente cli on "
-                + "c.cliente_id_cliente = cli.id_cliente "
-                + "inner join usuario u on "
-                + "cli.usuario_id_usuario = u.id_usuario "
-                + "inner join tipo_cuenta tp on "
-                + "c.idTipoCuenta = tp.id_tipo_cuenta "
+    public static ArrayList<Cuenta> getCuentasCliente(String id) throws Exception {
+        String SQL = "select * from cuenta c "
+                + "inner join moneda m on c.moneda_nombre = m.nombre "
+                + "inner join cliente cli on c.cliente_id_cliente = cli.usuario_id_usuario "
+                + "inner join usuario u on cli.usuario_id_usuario = u.id_usuario "
+                + "inner join tipo_cuenta tp on c.idTipoCuenta = tp.id_tipo_cuenta "
                 + "where cliente_id_cliente=?;";
 
         try {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
-            st.setInt(1, id);
+            st.setString(1, id);
 
             ResultSet resultado = st.executeQuery();
 

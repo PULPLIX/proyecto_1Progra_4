@@ -40,18 +40,10 @@ public class Oscar {
 //           System.out.print(list.get(0).getNombre());
 //           System.out.print(list.get(0).getUsuarioIdUsuario().getIdUsuario());
 //           System.out.print(list.get(0).getTelefono());
-
-
-
             //FavoritaDao.agregarFavorita(3, 7);
-
-
-
-           
         } catch (Exception ex) {
             System.out.println(ex);
         }
-
     }
 
 }

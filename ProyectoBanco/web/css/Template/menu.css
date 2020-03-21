@@ -1,23 +1,25 @@
 .logoimg2{
-    width: 200px;
+    width: 180px;
     height: 80px;
     z-index: 20;
     margin-left: 80px;
 }
 
 .divMenu{
-    background-color: white;
+    color:#fff;
+    background-color: black;
     position: fixed;
     left: -3%;
-    height: 100%;
+    top:70px;
+    height: 95%;
 }
 
 .mainMenu{
-    width: 290px;
+    width: 280px;
     display: block;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     overflow: hidden;
-    margin-right: 32px;
+    margin-right: 0px;
 }
 
 .item{
@@ -26,12 +28,18 @@
 }
 
 .btn{
+    color: white;
+ 
     display: block;
+
     padding: 15px 20px;
-    background-color: rgb(84, 116, 159);
+    background-color: black;
     color: #fff;
     position: relative;
     text-decoration: none;
+}
+.btn:hover{
+    background-color: #1E1E1E;
 }
 
 .btn:before{
