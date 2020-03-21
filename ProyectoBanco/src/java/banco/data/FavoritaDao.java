@@ -14,13 +14,13 @@ import java.sql.PreparedStatement;
  */
 public class FavoritaDao {
 
-    public static void agregarFavorita(int clienteId, int cuentaId) throws Exception {
+    public static void agregarFavorita(int cuentaId, String clienteId) throws Exception {
         String SQL = "insert into favorita (cliente_id, cuenta_id) values (?,?)";
         try {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
-            st.setInt(1, clienteId);
-            st.setInt(2, cuentaId);
+            st.setInt(1, cuentaId);
+            st.setString(2, clienteId);
             st.executeUpdate();
 
         } catch (Exception e) {

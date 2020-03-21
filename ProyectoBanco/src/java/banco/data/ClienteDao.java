@@ -13,8 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -122,7 +120,7 @@ public class ClienteDao {
         try {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
-            st.setInt(1, cliente.getIdCliente());
+            st.setString(1, cliente.getUsuarioIdUsuario().getIdUsuario());
 
             ResultSet resultado = st.executeQuery();
 

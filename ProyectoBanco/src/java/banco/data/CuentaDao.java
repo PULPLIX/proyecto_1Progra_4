@@ -62,15 +62,12 @@ public class CuentaDao {
     }
 
     public static Cuenta getCuenta(int idCuenta) throws Exception {
-        String SQL = "select * from cuenta c inner join moneda m on "
-                + "c.moneda_nombre = m.nombre "
-                + "inner join cliente cli on "
-                + "c.cliente_id_cliente = cli.id_cliente "
-                + "inner join usuario u on "
-                + "cli.usuario_id_usuario = u.id_usuario "
-                + "inner join tipo_cuenta tp on "
-                + "c.idTipoCuenta = tp.id_tipo_cuenta "
-                + "where num_cuenta=?;";
+        String SQL = "select * from cuenta c "
+                + "inner join moneda m on c.moneda_nombre = m.nombre "
+                + "inner join cliente cli on c.cliente_id_cliente = cli.usuario_id_usuario "
+                + "inner join usuario u on cli.usuario_id_usuario = u.id_usuario "
+                + "inner join tipo_cuenta tp on c.idTipoCuenta = tp.id_tipo_cuenta "
+                + "where c.num_cuenta=?;";
 
         try {
             Connection con = Coneccion.conectar();
@@ -306,7 +303,5 @@ public class CuentaDao {
             System.out.println(ex);
         }
     }
-
-
 
 }

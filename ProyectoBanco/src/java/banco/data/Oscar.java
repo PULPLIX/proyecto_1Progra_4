@@ -28,11 +28,10 @@ public class Oscar {
 
         try {
             
-            //Cliente cliente = ClienteDao.find("111");
+            Cliente cliente = ClienteDao.find("111");
             
             
-//            Cliente cliente = ClienteDao.find("222");
-//            System.out.print(cliente.getFavoritasCollection().toString());
+            System.out.print(cliente.getFavoritasCollection().toString());
             
                     
 //           ArrayList<Cliente> list = ClienteDao.listar();
