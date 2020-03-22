@@ -62,7 +62,7 @@
                             <br><br>
                             <div class="fila encabezado"><button class="button">Ingresar</button> </div>
                             <div>
-                                <!--%=(request.getAttribute("mensaje") != null) ? request.getAttribute("mensaje") : " No se ha hecho ningun cambio"%-->
+                                <%=(request.getAttribute("mensaje") != null) ? request.getAttribute("mensaje") : " No se ha hecho ningun cambio"%>
                             </div>
                         </div>
                     </form>

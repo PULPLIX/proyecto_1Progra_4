@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banco.presentacion.cliente.cuentas;
+package banco.presentacion.cliente.transferencia;
 
-import banco.logica.Cliente;
 import banco.logica.Cuenta;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -17,7 +17,7 @@ import java.util.List;
 public class Model{
     List<Cuenta> cuentas;
     Cuenta seleccionado;
-    Cliente current;
+    Cuenta aTransferir;
 
     public Model() {
         this.reset();
@@ -26,16 +26,8 @@ public class Model{
     public void reset(){ 
         List<Cuenta> rows = new ArrayList<>();        
         seleccionado=null;  
-        current = null;
+        aTransferir=null;
         this.setCuentas(rows);
-    }
-
-    public Cliente getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(Cliente current) {
-        this.current = current;
     }
     
     public void setCuentas(List<Cuenta> cuentas){
@@ -53,4 +45,37 @@ public class Model{
     public void setSeleccionado(Cuenta seleccionado) {
         this.seleccionado = seleccionado;
     }
+
+    public Cuenta getaTransferir() {
+        return aTransferir;
+    }
+
+    public void setaTransferir(Cuenta aTransferir) {
+        this.aTransferir = aTransferir;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.cuentas);
+        hash = 23 * hash + Objects.hashCode(this.seleccionado);
+        hash = 23 * hash + Objects.hashCode(this.aTransferir);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Model other = (Model) obj;
+        return true;
+    }
+    
 }

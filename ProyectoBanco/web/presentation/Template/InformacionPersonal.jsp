@@ -1,9 +1,30 @@
+<%@page import="java.util.Calendar"%>
+<link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Index/cabeza.css">
+<div id="imagenBanco">
+    <img src="/ProyectoBanco/images/logo/logoBlanco2.png"  width="160" height="65" style="position: relative; left: 50px;"> 
+</div>
 
+<div id="banner" >
+    <div id="bienvenida">
+        <% long horas = java.util.Calendar.getInstance().getTime().getHours();
+            if (horas >= 0 && horas < 12) {
+                out.print("Buenos Días,");
+            } else if (horas >= 12 && horas < 18) {
+                out.print("Buenos Tardes,");
+            } else if (horas >= 18 && horas <= 24) {
+                out.print("Buenos Noches,");
+            }
 
-<div style="background-color: #3379B9; padding: 10px; font-family: Axis Bold; position: fixed; width: 100%; top:-10px; left: -10px;">
-    <div style=" width: 12px;height: 12px; position: relative; left: 40px;">
-        <img src="/ProyectoBanco/images/logo/logoBlanco2.png"  width="170" height="70" > 
+            out.print(" " + request.getAttribute("clienteNombre") + " " + request.getAttribute("clienteApellidos"));
+
+        %></div>
+    <div id="fecha">
+        <%        Calendar calendar = java.util.Calendar.getInstance();
+            int month = calendar.get(java.util.Calendar.MONTH);
+            month += 1;
+            out.print("Fecha de hoy: " + month);
+            out.print("/" + calendar.get(java.util.Calendar.DATE));
+            out.print("/" + calendar.get(java.util.Calendar.YEAR));
+        %>
     </div>
-    <center>BIENVENIDO<br>
-        Usuario </center>
 </div>

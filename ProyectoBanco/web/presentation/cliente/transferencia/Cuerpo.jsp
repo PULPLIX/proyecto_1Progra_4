@@ -11,8 +11,8 @@
 
 <div class="limiter">
     <center>
-        <h2>MIS CUENTAS</h2>
-
+        <h2>Elige la cuenta de origen de los fondos</h2>
+<input type="text" name="hola" value="HOLA MUNDO" readonly>
         <div class="container-table100">
             <div class="wrap-table100">
                 <div class="table100 ver1 m-b-110">
@@ -24,21 +24,22 @@
                                 <th class="column100 column3" data-column="column3">Propietario</th>
                                 <th class="column100 column4" data-column="column4"> Límite de transferencia</th>
                                 <th class="column100 column5" data-column="column5">Saldo Neto</th>
+                                <th class="column100 column5" data-column="column5">Seleccione</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             <% for (Cuenta c : cuentas) {%>
                             <tr  class="row100">
-                                <td class="column100 column1" data-column="column1"><%=c.getNumCuenta()%> </td> 
+                                <td class="column100 column1" data-column="column1"><input type="text" name="hola" value="<%=c.getNumCuenta()%>" readonly/> </td> 
                                 <td class="column100 column1" data-column="column2"><%=c.getIdTipoCuenta().getDescripción()%></td>
-                                <td class="column100 column1" data-column="column3"><%=c.getClienteIdCliente().getNombre()+" "+ c.getClienteIdCliente().getApellidos()%></td>
+                                <td class="column100 column1" data-column="column3"><%=c.getClienteIdCliente().getNombre() + " " + c.getClienteIdCliente().getApellidos()%></td>
                                 <td class="column100 column1" data-column="column4"><%=c.getLimiteTransferenciaDiaria()%></td>
                                 <td class="column100 column1" data-column="column5"><%=c.getSaldoFinal()%></td>
                             </tr>
 
                             <%}%>
                         </tbody>
-                        
                     </table>
 
                     <br><br>
@@ -55,7 +56,7 @@
     </center>
 </div>
 
-
+                        
 
 <br><br>
 

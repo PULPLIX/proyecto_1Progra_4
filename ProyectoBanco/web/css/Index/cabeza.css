@@ -1,21 +1,32 @@
+@font-face {
+  font-family: Montserrat-Regular;
+  src: url('../fonts/montserrat/Montserrat-Regular.ttf'); 
+}
+
+@font-face {
+  font-family: Montserrat-Medium;
+  src: url('../fonts/montserrat/Montserrat-Medium.ttf'); 
+}
 /*----------------------------------------*/
 /*  CABEZA
 /*----------------------------------------*/
-
+*{
+    z-index: 8;
+}
 .cabeza{
     background-color: rgb(84, 116, 159);
     background-image: url("/ProyectoBanco/images/chanchoazul.jpg");
     background-size:auto;
     background-size:cover;
-   /* background-repeat: no-repeat; 
-    background-position: center;*/
+    /* background-repeat: no-repeat; 
+     background-position: center;*/
     display: grid;
     grid-template-areas: "left right";
     color: white;
 }
 
 .cabeza h2{
-   line-height: 1.2em;
+    line-height: 1.2em;
 }
 
 .cabeza-caja {
@@ -50,6 +61,37 @@
     color: #fff;
     text-decoration: none;
 }
+
+/*CABEZA DE USUARIO*/
+#imagenBanco{
+    width:400px;
+    height:70px; 
+    position: fixed; 
+    top: 0%;
+    left:0%; 
+    padding: 5px; 
+  background: linear-gradient(to right, #2F3A6E , #325D73);
+
+}
+
+#banner{
+  background: linear-gradient(to bottom, #2F3A6E , #406E94);
+    color:#ffffff;
+    padding: 16px; 
+    font-family: Times New Roman; 
+    position: fixed;
+    width: 83.3%; 
+    top:-9px; 
+    right: 0px;
+}
+
+#banner #bienvenida{
+    font-size: 20px;
+}
+#banner #fecha{
+    font-size: 14px;
+}
+/*FIN DE LA CABEZA DE USUARIO*/
 
 @-webkit-keyframes fadeInOut {
     0% {
