@@ -1,3 +1,4 @@
+<%@page import="banco.logica.Cliente"%>
 <%@page import="java.util.Calendar"%>
 <link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Index/cabeza.css">
 <div id="imagenBanco">
@@ -14,8 +15,9 @@
             } else if (horas >= 18 && horas <= 24) {
                 out.print("Buenos Noches,");
             }
+        Cliente cliente = (Cliente) session.getAttribute("cliente");
 
-            out.print(" " + request.getAttribute("clienteNombre") + " " + request.getAttribute("clienteApellidos"));
+            out.print(" " + cliente.getNombre() + " " + cliente.getApellidos());
 
         %></div>
     <div id="fecha">

@@ -15,10 +15,10 @@
             <a href="#account" class="btn"><i class="fas fa-user-circle"></i> <img src="/ProyectoBanco/images/menuIcon/transFlecha.png"  width="20" height="20" id="icon"> Movimientos</a>
             <div class="subMenu">
                 <form>
-                    <a  href="/ProyectoBanco/presentation/login/transferencia" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/transferencia.png"  id="subIcon"> Depósitos</a>
+                    <a  href="/ProyectoBanco/presentation/login/transferencia" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/transferencia.png"  id="subIcon"> Transferencias</a>
                </form>
 
-                    <a href="" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Débitos</a>
+                    <a href="" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Mis movimientos</a>
                     <a href="" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/money.png"  id="subIcon"> Mi saldo</a>
 
             </div>

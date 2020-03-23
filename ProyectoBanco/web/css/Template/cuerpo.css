@@ -19,7 +19,7 @@
 .cuerpo{
     /*    width: 90vw;
         margin: 2rem auto;*/
-    display: grid;
+    /*display: grid;*/
     grid-template-areas: "nocabeza cabeza cabeza"
         "left right right"
         "nopie pie pie"

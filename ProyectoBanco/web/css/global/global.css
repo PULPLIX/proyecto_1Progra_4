@@ -12,22 +12,16 @@
 /*----------------------------------------*/
 /*  GLOBAL
 /*----------------------------------------*/
-* {
-    box-sizing: border-box;
-}
 
 body {
     color: #021F20;
-    font-size: 20px;
+    /*font-size: 20px;*/
     font-style: normal;
-    font-weight: 400;
     line-height: 24px;
     overflow-x: hidden;
     overflow-y: auto;
-    visibility: visible;
     font-family: 'Roboto', sans-serif;
     background-image: url("/ProyectoBanco/images/bg8.jpg");
-   /* background-repeat: round;*/
    background-repeat: no-repeat;
    background-size: 100%;
    background-position: center;

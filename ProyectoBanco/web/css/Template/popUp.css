@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+
+*{
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+}
+/*boton de abrir popUp*/
+.btn-open-popup{
+    position: relative;
+    left: 870px;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    background: linear-gradient(to bottom, #3C95EB , #406E94);
+    padding: 20px 50px;
+    border-radius: 50px;
+    z-index: 9;
+}
+.btn-open-popup:hover{
+    color:  #406E94;
+    background: linear-gradient(to bottom, #ffffff , #B4DAFF);
+}
+/*capa de transparencia*/
+.container-all{
+    margin:0;
+    z-index: 12;
+    width: 110%;
+    height: 110%;
+    transform: translate(-100%, -100%);
+    position: fixed;
+    visibility: visible;
+    opacity: 0;
+    /*transition: all 600ms;*/
+}
+
+/*cerrar el menu con un click*/
+.container-all:target{
+    transform: translate(0%, 0%);
+    position: fixed;
+    background: rgba(0,0,0,0.85);
+    visibility: visible;
+    opacity: 1;
+}
+/*mostrar el menu con un clic y volverlo a 
+poner en el centro para que de vuelta en el centro  */
+.container-all:target .popup{
+    /*z-index: 15;*/
+    top: 50%;
+    left: 50%;
+    transform: rotate(0deg) translate(-50%, -50%);
+    visibility: visible;
+}
+
+/*ventana principal del pop up. 
+Se posiciona con el top y left bien lejos para que no aparezca al recargar*/
+.popup{
+    /*    z-index: 15;*/
+    width: 100%;
+    max-width: 800px;
+    height: 600px;
+    position: relative;
+    display: flex;
+    background: white;
+    visibility: hidden;
+    margin-bottom: 100px;
+    top: -80%;
+    left: -80%;
+    transform: rotate(90deg) translate(-150%, 230%);
+    transition: all 600ms;
+}
+
+/*imagen de la ventana popup*/
+.img{
+    /*z-index: 15;*/
+    width: 40%;
+    background-image: url(/ProyectoBanco/images/transferencia.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+/*Contenido de texto o inputs del popup*/
+.container-text{
+    width: 60%;
+    padding: 50px;
+    overflow-y: auto;
+}
+
+/*titulo de la ventana*/
+.container-text h1{
+    font-size: 30px;
+    margin-bottom: 100px;
+}
+/*todos los inputs de la ventana*/
+.container-text .inputs{
+
+    margin-top: 20px;
+    font-size: 16px;
+}
+#inputText{
+    text-align: center;
+    margin-bottom: 30px;
+    /*si sirve pero netbeans no reconoce esta version de css*/
+    /*background: var(--omrs-color-bg-low-contrast);*/
+    cursor: not-allowed;
+    background-color: #cccccc;
+    margin-left: 10px;
+
+    transition: none;
+}
+.btn-confirm{
+    color: #ffffff;
+    background: linear-gradient(to bottom, #3C95EB , #406E94);
+    cursor:pointer;
+    padding: 20px 50px;
+    border-radius: 50px;
+    transition: all 1.5s;
+}
+.btn-confirm:hover{
+    color:  #406E94;
+    background: linear-gradient(to bottom, #ffffff , #B4DAFF);;
+}
+/*boton de cerrar*/
+.btn-close-popup{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    text-align: center;
+    right: -20px;
+    top: -20px;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    line-height: 50px;
+}
+
+@media screen and (max-width: 900px){
+    .popup{
+        flex-direction: column;
+        height: 100%;
+        max-height: 800px;
+    }
+
+    .img{
+        width: 100%;
+        height: 40%;
+    }
+
+    .container-text{
+        width: 100%;
+        height: 60%;
+        padding: 80px;
+    }
+
+}
+
+@media screen and (max-width: 500px){
+    .container-text{
+        padding: 20px;
+    }
+
+    .container-text h1{
+        font-size: 20px;
+    }
+
+    .container-text .inputs{
+        font-size: 12px;
+    }
+}

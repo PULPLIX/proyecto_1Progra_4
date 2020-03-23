@@ -1,6 +1,4 @@
 <div class="cuerpo">
-
-
     <div class="cuerpo-caja cuerpo-cabeza">
         <center>
             <h2>APARTADO DE MOVIMIENTOS</h2>

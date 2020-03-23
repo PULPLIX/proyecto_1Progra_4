@@ -1,29 +1,30 @@
 .logoimg2{
     width: 180px;
-    height: 80px;
+    height: 78px;
     z-index: 20;
     margin-left: 80px;
 }
 
 .divMenu{
+
     color:#fff;
     background-color: black;
     position: fixed;
     left: -3%;
     top:70px;
-    height: 95%;
+    height: 90%;
 }
 
 .mainMenu{
-    width: 330px;
+    width: 310px;
     display: block;
-    /*border-radius: 10px;*/
     overflow: hidden;
     margin-right: 0px;
 }
 
 .item{
-    border-top: 1px solid rgb(84, 116, 159);
+    border-bottom: 1px solid;
+    border-bottom-color: #33393F;
     overflow: hidden;
 }
 
@@ -57,7 +58,7 @@
 }
 
 .btn i {
-    margin-right: 10px;
+    margin-right: 30px;
 }
 
 .subMenu{
@@ -72,27 +73,30 @@
     right: 15px;
     top:5px;
 }
+
 #textoIni{
     text-align: center;
     position: relative;
-    left:15px;
-    bottom: 25px;
+    left:10px;
+    bottom: 20px;
 }
 
 a #subIcon{
+    margin-right: 40px;
     width: 30px;
     height: 30px;
     text-align: center;
     position: relative;
-    right:10px;
+    left:12px;
     top: 10px;
+
 }
 #textoSub{
         text-align: initial;
 }
 .subMenu a{
     display: block;
-    padding: 15px 20px;
+    padding: 15px 20px 15px 15px;
     color: #fff;
     font-size: 14px;
     border-bottom: 1px solid #394c7f;
@@ -152,5 +156,5 @@ a #subIcon{
 }
 
 .item:target .subMenu{
-    max-height: 10em;
+    max-height: 15em;
 }

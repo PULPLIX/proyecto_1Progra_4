@@ -240,6 +240,53 @@ public class CuentaDao {
         }
     }
 
+    public static ArrayList<Cuenta> getCuenta(String idUsuario, String idCuenta) throws Exception {
+        String SQL = "select * from cuenta c "
+                + "inner join moneda m on c.moneda_nombre = m.nombre "
+                + "inner join cliente cli on c.cliente_id_cliente = cli.usuario_id_usuario "
+                + "inner join usuario u on cli.usuario_id_usuario = u.id_usuario "
+                + "inner join tipo_cuenta tp on c.idTipoCuenta = tp.id_tipo_cuenta "
+                + "where num_cuenta=? and cliente_id_cliente =?;";
+       
+        try {
+            PreparedStatement st;
+            ResultSet resultado;
+            ArrayList<Cuenta> lista;
+            try (Connection con = Coneccion.conectar()) {
+                st = con.prepareStatement(SQL);
+                st.setInt(1, Integer.parseInt(idCuenta));
+                st.setString(2, idUsuario);
+              
+                resultado = st.executeQuery();
+                lista = new ArrayList<>();
+                Cuenta cuenta;
+                while (resultado.next()) {
+                    cuenta = new Cuenta();
+                    cuenta.setNumCuenta(resultado.getInt("num_cuenta"));
+                    cuenta.setFechaCreacion(resultado.getDate("fecha_creacion"));
+                    cuenta.setLimiteTransferenciaDiaria(resultado.getDouble("limite_transferencia_diaria"));
+                    cuenta.setActiva(resultado.getShort("activa"));
+                    cuenta.setSaldoInicial(resultado.getDouble("saldo_inicial"));
+                    cuenta.setFechaUltimaAplicacion(resultado.getDate("fecha_ultima_aplicacion"));
+                    cuenta.setSaldoFinal(resultado.getFloat("saldo_final"));
+                    cuenta.setMonedaNombre(creaMoneda(resultado));
+                    cuenta.setClienteIdCliente(creaCliente(resultado));
+                    cuenta.setIdTipoCuenta(creaIdTipoCuenta(resultado));
+                    llenarMovimientosCuenta(cuenta);
+                    llenarTransferencias(cuenta);
+                    lista.add(cuenta);
+                }
+            }
+            st.close();
+            resultado.close();
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
     //Toma el id de la cuenta y realiza un select en la tabla movimiento 
     //de unicamente las filas que se relacionan con el id de la cuenta
     public static void llenarMovimientosCuenta(Cuenta cuenta) {
