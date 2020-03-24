@@ -1,0 +1,21 @@
+/*----------------------------------------*/
+/*  info personal 
+/*----------------------------------------*/
+
+
+
+#show,#hide {
+    display:none;
+}
+
+div#content {
+    display:none;
+}
+
+input#show:checked ~ div#content {
+	display:block;
+}
+
+input#hide:checked ~ div#content {
+	display:none;
+}

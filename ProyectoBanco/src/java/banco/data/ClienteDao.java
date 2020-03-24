@@ -98,10 +98,9 @@ public class ClienteDao {
                 cli.setNombre(resultado.getString("nombre"));
                 cli.setTelefono(resultado.getString("telefono"));
                 llenarFavoritas(cli);
-                
+
             }
-            
-            
+
             con.close();
             st.close();
             resultado.close();
@@ -148,6 +147,24 @@ public class ClienteDao {
         } catch (Exception e) {
 
         }
+    }
+
+    public static boolean actualizar(String nombre, String apellidos, String telefono, String idUsuario) throws Exception {
+        String SQL = "update cliente set nombre =?, apellidos =?, telefono =? where usuario_id_usuario =?;";
+        try {
+            Connection con = Coneccion.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            st.setString(1, nombre);
+            st.setString(2, apellidos);
+            st.setString(3, telefono);
+            st.setString(4, idUsuario);
+            st.executeUpdate();
+            return true;
+            
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
 }

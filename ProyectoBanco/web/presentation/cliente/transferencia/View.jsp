@@ -1,15 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+ <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/table.css">
-
-
     <head>
-        <link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/popUp.css">
-
         <%@ include file="/presentation/Template/HojaEstilo.jsp" %>
         <title>Mis cuentas</title>
     </head>
+    
     <body>           
         <div class="container-all" id="modal">
             <div class="popup">
