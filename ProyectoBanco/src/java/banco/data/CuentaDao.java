@@ -17,6 +17,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -247,7 +249,7 @@ public class CuentaDao {
                 + "inner join usuario u on cli.usuario_id_usuario = u.id_usuario "
                 + "inner join tipo_cuenta tp on c.idTipoCuenta = tp.id_tipo_cuenta "
                 + "where num_cuenta=? and cliente_id_cliente =?;";
-       
+
         try {
             PreparedStatement st;
             ResultSet resultado;
@@ -256,7 +258,7 @@ public class CuentaDao {
                 st = con.prepareStatement(SQL);
                 st.setInt(1, Integer.parseInt(idCuenta));
                 st.setString(2, idUsuario);
-              
+
                 resultado = st.executeQuery();
                 lista = new ArrayList<>();
                 Cuenta cuenta;
@@ -348,4 +350,19 @@ public class CuentaDao {
         }
     }
 
+    public static void updateSaldo(Cuenta cuenta) {
+        String SQL = "UPDATE cuenta SET saldo_final = ? ,limite_transferencia_diaria = ? WHERE num_cuenta = ?;";
+        try {
+            Connection con = Coneccion.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            
+            st.setString(1, String.valueOf(cuenta.getSaldoFinal()));
+            st.setString(2, String.valueOf(cuenta.getLimiteTransferenciaDiaria()));
+            st.setInt(3, cuenta.getNumCuenta());
+            st.executeUpdate();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(CuentaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

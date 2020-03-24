@@ -7,7 +7,9 @@ package banco.presentacion.cliente.transferencia;
 
 import banco.logica.Cliente;
 import banco.logica.Cuenta;
+import banco.logica.Transferencia;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Objects;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ESCINF
  */
-@WebServlet(name = "controllerTransferencia", urlPatterns = {"/presentation/login/transferencia/show", "/transferir/busca/cuentas","/transferir/confirmar"})
+@WebServlet(name = "controllerTransferencia", urlPatterns = {"/presentation/login/transferencia/show", "/transferir/busca/cuentas", "/transferir/confirmar"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -43,19 +45,37 @@ public class Controller extends HttpServlet {
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
-public String transferir(HttpServletRequest request) {
+
+    public String transferir(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
 
         HttpSession session = request.getSession(true);
         Cliente cliente = (Cliente) session.getAttribute("cliente");
 
         try {
+            Transferencia t = new Transferencia();
             String numCuentaO = (String) request.getParameter("cuentaOrigenConf");
             String numCuentaD = (String) request.getParameter("cuentaDestinoConf");
             String monto = (String) request.getParameter("montoConf");
-            
-            
+            if (!numCuentaO.equals("vacío") && !numCuentaD.equals("vacío") && !monto.equals("vacío")) {
+                t.setCuenta(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaO).get(0));
 
+                t.setCuenta_Destino(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaD).get(0));
+
+                t.setAplicado(Short.parseShort("1"));
+
+                t.setMonto(monto);
+                Calendar calendar = java.util.Calendar.getInstance();
+                t.setFecha(calendar.getTime());
+                if (banco.data.movimientosDao.registrarTransferencia(t)) {
+                    double montoFinal = t.getCuenta().getSaldoFinal() - Double.parseDouble(monto);
+                    double montoTransferencia = t.getCuenta().getLimiteTransferenciaDiaria() - Double.parseDouble(monto);
+                    t.getCuenta().setSaldoFinal(montoFinal);
+                    t.getCuenta().setLimiteTransferenciaDiaria(montoFinal);
+
+                    banco.data.CuentaDao.updateSaldo(t.getCuenta());
+                }
+            }
             return "/presentation/cliente/transferencia/View.jsp";
         } catch (Exception ex) {
             return "/presentation/cliente/transferencia/View.jsp";
