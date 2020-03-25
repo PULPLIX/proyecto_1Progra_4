@@ -34,7 +34,7 @@ public class movimientosDao {
         } catch (SQLException ex) {
             System.out.println(ex);
             return false;
-        }
+        } 
     }
 
 //    public static Transferencia find(Integer id_tipo_cuenta) throws Exception {

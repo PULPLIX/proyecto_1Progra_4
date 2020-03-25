@@ -77,6 +77,14 @@ Se posiciona con el top y left bien lejos para que no aparezca al recargar*/
     background-size: cover;
     background-position: center;
 }
+.imgV{
+    width: 40%;
+    background-image: url(/ProyectoBanco/images/vincular.jpeg);
+    background-size: cover;
+    background-position: center;
+}
+
+
 
 /*Contenido de texto o inputs del popup*/
 .container-text{
@@ -92,15 +100,20 @@ Se posiciona con el top y left bien lejos para que no aparezca al recargar*/
 }
 /*todos los inputs de la ventana*/
 .container-text .inputs{
-
     margin-top: 20px;
     font-size: 16px;
+}
+#inputTextV{
+    text-align: center;
+    margin-bottom: 40px;
+    background-color: #DFFBFB;
+    margin-left: 10px;
+        margin-top: 40px;
+
 }
 #inputText{
     text-align: center;
     margin-bottom: 30px;
-    /*si sirve pero netbeans no reconoce esta version de css*/
-    /*background: var(--omrs-color-bg-low-contrast);*/
     cursor: not-allowed;
     background-color: #cccccc;
     margin-left: 10px;
