@@ -87,7 +87,7 @@ public class Controller extends HttpServlet {
         HttpSession session = request.getSession(true);
         try {
 
-            Usuario real = banco.data.UsuarioDao.find(model.getCurrent().getIdUsuario(), model.getCurrent().getClaveAcceso());
+            Usuario real = banco.data.UsuarioDao1.find(model.getCurrent().getIdUsuario(), model.getCurrent().getClaveAcceso());
             session.setAttribute("usuario", real);
             String viewUrl = "";
             switch (real.getRol()) {
@@ -96,7 +96,7 @@ public class Controller extends HttpServlet {
                     request.setAttribute("mensaje", "SE INGRESO CORRECTAMENTE");
                     break;
                 case 2:
-                    viewUrl = "";
+                    viewUrl = "/presentation/cajero/infoPersonal/show";
                     break;
             }
 
