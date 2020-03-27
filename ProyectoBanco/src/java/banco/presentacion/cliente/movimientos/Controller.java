@@ -7,10 +7,8 @@ package banco.presentacion.cliente.movimientos;
 
 import banco.data.ClienteDao;
 import banco.logica.Cliente;
-import banco.logica.Cuenta;
 import banco.logica.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,29 +38,6 @@ public class Controller extends HttpServlet {
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
 
-    public String actualizar(HttpServletRequest request) {
-
-        HttpSession session = request.getSession(true);
-        Cliente cliente = (Cliente) session.getAttribute("cliente");
-        //Model model= (Model) request.getAttribute("model");
-
-        try {
-            String nombreE = (String) request.getParameter("nombreE");
-            String apellidosE = (String) request.getParameter("apellidosE");
-            String telefonoE = (String) request.getParameter("telefonoE");
-
-            if (ClienteDao.actualizar(nombreE, apellidosE, telefonoE, cliente.getUsuarioIdUsuario().getIdUsuario())) {
-                cliente.setTelefono(telefonoE);
-                cliente.setNombre(nombreE);
-                cliente.setApellidos(apellidosE);
-                session.setAttribute("cliente", cliente);
-            }
-            return ("/presentation/login/movimientos/show");
-        } catch (Exception ex) {
-            return ("/presentation/cliente/movimientos/View.jsp");
-        }
-    }
-
     public String show(HttpServletRequest request) {
         return this.showAction(request);
     }
@@ -73,28 +48,31 @@ public class Controller extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Cliente cliente = null;
+        Cliente cliente = (Cliente) session.getAttribute("cliente");
+
+
         try {
-            cliente = banco.data.ClienteDao.find(usuario.getIdUsuario());
+            cliente = banco.data.ClienteDao.find(cliente.getUsuarioIdUsuario().getIdUsuario());
             model.setCurrent(cliente);
 
             request.setAttribute("clienteNombre", cliente.getNombre());
             request.setAttribute("clienteApellidos", cliente.getApellidos());
-
-        } catch (Exception ex) {
-            System.out.println(ex);
-            cliente = null;
-        }
-        try {
+            
             model.setCuentas(banco.data.CuentaDao.getCuentasCliente(cliente.getUsuarioIdUsuario().getIdUsuario()));
+            
             for (int i = 0; i < model.getCuentas().size(); i++) {
                 for (int j = 0; j < model.getCuentas().get(i).getMovimientoCollection().size(); j++) {
-                    model.getMovimientos().add(model.getCuentas().get(i).getMovimientoCollection().get(i));
+                    model.getMovimientos().add(model.getCuentas().get(i).getMovimientoCollection().get(j));
+                }
+            }
+            for (int i = 0; i < model.getCuentas().size(); i++) {
+                for (int j = 0; j < model.getCuentas().get(i).getTransferenciaCollection().size(); j++) {
+                    model.getTransferencia().add(model.getCuentas().get(i).getTransferenciaCollection().get(j));
                 }
             }
             request.setAttribute("model", model);
             session.setAttribute("cliente", cliente);
-            return "/presentation/cliente/Movimientos/View.jsp";
+            return "/presentation/cliente/movimientos/View.jsp";
         } catch (Exception ex) {
             return "";
         }

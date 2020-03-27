@@ -8,6 +8,7 @@ package banco.presentacion.cliente.movimientos;
 import banco.logica.Cliente;
 import banco.logica.Cuenta;
 import banco.logica.Movimiento;
+import banco.logica.Transferencia;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +21,7 @@ public class Model {
 
     List<Cuenta> cuentas;
     List<Movimiento> movimientos;
+    List<Transferencia> transferencia;
     Cuenta seleccionado;
     Cliente current;
 
@@ -27,11 +29,20 @@ public class Model {
         this.reset();
     }
 
+    public List<Transferencia> getTransferencia() {
+        return transferencia;
+    }
+
+    public void setTransferencia(List<Transferencia> transferencia) {
+        this.transferencia = transferencia;
+    }
+
     private void reset() {
         seleccionado = null;
         current = null;
-        movimientos = new ArrayList<Movimiento>();
-        cuentas = new ArrayList<Cuenta>();
+        movimientos = new ArrayList<>();
+        transferencia = new ArrayList<>();
+        cuentas = new ArrayList<>();
     }
 
     public Cliente getCurrent() {
@@ -43,7 +54,7 @@ public class Model {
     }
 
     public void setMovimientos(List<Movimiento> Movimiento) {
-        this.movimientos = movimientos;
+        this.movimientos = Movimiento;
     }
 
     public List<Movimiento> getMovimientos() {
@@ -58,16 +69,14 @@ public class Model {
         this.seleccionado = seleccionado;
     }
 
-    
-       public void setCuentas(List<Cuenta> cuentas){
-        this.cuentas =cuentas;    
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
     }
 
-     public List<Cuenta> getCuentas() {
+    public List<Cuenta> getCuentas() {
         return cuentas;
-    } 
-    
-    
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;

@@ -26,7 +26,7 @@
 
         <!-- SECCION DE CUERPO
                 ============================================ -->
-        <%@ include file="/presentation/cliente/Movimientos/Cuerpo.jsp" %>
+        <%@ include file="/presentation/cliente/movimientos/Cuerpo.jsp" %>
 
         <br> <div class="cuerpo-caja pie">
             <h2>Banco Central</h2>

@@ -4,6 +4,7 @@
     Author     : Oscar
 --%>
 
+<%@page import="banco.logica.Transferencia"%>
 <%@page import="banco.logica.Movimiento"%>
 <link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/movimientos.css">
 
@@ -14,8 +15,7 @@
 <%
     banco.presentacion.cliente.movimientos.Model model = (Model) request.getAttribute("model");
     List<Movimiento> movimientos = model.getMovimientos();
-    //Cliente cliente = (Cliente) session.getAttribute("cliente");
-
+    List<Transferencia> transferencia = model.getTransferencia();
 %>
 
 <div class="limiter"> 
@@ -27,34 +27,62 @@
                 <table data-vertable="ver1">
                     <thead>
                         <tr class="row100 head">
-                                <th class="column100 column1" data-column="column1">Id movimiento </th>
-                                <th class="column100 column2" data-column="column2">Monto</th>
-                                <th class="column100 column3" data-column="column3">Fecha</th>
-                                <th class="column100 column4" data-column="column4">Aplicado</th>
-                                <th class="column100 column5" data-column="column5">Numero de cuenta</th>
+                            <th class="column100 column1" data-column="column1">Id movimiento </th>
+                            <th class="column100 column2" data-column="column2">Monto</th>
+                            <th class="column100 column3" data-column="column3">Fecha</th>
+                            <th class="column100 column4" data-column="column4">Aplicado</th>
+                            <th class="column100 column5" data-column="column5">Numero de cuenta</th>
+                            <th class="column100 column5" data-column="column5">Numero de cuenta Destino</th>
+
 
                         </tr>
                     </thead>
                     <tbody>
-                            <% for (Movimiento m : movimientos) {%>
-                            <tr  class="row100">
-                                <td class="column100 column1" data-column="column1"><%=m.getId_movimiento()%> </td> 
-                                <td class="column100 column1" data-column="column2"><%=m.getMonto()%></td>
-                                <td class="column100 column1" data-column="column3"><%=m.getFecha()%></td>
-                                <td class="column100 column1" data-column="column4"><%=m.getAplicado()%></td>
-                                <td class="column100 column1" data-column="column5"><%=m.getCuenta().getNumCuenta()%></td>
+                        <% for (Movimiento m : movimientos) {%>
+                        <tr  class="row100">
+                            <td class="column100 column1" data-column="column1"><%=m.getId_movimiento()%> </td> 
+                            <td class="column100 column1" data-column="column2"><%=m.getMonto()%></td>
+                            <td class="column100 column1" data-column="column3"><%=m.getFecha()%></td>
+                            <td class="column100 column1" data-column="column4"><%=m.getAplicado()%></td>
+                            <td class="column100 column1" data-column="column5"><%=m.getCuenta().getNumCuenta()%></td>
+                            <td class="column100 column1" data-column="column5"><%=m.getCuenta().getNumCuenta()%></td>
+
                         </tr>
                         <%}%>
                     </tbody>
                 </table>
+                <center> <h2> Transferencias </h2></center>               
+                <table data-vertable="ver1">
+                    <thead>
+                        <tr class="row100 head">
+                            <th class="column100 column1" data-column="column1">Id movimiento </th>
+                            <th class="column100 column2" data-column="column2">Monto</th>
+                            <th class="column100 column3" data-column="column3">Fecha</th>
+                            <th class="column100 column4" data-column="column4">Aplicado</th>
+                            <th class="column100 column5" data-column="column5">Numero de cuenta</th>
+                            <th class="column100 column5" data-column="column5">Numero de cuenta Destino</th>
 
-                    <br><br><br><br><br><br><br><br>
-                    
-                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (Transferencia t : transferencia) {%>
+                        <tr  class="row100">
+                            <td class="column100 column1" data-column="column1"><%=t.getId_transferencia()%> </td> 
+                            <td class="column100 column1" data-column="column2"><%=t.getMonto()%></td>
+                            <td class="column100 column1" data-column="column3"><%=t.getFecha()%></td>
+                            <td class="column100 column1" data-column="column4"><%=t.getAplicado()%></td>
+                            <td class="column100 column1" data-column="column5"><%=t.getCuenta().getNumCuenta()%></td>
+                            <td class="column100 column1" data-column="column5"><%=t.getCuenta_Destino().getNumCuenta()%></td>
+                        </tr>
+                        <%}%>
+                    </tbody>
+                </table>
+                <br><br><br><br><br><br><br><br>
+
+
             </div>
         </div>
     </div>
 
-    
-               
-          
+
+

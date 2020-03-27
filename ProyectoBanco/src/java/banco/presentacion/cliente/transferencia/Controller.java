@@ -8,6 +8,7 @@ package banco.presentacion.cliente.transferencia;
 import banco.logica.Cliente;
 import banco.logica.Cuenta;
 import banco.logica.Transferencia;
+import banco.logica.Usuario;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Objects;
@@ -86,9 +87,13 @@ public class Controller extends HttpServlet {
         Model model = (Model) request.getAttribute("model");
 
         HttpSession session = request.getSession(true);
-        Cliente cliente = (Cliente) session.getAttribute("cliente");
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+       
 
         try {
+             Cliente cliente = banco.data.ClienteDao.find(usuario.getIdUsuario());
+             session.setAttribute("cliente", cliente);
+             
             String numCuentaO = (String) request.getParameter("cuentaOrigen");
             String numCuentaD = (String) request.getParameter("cuentaDestino");
             String monto = (String) request.getParameter("monto");
