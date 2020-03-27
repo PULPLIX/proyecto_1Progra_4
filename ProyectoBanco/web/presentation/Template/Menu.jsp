@@ -16,21 +16,22 @@
             <div class="subMenu">
                 <form>
                     <a  href="/ProyectoBanco/presentation/login/transferencia" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/transferencia.png"  id="subIcon"> Transferencias</a>
-                </form>
+               </form>
+
 
                 <a href="/ProyectoBanco/presentation/login/movimientos" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Mis movimientos</a>
                 <a href="" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/money.png"  id="subIcon"> Mi saldo</a>
+
+                    <a href="/ProyectoBanco/presentation/login/movimientos" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Mis movimientos</a>
+                    <a href="" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/money.png"  id="subIcon"> Mi saldo</a>
 
             </div>
         </li>
         <li class="item" id="about">
             <a href="#about" class="btn" ><i class="fas fa-address-card" ></i><img src="/ProyectoBanco/images/menuIcon/infoPersonal.png"  width="25" height="25" id="icon"> <div id="textoIni">Información Personal</div></a>
             <div class="subMenu">
-                <form>
-                    <a href="/ProyectoBanco/presentation/cliente/datos/show" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/misCuentas.png"  width="30" height="30" id="subIcon"> Mis cuentas</a>
-                    <a href="/ProyectoBanco/presentation/cliente/cuentasFav" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/fav2.png"  width="30" height="30" id="subIcon"> Mi cuentas favoritas</a>
-                    <a href="/ProyectoBanco/presentation/login/infoPersonal" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/perfil.png"  width="30" height="30" id="subIcon"> Mi perfil</a>
-                </form>
+                <a href="" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/misCuentas.png"  width="30" height="30" id="subIcon"> Mis cuentas</a>
+                <a href="/ProyectoBanco/presentation/login/infoPersonal" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/perfil.png"  width="30" height="30" id="subIcon"> Mi perfil</a>
             </div>
         </li>
         <li class="item" id="support">
@@ -40,7 +41,7 @@
             </div>
         </li>
         <li class="item">
-            <a href="/ProyectoBanco/login/logout" class="btn"><i class="fas fa-sign-out-alt"></i><img src="/ProyectoBanco/images/menuIcon/salir.png"  width="30" height="30" id="icon" > Cerrar Sesión</a>
+            <a href="#" class="btn"><i class="fas fa-sign-out-alt"></i><img src="/ProyectoBanco/images/menuIcon/salir.png"  width="30" height="30" id="icon" > Cerrar Sesión</a>
         </li>
     </ul>
 </div>
