@@ -24,7 +24,8 @@ public class Model{
     }
 
     public void reset(){ 
-        List<Cuenta> rows = new ArrayList<>();        
+        List<Cuenta> rows = new ArrayList<>();    
+        
         seleccionado=null;  
         current = null;
         this.setCuentas(rows);

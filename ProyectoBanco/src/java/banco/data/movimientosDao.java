@@ -40,7 +40,7 @@ public class movimientosDao {
         } catch (SQLException ex) {
             System.out.println(ex);
             return false;
-        }
+        } 
     }
 
     

@@ -242,6 +242,49 @@ public class CuentaDao {
         }
     }
 
+    public static Cuenta getCuentaUnica(String idCuenta) throws Exception {
+        String SQL = "select * from cuenta c "
+                + "inner join moneda m on c.moneda_nombre = m.nombre "
+                + "inner join cliente cli on c.cliente_id_cliente = cli.usuario_id_usuario "
+                + "inner join usuario u on cli.usuario_id_usuario = u.id_usuario "
+                + "inner join tipo_cuenta tp on c.idTipoCuenta = tp.id_tipo_cuenta "
+                + "where num_cuenta=?;";
+
+        try {
+            Cuenta cuenta =null;
+
+            PreparedStatement st;
+            ResultSet resultado;
+            try (Connection con = Coneccion.conectar()) {
+                st = con.prepareStatement(SQL);
+                st.setInt(1, Integer.parseInt(idCuenta));
+
+                resultado = st.executeQuery();
+                while (resultado.next()) {
+                    cuenta = new Cuenta();
+                    cuenta.setNumCuenta(resultado.getInt("num_cuenta"));
+                    cuenta.setFechaCreacion(resultado.getDate("fecha_creacion"));
+                    cuenta.setLimiteTransferenciaDiaria(resultado.getDouble("limite_transferencia_diaria"));
+                    cuenta.setActiva(resultado.getShort("activa"));
+                    cuenta.setSaldoInicial(resultado.getDouble("saldo_inicial"));
+                    cuenta.setFechaUltimaAplicacion(resultado.getDate("fecha_ultima_aplicacion"));
+                    cuenta.setSaldoFinal(resultado.getFloat("saldo_final"));
+                    cuenta.setMonedaNombre(creaMoneda(resultado));
+                    cuenta.setClienteIdCliente(creaCliente(resultado));
+                    cuenta.setIdTipoCuenta(creaIdTipoCuenta(resultado));
+                    llenarMovimientosCuenta(cuenta);
+                    llenarTransferencias(cuenta);
+                }
+            }
+            st.close();
+            resultado.close();
+            return cuenta;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
     public static ArrayList<Cuenta> getCuenta(String idUsuario, String idCuenta) throws Exception {
         String SQL = "select * from cuenta c "
                 + "inner join moneda m on c.moneda_nombre = m.nombre "
@@ -355,12 +398,12 @@ public class CuentaDao {
         try {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
-            
+
             st.setString(1, String.valueOf(cuenta.getSaldoFinal()));
             st.setString(2, String.valueOf(cuenta.getLimiteTransferenciaDiaria()));
             st.setInt(3, cuenta.getNumCuenta());
             st.executeUpdate();
-            
+
         } catch (Exception ex) {
             Logger.getLogger(CuentaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
