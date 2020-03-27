@@ -6,7 +6,6 @@
 package banco.data;
 
 import banco.logica.Cliente;
-import banco.logica.Cuenta;
 import banco.logica.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,18 +27,20 @@ public class Oscar {
     public static void main(String[] args) throws SQLException {
 
         try {
-
-            //Cuenta.movimientoCollection = new ArrayList<>();
-            //Cuenta.getMovimientoCollection();
-            // Cliente cliente = ClienteDao.find("111");
-            //System.out.print(cliente.getFavoritasCollection().toString());
+            
+            Cliente cliente = ClienteDao.find("111");
+            
+            
+            System.out.print(cliente.getFavoritasCollection().toString());
+            
+                    
 //           ArrayList<Cliente> list = ClienteDao.listar();
+           
 //           System.out.print(list.get(0).getApellidos());
 //           System.out.print(list.get(0).getNombre());
 //           System.out.print(list.get(0).getUsuarioIdUsuario().getIdUsuario());
 //           System.out.print(list.get(0).getTelefono());
             //FavoritaDao.agregarFavorita(3, 7);
-            
         } catch (Exception ex) {
             System.out.println(ex);
         }
