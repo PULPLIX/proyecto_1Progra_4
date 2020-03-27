@@ -19,7 +19,7 @@
 
         <!-- SECCION DE MENU
                ============================================ -->
-        <%@ include file="/presentation/Template/Menu.jsp" %>
+        <%@ include file="/presentation/Template/MenuCajero.jsp" %>
 
         <br><br>
         <br><br>

@@ -19,8 +19,6 @@
                </form>
 
                     <a href="/ProyectoBanco/presentation/login/movimientos/show" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Mis movimientos</a>
-                    <a href="" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/money.png"  id="subIcon"> Mi saldo</a>
-
             </div>
         </li>
         <li class="item" id="about">
