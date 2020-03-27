@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banco.presentacion.cliente.cuentas;
+package banco.presentacion.cliente.movimientos;
 
+import banco.data.ClienteDao;
 import banco.logica.Cliente;
 import banco.logica.Usuario;
 import java.io.IOException;
@@ -17,77 +18,61 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ESCINF
+ * @author Oscar
  */
-@WebServlet(name = "controllerCuentasShow", urlPatterns = {"/presentation/cliente/datos/show", "/presentation/login/transferencia", "/presentation/login/infoPersonal", "/presentation/login/movimientos"})
+@WebServlet(name = "controllerMovimientos", urlPatterns = {"/presentation/login/movimientos/show", "/movimientos/actualizar"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-
-        request.setAttribute("model", new Model());
+        request.setAttribute("model", new banco.presentacion.cliente.movimientos.Model());
 
         String viewUrl = "";
         switch (request.getServletPath()) {
-            case "/presentation/cliente/datos/show":
+            case "/presentation/login/movimientos/show":
                 viewUrl = this.show(request);
                 break;
-            case "/presentation/login/transferencia":
-                viewUrl = this.transferencia(request);
-                break;
-            case "/presentation/login/infoPersonal":
-                viewUrl = this.infoPersonal(request);
-                break;
-            case "/presentation/login/movimientos":
-                viewUrl = this.movimientos(request);
-                break;
+
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
-    }
-
-    public String transferencia(HttpServletRequest request) {
-
-        return "/presentation/login/transferencia/show";
     }
 
     public String show(HttpServletRequest request) {
         return this.showAction(request);
     }
 
-    public String infoPersonal(HttpServletRequest request) {
-
-        return "/presentation/login/infoPersonal/show";
-    }
-
-    public String movimientos(HttpServletRequest request) {
-
-        return "/presentation/login/movimientos/show";
-    }
-
     public String showAction(HttpServletRequest request) {
-        Model model = (Model) request.getAttribute("model");
+        banco.presentacion.cliente.movimientos.Model model = (banco.presentacion.cliente.movimientos.Model) request.getAttribute("model");
 
         HttpSession session = request.getSession(true);
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Cliente cliente = null;
+        Cliente cliente = (Cliente) session.getAttribute("cliente");
+
+
         try {
-            cliente = banco.data.ClienteDao.find(usuario.getIdUsuario());
+            cliente = banco.data.ClienteDao.find(cliente.getUsuarioIdUsuario().getIdUsuario());
             model.setCurrent(cliente);
 
             request.setAttribute("clienteNombre", cliente.getNombre());
             request.setAttribute("clienteApellidos", cliente.getApellidos());
-
-        } catch (Exception ex) {
-            System.out.println(ex);
-            cliente = null;
-        }
-        try {
+            
             model.setCuentas(banco.data.CuentaDao.getCuentasCliente(cliente.getUsuarioIdUsuario().getIdUsuario()));
+            
+            for (int i = 0; i < model.getCuentas().size(); i++) {
+                for (int j = 0; j < model.getCuentas().get(i).getMovimientoCollection().size(); j++) {
+                    model.getMovimientos().add(model.getCuentas().get(i).getMovimientoCollection().get(j));
+                }
+            }
+            for (int i = 0; i < model.getCuentas().size(); i++) {
+                for (int j = 0; j < model.getCuentas().get(i).getTransferenciaCollection().size(); j++) {
+                    model.getTransferencia().add(model.getCuentas().get(i).getTransferenciaCollection().get(j));
+                }
+            }
             request.setAttribute("model", model);
             session.setAttribute("cliente", cliente);
-            return "/presentation/cliente/datos/View.jsp";
+            return "/presentation/cliente/movimientos/View.jsp";
         } catch (Exception ex) {
             return "";
         }
@@ -129,7 +114,7 @@ public class Controller extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Controlador de la pagina principal del cliente";
+        return "Short description";
     }// </editor-fold>
 
 }

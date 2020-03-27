@@ -251,7 +251,7 @@ public class CuentaDao {
                 + "where num_cuenta=?;";
 
         try {
-            Cuenta cuenta =null;
+            Cuenta cuenta = null;
 
             PreparedStatement st;
             ResultSet resultado;
@@ -364,7 +364,7 @@ public class CuentaDao {
     }
 
     public static void llenarTransferencias(Cuenta cuenta) {
-        String SQL = "select * from transferencia inner where cuenta_origen=?;";
+        String SQL = "select * from transferencia where cuenta_destino=?";
 
         try {
             Connection con = Coneccion.conectar();
@@ -375,13 +375,15 @@ public class CuentaDao {
 
             Transferencia t;
             while (resultado.next()) {
+                Cuenta cuentaDest = new Cuenta();
                 t = new Transferencia();
                 t.setId_transferencia(resultado.getInt("id_transferencia"));
                 t.setMonto(resultado.getString("monto"));
                 t.setFecha(resultado.getDate("fecha"));
                 t.setAplicado(resultado.getShort("aplicado"));
                 t.setCuenta(cuenta);
-                t.setCuenta_Destino(getCuenta(resultado.getInt("cuenta_destino")));
+                cuentaDest.setNumCuenta(resultado.getInt("cuenta_destino"));
+                t.setCuenta_Destino(cuentaDest);
                 cuenta.getTransferenciaCollection().add(t);
             }
             con.close();

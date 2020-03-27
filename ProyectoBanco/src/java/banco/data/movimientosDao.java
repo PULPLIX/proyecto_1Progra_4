@@ -5,6 +5,12 @@
  */
 package banco.data;
 
+import static banco.data.CuentaDao.creaCliente;
+import static banco.data.CuentaDao.creaIdTipoCuenta;
+import static banco.data.CuentaDao.creaMoneda;
+import static banco.data.CuentaDao.llenarMovimientosCuenta;
+import static banco.data.CuentaDao.llenarTransferencias;
+import banco.logica.Cuenta;
 import banco.logica.TipoCuenta;
 import banco.logica.Transferencia;
 import java.sql.Connection;
@@ -37,6 +43,57 @@ public class movimientosDao {
         } 
     }
 
+    
+    
+//    public static ArrayList<Cuenta> getMovimientos(String id) throws Exception {
+//        String SQL = "select * from cuenta c "
+//                + "inner join moneda m on c.moneda_nombre = m.nombre "
+//                + "inner join cliente cli on c.cliente_id_cliente = cli.usuario_id_usuario "
+//                + "inner join usuario u on cli.usuario_id_usuario = u.id_usuario "
+//                + "inner join tipo_cuenta tp on c.idTipoCuenta = tp.id_tipo_cuenta "
+//                + "where cliente_id_cliente=?;";
+//
+//        try {
+//            Connection con = Coneccion.conectar();
+//            PreparedStatement st = con.prepareStatement(SQL);
+//            st.setString(1, id);
+//
+//            ResultSet resultado = st.executeQuery();
+//
+//            ArrayList<Cuenta> lista = new ArrayList<>();
+//            Cuenta cuenta;
+//
+//            while (resultado.next()) {
+//                cuenta = new Cuenta();
+//                cuenta.setNumCuenta(resultado.getInt("num_cuenta"));
+//                cuenta.setFechaCreacion(resultado.getDate("fecha_creacion"));
+//                cuenta.setLimiteTransferenciaDiaria(resultado.getDouble("limite_transferencia_diaria"));
+//                cuenta.setActiva(resultado.getShort("activa"));
+//                cuenta.setSaldoInicial(resultado.getDouble("saldo_inicial"));
+//                cuenta.setFechaUltimaAplicacion(resultado.getDate("fecha_ultima_aplicacion"));
+//                cuenta.setSaldoFinal(resultado.getFloat("saldo_final"));
+//                cuenta.setMonedaNombre(creaMoneda(resultado));
+//                cuenta.setClienteIdCliente(creaCliente(resultado));
+//                cuenta.setIdTipoCuenta(creaIdTipoCuenta(resultado));
+//                llenarMovimientosCuenta(cuenta);
+//                llenarTransferencias(cuenta);
+//
+//                lista.add(cuenta);
+//            }
+//            con.close();
+//            st.close();
+//            resultado.close();
+//            return lista;
+//
+//        } catch (Exception ex) {
+//            System.out.println(ex);
+//            return null;
+//        }
+//    }
+    
+    
+    
+    
 //    public static Transferencia find(Integer id_tipo_cuenta) throws Exception {
 //        String SQL = "select * from tipo_cuenta where id_tipo_cuenta=?;";
 //        TipoCuenta tipoCuenta = new TipoCuenta();
