@@ -106,7 +106,6 @@ public class Cuenta implements Serializable {
         this.movimientoCollection = new ArrayList<>();
         this.clienteCollection = new ArrayList<>();
         this.transferenciaCollection = new ArrayList<>();
-
     }
 
     public Cuenta(Integer numCuenta) {

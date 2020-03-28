@@ -80,16 +80,21 @@ public class Cliente implements Serializable {
         this.apellidos = "";
         this.nombre = "";
         this.favoritasCollection = new ArrayList<>();
+        cuentaCollection1 = new ArrayList<>();
+
     }
 
     public Cliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 
-    public Cliente(Integer idCliente, String apellidos, String nombre) {
+    public Cliente(Integer idCliente, String apellidos, String nombre, String telefono) {
         this.idCliente = idCliente;
         this.apellidos = apellidos;
         this.nombre = nombre;
+        this.telefono = telefono;
+        this.favoritasCollection = new ArrayList<>();
+        this.cuentaCollection1 = new ArrayList<>();
     }
 
     @XmlTransient

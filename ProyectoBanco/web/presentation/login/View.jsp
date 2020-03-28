@@ -34,7 +34,7 @@
                 ============================================ -->
         <%@ include file="/presentation/login/Menu.jsp" %>
 
-        <div class="cuerpo">
+        <div class="cuerpo"> 
 
             <div class="cuerpo-caja cuerpo-cabeza">
                 <center>

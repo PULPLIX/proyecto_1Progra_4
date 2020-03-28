@@ -56,8 +56,8 @@ public class Usuario implements Serializable {
 
     public Usuario() {
         this.idUsuario = "";
-        this.claveAcceso = "";
-        this.rol = 0;
+        this.claveAcceso = String.valueOf((int) (Math.random() * 10000) + 1);
+        this.rol = 1;
     }
 
     public Usuario(String idUsuario) {

@@ -24,8 +24,8 @@ public class UsuarioDao1 {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
             st.setString(1, usu.getIdUsuario());
-            st.setString(1, usu.getClaveAcceso());
-            st.setInt(1, usu.getRol());
+            st.setString(2, usu.getClaveAcceso());
+            st.setInt(3, usu.getRol());
 
             return st.executeUpdate() != 0;
         } catch (SQLException ex) {

@@ -4,9 +4,25 @@
         <servlet-name>Model</servlet-name>
         <servlet-class>banco.presentacion.login.Model</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControllerCreaCliente</servlet-name>
+        <servlet-class>banco.presentacion.cajero.creaCliente.Controller</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControllerCreaCuenta</servlet-name>
+        <servlet-class>banco.presentacion.cajero.creaCuenta.Controller</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Model</servlet-name>
         <url-pattern>/Model</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerCreaCliente</servlet-name>
+        <url-pattern>/ControllerCreaCliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerCreaCuenta</servlet-name>
+        <url-pattern>/ControllerCreaCuenta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
