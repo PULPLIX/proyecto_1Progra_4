@@ -13,22 +13,19 @@
         <title>Error!</title>
     </head>
     <body>
-    <center>
 
-        <div class="container-all-Error" >
-            <div class="content">
-                <h1 id="Titulo">El usuario Ingresado No existe!</h1>
-                <div class="inputs">
-                    <form name="confirm" method="post">
-                        <p>Desea Crear un usuario Nuevo o devolverse a Registro Cuenta?</p><br><br><br><br>
-                        <a href="/ProyectoBanco/presentation/login/crearCliente" class="btn-confirm">Crear Cliente</a>
-                        <a href="/ProyectoBanco/presentation/cajero/crearCuenta" class="btn-confirm">Devolverse</a>
-                    </form>
+            <div class="container-all-Error" >
+                <div class="content">
+                    <h1 id="Titulo"  style="font-size: 100px;">ERROR! </h1>
+                        <form name="confirm" method="post">
+                             <img src="/ProyectoBanco/images/is-invalid.png"><p style="font-size: 30px;  margin-top: 10px; margin-bottom: 40px;">El número de cédula ingresado no existe.<br><br>¿Desea Crear un usuario Nuevo o <br>devolverse a <i>"Registro Cuenta"</i>?</p><br><br><br><br>
+                            <a href="/ProyectoBanco/presentation/login/crearCliente" class="btn-confirm">Crear Cliente</a>
+                            <a href="/ProyectoBanco/presentation/cajero/crearCuenta" class="btn-confirm">Devolverse</a>
+                        
+                        </form>
                 </div>
             </div>
-        </div>
-    </center>
 
-</body>
+    </body>
 
 </html>

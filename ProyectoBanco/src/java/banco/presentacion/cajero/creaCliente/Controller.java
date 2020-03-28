@@ -52,6 +52,13 @@ public class Controller extends HttpServlet {
     }
 
     public String registrar(HttpServletRequest request) {
+        if(!validar(request)){
+        return registrarAction(request);
+        }
+        return "/presentation/login/crearCliente";
+    }
+
+    public String registrarAction(HttpServletRequest request) {
         Usuario usuario = new Usuario();
         usuario.setIdUsuario((String) request.getParameter("usuario"));
         Cliente cliente = new Cliente();
@@ -73,6 +80,32 @@ public class Controller extends HttpServlet {
     public String show(HttpServletRequest request) {
 
         return "/presentation/cajero/crearCliente/View.jsp";
+    }
+
+    public boolean validar(HttpServletRequest request) {
+        boolean error = false;
+
+        if (request.getParameter("usuario").isEmpty()) {
+            request.setAttribute("errorUsuario", "errorTxt");
+            error = true;
+        }
+        if (request.getParameter("nombre").isEmpty()) {
+            request.setAttribute("errorNombre", "errorTxt");
+            error = true;
+        }
+        if (request.getParameter("apellidos").isEmpty()) {
+            request.setAttribute("errorApellidos", "errorTxt");
+            error = true;
+        }
+        if (request.getParameter("id").isEmpty()) {
+            request.setAttribute("errorCedula", "errorTxt");
+            error = true;
+        }
+        if (request.getParameter("telefono").isEmpty()) {
+            request.setAttribute("errorTelefono", "errorTxt");
+            error = true;
+        }
+        return error;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

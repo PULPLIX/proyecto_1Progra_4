@@ -56,32 +56,62 @@ public class Controller extends HttpServlet {
     }
 
     public String registrar(HttpServletRequest request) {
+        if (!this.validar(request)) {
+            return registrarAction(request);
+        } else {
+            return this.show(request);
+        }
+    }
+
+    public String registrarAction(HttpServletRequest request) {
 
         Cliente cliente = new Cliente();
-        
+
         try {
             cliente = banco.data.ClienteDao.buscarPorCliente(Integer.parseInt(request.getParameter("usuario")));
-        if(cliente ==null){
-           return "/presentation/cajero/crearCuenta/solicitudUsuario.jsp";
-        }else{
-            Moneda moneda = banco.data.MonedaDao.find(Integer.parseInt(request.getParameter("moneda")));
-            TipoCuenta tipoCuenta = banco.data.TipoCuentaDao.find(Integer.parseInt(request.getParameter("tipoCuenta")));
-            Cuenta cuenta = new Cuenta();
-            Calendar calendar = java.util.Calendar.getInstance();
-            cuenta.setFechaCreacion(calendar.getTime());
-            cuenta.setLimiteTransferenciaDiaria(Double.parseDouble(request.getParameter("limiteTran")));
-            cuenta.setFechaUltimaAplicacion(calendar.getTime());
-            cuenta.setMonedaNombre(moneda);
-            cuenta.setIdTipoCuenta(tipoCuenta);
-            cuenta.setClienteIdCliente(cliente);
-            if(banco.data.CuentaDao.registrar(cuenta)){
-            return "/presentation/cajero/crearCuenta/View.jsp";
+            if (cliente == null) {
+                return "/presentation/cajero/crearCuenta/solicitudUsuario.jsp";
+            } else {
+                Moneda moneda = banco.data.MonedaDao.find(Integer.parseInt(request.getParameter("moneda")));
+                TipoCuenta tipoCuenta = banco.data.TipoCuentaDao.find(Integer.parseInt(request.getParameter("tipoCuenta")));
+                Cuenta cuenta = new Cuenta();
+                Calendar calendar = java.util.Calendar.getInstance();
+                cuenta.setFechaCreacion(calendar.getTime());
+                cuenta.setLimiteTransferenciaDiaria(Double.parseDouble(request.getParameter("limiteTran")));
+                cuenta.setFechaUltimaAplicacion(calendar.getTime());
+                cuenta.setMonedaNombre(moneda);
+                cuenta.setIdTipoCuenta(tipoCuenta);
+                cuenta.setClienteIdCliente(cliente);
+                if (banco.data.CuentaDao.registrar(cuenta)) {
+                    return "/presentation/cajero/crearCuenta/View.jsp";
+                }
             }
-        }
         } catch (Exception ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "/presentation/cajero/crearCuenta/solicitudUsuario.jsp";
+    }
+
+    public boolean validar(HttpServletRequest request) {
+        boolean error = false;
+        if ("0".equals((String)request.getParameter("moneda"))) {
+            request.setAttribute("errorMoneda", "errorSelect");
+            error = true;
+        }
+        if ("0".equals((String)request.getParameter("tipoCuenta"))) {
+            request.setAttribute("errorCuenta", "errorSelect");
+            error = true;
+        }
+        if (request.getParameter("limiteTran").isEmpty()) {
+            request.setAttribute("errorLimite", "errorTxt");
+            error = true;
+        }
+        if (request.getParameter("usuario").isEmpty()) {
+            request.setAttribute("errorCliente", "errorTxt");
+            error = true;
+        }
+
+        return error;
     }
 
     public String show(HttpServletRequest request) {

@@ -18,34 +18,38 @@
 %>
 
 
-<div class="limiter"> 
+<div class="conteiner-cliente"> 
 
-    <div class="container-table100">
-        <div class="wrap-table100">
-            <div class="table100 ver1 m-b-110">
-                <center><h1> Registro de Cliente </h1>
-                    <form action="/ProyectoBanco/registrar/cliente">
-                        <label>usuario:</label><input type="text" name="usuario" value="" placeholder="usuario" id="inputTextR" /><br>
-                        <label>nombre:</label><input type="text" name="nombre" value="" placeholder="Nombre" id="inputTextR" /><br>
-                        <label>apellidos:</label><input type="text" name="apellidos" value="" placeholder="Apellidos" id="inputTextR" /><br>
-                        <label>Cédula:</label><input type="text" name="id" value="" placeholder="Cedula" id="inputTextR" /><br>
-                        <label>Teléfono</label><input type="text" name="telefono" value="" placeholder="Telefono" id="inputTextR" /> <br>                   
-                        <input type="submit" value="Registrar" class="btn-confirm"/><br>
-                    </form>
-                </center>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-
-
-            </div>
-        </div>
-    </div>
-
+    <center><h1> Registro de Cliente </h1>
+        <form action="/ProyectoBanco/registrar/cliente">
+            <label>usuario:</label><input type="text" name="usuario" value="" placeholder="usuario" id="inputTextR"  
+                                          class="<%if (request.getAttribute("errorUsuario") != null) {
+                                                  out.print((String) request.getAttribute("errorUsuario"));
+                                              }%>"/><br>
+            <label>nombre:</label><input type="text" name="nombre" value="" placeholder="Nombre" id="inputTextR"  
+                                         class="<%if (request.getAttribute("errorNombre") != null) {
+                                                 out.print((String) request.getAttribute("errorNombre"));
+                                             }%>"/><br>
+            <label>apellidos:</label><input type="text" name="apellidos" value="" placeholder="Apellidos" id="inputTextR"  
+                                            class="<%if (request.getAttribute("errorApellidos") != null) {
+                                                    out.print((String) request.getAttribute("errorApellidos"));
+                                                }%>"/><br>
+            <label>Cédula:</label><input type="text" name="id" value="" placeholder="Cedula" id="inputTextR"  
+                                         class="<%if (request.getAttribute("errorCedula") != null) {
+                                                 out.print((String) request.getAttribute("errorCedula"));
+                                             }%>"/><br>
+            <label>Teléfono</label><input type="text" name="telefono" value="" placeholder="Telefono" id="inputTextR"  
+                                          class="<%if (request.getAttribute("errorTelefono") != null) {
+                                                  out.print((String) request.getAttribute("errorTelefono"));
+                                              }%>"/> <br>                   
+            <input type="submit" value="Registrar" class="btn-confirm"/><br>
+        </form>
+    </center>
     <br><br>
-
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
 </div>  
