@@ -83,7 +83,7 @@ public class MonedaDao {
             PreparedStatement st = con.prepareStatement(SQL);
             ResultSet resultado = st.executeQuery();
 
-            ArrayList<Moneda> lista = new ArrayList<Moneda>();
+            ArrayList<Moneda> lista = new ArrayList<>();
             Moneda moneda;
 
             while (resultado.next()) {

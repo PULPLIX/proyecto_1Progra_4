@@ -44,17 +44,16 @@ public class CuentaDao {
             PreparedStatement st = con.prepareStatement(SQL);
             //Se sustituyen los valores que existían en el String.
 
-            st.setInt(1, cuenta.getNumCuenta());
-            st.setDate(2, new java.sql.Date(cuenta.getFechaCreacion().getDate()));
-            st.setDouble(3, cuenta.getLimiteTransferenciaDiaria());
-            st.setInt(4, cuenta.getActiva());
-            st.setDouble(5, cuenta.getSaldoInicial());
-            st.setDate(6, new java.sql.Date(cuenta.getFechaUltimaAplicacion().getDate()));
-            st.setDouble(7, cuenta.getSaldoFinal());
+            st.setDate(1, new java.sql.Date(cuenta.getFechaCreacion().getDate()));
+            st.setDouble(2, cuenta.getLimiteTransferenciaDiaria());
+            st.setInt(3, cuenta.getActiva());
+            st.setDouble(4, cuenta.getSaldoInicial());
+            st.setDate(5, new java.sql.Date(cuenta.getFechaUltimaAplicacion().getDate()));
+            st.setDouble(6, cuenta.getSaldoFinal());
 //Atributos de objetos
-            st.setDouble(8, cuenta.getMonedaNombre().getNombre());
-            st.setInt(9, cuenta.getClienteIdCliente().getIdCliente());
-            st.setInt(10, cuenta.getIdTipoCuenta().getIdTipoCuenta());
+            st.setInt(7, cuenta.getMonedaNombre().getNombre());
+            st.setString(8, cuenta.getClienteIdCliente().getUsuarioIdUsuario().getIdUsuario());
+            st.setInt(9, cuenta.getIdTipoCuenta().getIdTipoCuenta());
 
             return st.executeUpdate() != 0;
         } catch (Exception ex) {

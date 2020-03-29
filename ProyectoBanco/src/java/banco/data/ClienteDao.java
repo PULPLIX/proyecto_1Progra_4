@@ -21,7 +21,8 @@ import java.util.ArrayList;
 public class ClienteDao {
 
     public static boolean registrar(Cliente cli) throws Exception {
-        String SQL = "insert into cliente values (?,?,?,?,?);";
+        String SQL = "insert into cliente (id_cliente,usuario_id_usuario,apellidos,nombre,telefono) "
+                + " values (?,?,?,?,?);";
         try {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
@@ -78,8 +79,7 @@ public class ClienteDao {
         }
 
     }
-
-    public static Cliente find(String id) throws Exception {
+public static Cliente find(String id) throws Exception {
         String SQL = "select*from cliente inner join usuario on usuario_id_usuario = id_usuario where usuario_id_usuario =?";
         Cliente cli = null;
         ArrayList<Cuenta> fav = new ArrayList<Cuenta>();
@@ -122,6 +122,40 @@ public class ClienteDao {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
             st.setInt(1, id);
+            ResultSet resultado = st.executeQuery();
+
+            while (resultado.next()) {
+                cli = new Cliente();
+                cli.setIdCliente(resultado.getInt("id_cliente"));
+                cli.setUsuarioIdUsuario(creaUsuario(resultado));
+                cli.setApellidos(resultado.getString("apellidos"));
+                cli.setNombre(resultado.getString("nombre"));
+                cli.setTelefono(resultado.getString("telefono"));
+                llenarFavoritas(cli);
+
+            }
+
+            con.close();
+            st.close();
+            resultado.close();
+
+            return cli;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return cli;
+        }
+    }
+
+    public static Cliente buscarPorCliente(int idCliente) throws Exception {
+        String SQL = "select*from cliente inner join usuario on usuario_id_usuario = id_usuario where id_cliente =?";
+        Cliente cli = null;
+        ArrayList<Cuenta> fav = new ArrayList<Cuenta>();
+
+        try {
+            Connection con = Coneccion.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            st.setInt(1, idCliente);
             ResultSet resultado = st.executeQuery();
 
             while (resultado.next()) {
