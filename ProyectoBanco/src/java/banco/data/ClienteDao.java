@@ -112,6 +112,40 @@ public class ClienteDao {
             return cli;
         }
     }
+    
+        public static Cliente findID(Integer id) throws Exception {
+        String SQL = "select*from cliente inner join usuario on usuario_id_usuario = id_usuario where id_cliente =?";
+        Cliente cli = null;
+        ArrayList<Cuenta> fav = new ArrayList<Cuenta>();
+
+        try {
+            Connection con = Coneccion.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            st.setInt(1, id);
+            ResultSet resultado = st.executeQuery();
+
+            while (resultado.next()) {
+                cli = new Cliente();
+                cli.setIdCliente(resultado.getInt("id_cliente"));
+                cli.setUsuarioIdUsuario(creaUsuario(resultado));
+                cli.setApellidos(resultado.getString("apellidos"));
+                cli.setNombre(resultado.getString("nombre"));
+                cli.setTelefono(resultado.getString("telefono"));
+                llenarFavoritas(cli);
+
+            }
+
+            con.close();
+            st.close();
+            resultado.close();
+
+            return cli;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return cli;
+        }
+    }
 
     public static void llenarFavoritas(Cliente cliente) {
         String SQL = "select * from favorita where cliente_id=?;";

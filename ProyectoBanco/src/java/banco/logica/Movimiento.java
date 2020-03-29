@@ -58,21 +58,25 @@ public class Movimiento implements Serializable {
     @ManyToOne(optional = false)
     private Cuenta cuenta;
     private int id_movimiento;
+    private String motivo;
+    private String nombre_depositante;
 
     public Movimiento() {
         this.id_movimiento = 0;
         this.monto = 0.0;
         this.fecha = null;
         this.aplicado = 1;
-        
+        this.motivo = "";
+        this.nombre_depositante = "";
     }
 
-    public Movimiento(int movimiento, double monto, Date fecha, short aplicado) {
+    public Movimiento(int movimiento, double monto, Date fecha, short aplicado, String motivo, String nombre_depositante) {
         this.id_movimiento = movimiento;
         this.monto = monto;
         this.fecha = fecha;
         this.aplicado = aplicado;
-
+        this.motivo = motivo;
+        this.nombre_depositante = nombre_depositante;
     }
 
     public double getMonto() {
@@ -113,6 +117,22 @@ public class Movimiento implements Serializable {
 
     public void setId_movimiento(int id_movimiento) {
         this.id_movimiento = id_movimiento;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public String getNombre_depositante() {
+        return nombre_depositante;
+    }
+
+    public void setNombre_depositante(String nombre_depositante) {
+        this.nombre_depositante = nombre_depositante;
     }
     
 }

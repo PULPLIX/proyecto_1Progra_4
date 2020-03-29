@@ -351,6 +351,8 @@ public class CuentaDao {
                 m.setMonto(resultado.getDouble("monto"));
                 m.setFecha(resultado.getDate("fecha"));
                 m.setAplicado(resultado.getShort("aplicado"));
+                m.setMotivo(resultado.getString("motivo"));
+                m.setNombre_depositante(resultado.getString("nombre_depositante"));
                 m.setCuenta(cuenta);
                 cuenta.getMovimientoCollection().add(m);
             }

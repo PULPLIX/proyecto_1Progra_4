@@ -16,7 +16,7 @@
             <div class="subMenu">
                 <form>
                     <a  href="/ProyectoBanco/presentation/login/transferencia" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/transferencia.png"  id="subIcon"> Transferencias</a>
-                <a href="/ProyectoBanco/presentation/login/movimientos/show" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Depósitos</a>
+                <a href="/ProyectoBanco/presentation/cajero/depositos/show" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Depósitos</a>
                 <a href="/ProyectoBanco/presentation/login/movimientos/show" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Rétiros</a>
                 <a href="/ProyectoBanco/presentation/login/movimientos/show" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Acreditar Intréses</a>
                 <a href="" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/money.png"  id="subIcon"> Mi saldo</a>
