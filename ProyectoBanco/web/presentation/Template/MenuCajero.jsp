@@ -41,7 +41,7 @@
             </div>
         </li>
         <li class="item">
-            <a href="#" class="btn"><i class="fas fa-sign-out-alt"></i><img src="/ProyectoBanco/images/menuIcon/salir.png"  width="30" height="30" id="icon" > Cerrar Sesión</a>
+            <a href="/ProyectoBanco/login/logout" class="btn"><i class="fas fa-sign-out-alt"></i><img src="/ProyectoBanco/images/menuIcon/salir.png"  width="30" height="30" id="icon" > Cerrar Sesión</a>
         </li>
     </ul>
 </div>

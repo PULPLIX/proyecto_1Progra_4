@@ -25,6 +25,7 @@
             <a href="#about" class="btn" ><i class="fas fa-address-card" ></i><img src="/ProyectoBanco/images/menuIcon/infoPersonal.png"  width="25" height="25" id="icon"> <div id="textoIni">Información Personal</div></a>
             <div class="subMenu">
                 <a href="" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/misCuentas.png"  width="30" height="30" id="subIcon"> Mis cuentas</a>
+                <a href="/ProyectoBanco/presentation/cliente/cuentasFav" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/fav2.png"  width="30" height="30" id="subIcon"> Mi cuentas favoritas</a>
                 <a href="/ProyectoBanco/presentation/login/infoPersonal" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/perfil.png"  width="30" height="30" id="subIcon"> Mi perfil</a>
             </div>
         </li>
@@ -35,7 +36,7 @@
             </div>
         </li>
         <li class="item">
-            <a href="#" class="btn"><i class="fas fa-sign-out-alt"></i><img src="/ProyectoBanco/images/menuIcon/salir.png"  width="30" height="30" id="icon" > Cerrar Sesión</a>
+            <a href="/ProyectoBanco/login/logout" class="btn"><i class="fas fa-sign-out-alt"></i><img src="/ProyectoBanco/images/menuIcon/salir.png"  width="30" height="30" id="icon" > Cerrar Sesión</a>
         </li>
     </ul>
 </div>
