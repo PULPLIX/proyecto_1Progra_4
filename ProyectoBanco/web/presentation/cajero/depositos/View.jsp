@@ -4,6 +4,13 @@
     Authors     : Iván Chinchilla - David Aguilar
 --%>
 
+<%
+    banco.presentacion.cajero.depositos.Model model = (banco.presentacion.cajero.depositos.Model) request.getAttribute("model");
+    Cliente clienteBuscar = model.getClienteBuscar();
+    List<Cuenta> cuentas = model.getCuentas();
+    Cuenta seleccionada = model.getSeleccionada();
+%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,25 +25,30 @@
             <div class="popup">
                 <div class="img"></div>
                 <div class="container-text">
-                    <h1>Transferencia Bancaria</h1>
+                    <h1>Depósito</h1>
                     <div class="inputs">
-                        <form name="confirm" action="/ProyectoBanco/transferir/confirmar" method="post">
-                            <label>Cuenta Origen:</label> <input type="text" name="cuentaOrigenConf" value="<% if ((String) request.getAttribute("numCuentaO") != null) {
-                                    out.print((String) request.getAttribute("numCuentaO"));
+                        <form name="confirm" action="/ProyectoBanco/cajero/depositos/confirmar" method="post">
+                            <label>Cuenta:&nbsp</label> <input type="text" name="cuentaConf" value="<% if (model.getSeleccionada() != null) {
+                                out.print((String) String.valueOf(model.getSeleccionada().getNumCuenta()));
                                 } else {
                                     out.print("Vacío");
                                 }%>" id="inputText" readonly/><br>
-                            <label>Cuenta destino:</label><input type="text" name="cuentaDestinoConf" value="<% if ((String) request.getAttribute("numCuentaD") != null) {
-                                    out.print((String) request.getAttribute("numCuentaD"));
-                                } else {
-                                    out.print("Vacío");
-                                }%>" id="inputText" readonly/><br>
-                            <center><label>Monto:</label><input type="text" name="montoConf" value="<% if ((String) request.getAttribute("monto") != null) {
+                            <label>Monto:&nbsp&nbsp&nbsp</label> <input type="text" name="montoConf" value="<% if ((String) request.getAttribute("monto") != null) {
                                     out.print((String) request.getAttribute("monto"));
                                 } else {
                                     out.print("Vacío");
                                 }%>" id="inputText" readonly/><br>
-                                <input class="btn-confirm" type="submit" value="Confirmar" id="inputBoton"/><br></center>
+                            <label>Motivo:&nbsp&nbsp&nbsp</label><input type="text" name="motivoConf" value="<% if ((String) request.getAttribute("motivo") != null) {
+                                    out.print((String) request.getAttribute("motivo"));
+                                } else {
+                                    out.print("Vacío");
+                                }%>" id="inputText" readonly/><br>
+                            <label>Nombre:</label><input type="text" name="nombreDepositanteConf" value="<% if ((String) request.getAttribute("nombreDepositante") != null) {
+                                    out.print((String) request.getAttribute("nombreDepositante"));
+                                } else {
+                                    out.print("Vacío");
+                            }%>" id="inputText" readonly/><br><br>
+                            <center><input class="btn-confirm" type="submit" value="Confirmar" id="inputBoton"/><br></center>
                         </form>
                     </div>
                 </div>
@@ -53,13 +65,13 @@
                ============================================ -->
         <%@ include file="/presentation/Template/MenuCajero.jsp" %>
 
-        <br><br>
-        <a href="#modal" class="btn-open-popup">Confirmar</a>
-        <br><br>
-
         <!-- SECCION DE CUERPO
                 ============================================ -->
         <%@ include file="/presentation/cajero/depositos/Cuerpo.jsp" %>
+
+        <br><br><br><br>
+        <a href="#modal" class="btn-open-popup">Confirmar</a>
+        <br><br>
 
 
         <br> <div class="cuerpo-caja pie">

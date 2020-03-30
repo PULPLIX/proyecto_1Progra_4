@@ -83,7 +83,7 @@ public class Model {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final banco.presentacion.cajero.infoPersonal.Model other = (banco.presentacion.cajero.infoPersonal.Model) obj;
+        final banco.presentacion.cajero.depositos.Model other = (banco.presentacion.cajero.depositos.Model) obj;
         return true;
     }
 

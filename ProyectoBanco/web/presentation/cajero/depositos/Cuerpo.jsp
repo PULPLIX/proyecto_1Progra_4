@@ -9,17 +9,15 @@
 <%@page import="banco.logica.Cliente"%>
 <%@page import="banco.presentacion.cajero.depositos.Model"%>
 
-<%
-    banco.presentacion.cajero.depositos.Model model = (Model) request.getAttribute("model");
-    Cliente clienteBuscar = model.getClienteBuscar();
-    List<Cuenta> cuentas = model.getCuentas();
-    Cuenta seleccionada = model.getSeleccionada();
-%>
-
 
 <div class="limiter"> 
-    <center> <h2> Depósitos </h2><br><br>
+    <center> <h2> Depósitos </h2><br><br></center>
 
+    <% if ((String) request.getAttribute("mensaje") != null) {
+                out.print((String) request.getAttribute("mensaje") + "\n");
+            } %>
+
+    <center>                   
         <h2>Digite el número de cédula del cliente</h2>
 
         <form action="/ProyectoBanco/cajero/depositos/buscarCliente" method="post">
@@ -66,6 +64,7 @@
                                 <th class="column100 column2" data-column="column2">Tipo de Cuenta</th>
                                 <th class="column100 column4" data-column="column4"> Límite de transferencia</th>
                                 <th class="column100 column5" data-column="column5">Saldo Neto</th>
+                                <th class="column100 column6" data-column="column5">Seleccionar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,6 +75,7 @@
                                 <td class="column100 column1" data-column="column2"><%=c.getIdTipoCuenta().getDescripción()%></td>
                                 <td class="column100 column1" data-column="column4"><%=c.getLimiteTransferenciaDiaria()%></td>
                                 <td class="column100 column1" data-column="column5"><%=c.getSaldoFinal()%></td>
+                                <td class="column100 column1" data-column="column6"><a href="/ProyectoBanco/cajero/depositos/seleccionar?idCuenta=<%=c.getNumCuenta()%>">Seleccionar</a></td>
                             </tr>
                             <%}
                                 }%>
@@ -90,7 +90,7 @@
                         <input type="text" name="cuentaABuscar" value="<% if ((String) request.getAttribute("cuentaSeleccionada") != null) {
                                 out.print((String) request.getAttribute("cuentaSeleccionada"));
                             } else {
-                                out.print("Cuenta");
+                                out.print("1235");
                             }%>" >
 
                         <input type="submit" value="Buscar" /><br><br>
@@ -109,7 +109,7 @@
                         </thead>
                         <tbody>
                             <tr  class="row100">
-                                <%if (seleccionada != null) {%>
+                                <%if (model.getSeleccionada() != null) {%>
                                 <td class="column100 column1" data-column="column1"><%=seleccionada.getNumCuenta()%> </td> 
                                 <td class="column100 column1" data-column="column2"><%=seleccionada.getIdTipoCuenta().getDescripción()%></td>
                                 <td class="column100 column1" data-column="column3"><%=seleccionada.getClienteIdCliente().getNombre() + " " + seleccionada.getClienteIdCliente().getApellidos()%></td>
@@ -122,13 +122,18 @@
 
                     <form action="/ProyectoBanco/cajero/depositos/ingresar" method="post">
                         <br><br>
+                        <h2>Cuenta seleccionada</h2> <!--POR AQUI VOY-->
+                        <input type="text" name="cuentaABuscar" value="<% if (model.getSeleccionada() != null) {
+                                out.print((String) String.valueOf(model.getSeleccionada().getNumCuenta()));
+                            } else {
+                                out.print("1235");
+                            }%>"  id="inputText" readonly/>
                         <h2>Digite el monto</h2>
                         <input type="text" name="monto" value="<% if ((String) request.getAttribute("monto") != null) {
                                 out.print((String) request.getAttribute("monto"));
                             } else {
                                 out.print("Monto");
-                            }%>" >
-
+                            }%>">
                         <h2>Digite el motivo</h2>
                         <input type="text" name="motivo" value="<% if ((String) request.getAttribute("motivo") != null) {
                                 out.print((String) request.getAttribute("motivo"));
@@ -137,13 +142,16 @@
                             }%>" >
 
                         <h2>Digite el nombre del depositante</h2>
-                        <input type="text" name="nomDepositante" value="<% if ((String) request.getAttribute("nomDepositante") != null) {
-                                out.print((String) request.getAttribute("nomDepositante"));
+                        <input type="text" name="nombreDepositante" value="<% if ((String) request.getAttribute("nombreDepositante") != null) {
+                                out.print((String) request.getAttribute("nombreDepositante"));
                             } else {
                                 out.print("Nombre del depositante");
                             }%>" >
                         <br><br>
-                        <input type="submit" value="Ingresar" /><br><br>
+                        Si todos los datos están correctos, puede ingresarlos en el sistema y luego se confirmará el depósito.
+                        &nbsp<input type="submit" value="Ingresar Datos" />
+
+
                     </form>
 
                 </div>

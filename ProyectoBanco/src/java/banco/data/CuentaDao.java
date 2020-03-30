@@ -78,7 +78,6 @@ public class CuentaDao {
             ResultSet resultado = st.executeQuery();
 
             Cuenta cuenta = new Cuenta();
-            ;
 
             if (resultado.next()) {
                 cuenta.setNumCuenta(resultado.getInt("num_cuenta"));
@@ -95,10 +94,15 @@ public class CuentaDao {
                 llenarTransferencias(cuenta);
 
             }
-            con.close();
-            st.close();
-            resultado.close();
-            return cuenta;
+
+            if (cuenta.getNumCuenta() != 0) {
+                con.close();
+                st.close();
+                resultado.close();
+                return cuenta;
+            } else {
+                throw new Exception();
+            }
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -361,6 +365,28 @@ public class CuentaDao {
 
         } catch (Exception ex) {
             System.out.println(ex);
+        }
+    }
+
+    public static boolean insertarMovimiento(Movimiento movimiento, Cuenta cuenta) {
+        String SQL = "insert into movimiento (monto, fecha, aplicado, cuenta_num_cuenta, motivo, nombre_depositante)" 
+                + "values (?, ?, ?, ?, ?, ?);";
+
+        try {
+            Connection con = Coneccion.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            
+            st.setDouble(1, movimiento.getMonto());
+            st.setDate(2, movimiento.getFecha());
+            st.setShort(3, movimiento.getAplicado());
+            st.setInt(4, cuenta.getNumCuenta());
+            st.setString(5, movimiento.getMotivo());
+            st.setString(6, movimiento.getNombre_depositante());
+            return st.executeUpdate() != 0;
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return false;
         }
     }
 

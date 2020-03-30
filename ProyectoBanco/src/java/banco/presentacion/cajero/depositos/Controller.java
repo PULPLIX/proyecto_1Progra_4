@@ -9,8 +9,11 @@ import banco.data.ClienteDao;
 import banco.logica.Cliente;
 import banco.logica.Usuario;
 import banco.logica.Cuenta;
+import banco.logica.Movimiento;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,13 +25,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author Ivan
  */
-@WebServlet(name = "controllerCajeroDepositos", urlPatterns = {"/presentation/cajero/depositos/show", "/cajero/depositos/buscarCliente", "/cajero/depositos/buscarCuenta", "/cajero/depositos/ingresar"})
+@WebServlet(name = "controllerCajeroDepositos", urlPatterns = {"/presentation/cajero/depositos/show", "/cajero/depositos/buscarCliente", "/cajero/depositos/buscarCuenta", "/cajero/depositos/ingresar", "/cajero/depositos/seleccionar", "/cajero/depositos/confirmar"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("model", new Model());
+        request.setAttribute("model", new banco.presentacion.cajero.depositos.Model());
 
         String viewUrl = "";
         switch (request.getServletPath()) {
@@ -41,9 +44,14 @@ public class Controller extends HttpServlet {
             case "/cajero/depositos/buscarCuenta":
                 viewUrl = this.buscarCuenta(request);
                 break;
-
             case "/cajero/depositos/ingresar":
                 viewUrl = this.ingresar(request);
+                break;
+            case "/cajero/depositos/confirmar":
+                viewUrl = this.confirmar(request);
+                break;
+            case "/cajero/depositos/seleccionar":
+                viewUrl = this.seleccionar(request);
                 break;
 
         }
@@ -53,20 +61,22 @@ public class Controller extends HttpServlet {
     public String buscarCliente(HttpServletRequest request) {
 
         HttpSession session = request.getSession(true);
-        Model model = (Model) request.getAttribute("model");
+        banco.presentacion.cajero.depositos.Model model = (banco.presentacion.cajero.depositos.Model) request.getAttribute("model");
         Integer ID = Integer.parseInt(request.getParameter("clienteABuscar"));
 
         try {
 
-            Cliente clienteBuscar = banco.data.ClienteDao.findID(ID);
-            request.setAttribute("clienteBuscar", clienteBuscar.getIdCliente().toString());
+            Cliente clienteBuscar = banco.data.ClienteDao.buscarPorCliente(ID);
+            request.setAttribute("clienteBuscar", String.valueOf(clienteBuscar.getIdCliente()));
             model.setClienteBuscar(clienteBuscar);
             model.setCuentas(banco.data.CuentaDao.getCuentasCliente(clienteBuscar.getUsuarioIdUsuario().getIdUsuario()));
+
+            request.setAttribute("model", model);
 
             return ("/presentation/cajero/depositos/View.jsp");
 
         } catch (Exception ex) {
-            return ("/presentation/cajero/infoPersonal/View.jsp");
+            return ("/presentation/cajero/depositos/View.jsp");
         }
 
     }
@@ -74,7 +84,7 @@ public class Controller extends HttpServlet {
     public String buscarCuenta(HttpServletRequest request) {
 
         HttpSession session = request.getSession(true);
-        Model model = (Model) request.getAttribute("model");
+        banco.presentacion.cajero.depositos.Model model = (banco.presentacion.cajero.depositos.Model) request.getAttribute("model");
         Integer ID = Integer.parseInt(request.getParameter("cuentaABuscar"));
 
         try {
@@ -86,27 +96,89 @@ public class Controller extends HttpServlet {
             return ("/presentation/cajero/depositos/View.jsp");
 
         } catch (Exception ex) {
-            return ("/presentation/cajero/infoPersonal/View.jsp");
+            return ("/presentation/cajero/depositos/View.jsp");
         }
 
     }
 
     public String ingresar(HttpServletRequest request) {
 
-//        HttpSession session = request.getSession(true);
-//        Model model = (Model) request.getAttribute("model");
-//        Integer ID = Integer.parseInt(request.getParameter("cuentaABuscar"));
+        String motivo = request.getParameter("motivo");
+        String nombreDepositante = request.getParameter("nombreDepositante");
+        String monto = request.getParameter("monto");
+
+        banco.presentacion.cajero.depositos.Model model = (banco.presentacion.cajero.depositos.Model) request.getAttribute("model");
+        Integer ID = Integer.parseInt(request.getParameter("cuentaABuscar"));
 
         try {
-//
-//            Cuenta seleccionada = banco.data.CuentaDao.getCuenta(ID);
-//            request.setAttribute("cuentaSeleccionada", seleccionada.getNumCuenta().toString());
-//            model.setSeleccionada(seleccionada);
+            request.setAttribute("motivo", motivo);
+            request.setAttribute("nombreDepositante", nombreDepositante);
+            request.setAttribute("monto", monto);
+
+            Cuenta seleccionada = banco.data.CuentaDao.getCuenta(ID);
+            request.setAttribute("cuentaSeleccionada", seleccionada.getNumCuenta().toString());
+            model.setSeleccionada(seleccionada);
+            
+            request.setAttribute("mensaje", "Se han ingresado los datos correctamente");
 
             return ("/presentation/cajero/depositos/View.jsp");
 
         } catch (Exception ex) {
-            return ("/presentation/cajero/infoPersonal/View.jsp");
+            return ("/presentation/cajero/depositos/View.jsp");
+        }
+
+    }
+
+    public String confirmar(HttpServletRequest request) {
+
+        String motivo = (String) request.getParameter("motivoConf");
+        String nombreDepositante = (String) request.getParameter("nombreDepositanteConf");
+        String monto = (String) request.getParameter("montoConf");
+        Integer ID = Integer.parseInt(request.getParameter("cuentaConf"));
+        java.sql.Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
+        try {
+
+            Movimiento movimiento = new Movimiento();
+            Cuenta seleccionada = banco.data.CuentaDao.getCuenta(ID);
+            
+            movimiento.setNombre_depositante(nombreDepositante);
+            movimiento.setCuenta(seleccionada);
+            movimiento.setAplicado((short) 1);
+            movimiento.setMonto(Integer.valueOf(monto));
+            movimiento.setNombre_depositante(nombreDepositante);
+            movimiento.setMotivo(motivo);
+            movimiento.setFecha(fecha);
+            
+            seleccionada.setSaldoFinal(seleccionada.getSaldoFinal() + Integer.valueOf(monto));
+            
+            banco.data.CuentaDao.insertarMovimiento(movimiento, seleccionada);
+            banco.data.CuentaDao.updateSaldo(seleccionada);
+            
+            request.setAttribute("mensaje", "El depósito ha sido éxitoso");
+
+            return ("/presentation/cajero/depositos/View.jsp");
+
+        } catch (Exception ex) {
+            return ("/presentation/cajero/depositos/View.jsp");
+        }
+
+    }
+
+    public String seleccionar(HttpServletRequest request) {
+
+        banco.presentacion.cajero.depositos.Model model = (banco.presentacion.cajero.depositos.Model) request.getAttribute("model");
+        Integer ID = Integer.parseInt(request.getParameter("idCuenta"));
+
+        try {
+            Cuenta seleccionada = banco.data.CuentaDao.getCuenta(ID);
+            request.setAttribute("cuentaSeleccionada", seleccionada.getNumCuenta().toString());
+            model.setSeleccionada(seleccionada);
+
+            return ("/presentation/cajero/depositos/View.jsp");
+
+        } catch (Exception ex) {
+            return ("/presentation/cajero/depositos/View.jsp");
         }
 
     }
