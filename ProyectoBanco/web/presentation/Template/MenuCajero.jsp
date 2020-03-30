@@ -14,8 +14,8 @@
         <li class="item" id="account">
             <a href="#account" class="btn"><i class="fas fa-user-circle"></i> <img src="/ProyectoBanco/images/menuIcon/transFlecha.png"  width="20" height="20" id="icon"> Gestión de <br> movimientos</a>
             <div class="subMenu">
-                <form>
-                    <a  href="/ProyectoBanco/presentation/login/transferencia" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/transferencia.png"  id="subIcon"> Transferencias</a>
+                <form method="post">
+                <a  href="/ProyectoBanco/presentation/cajero/transferencia/show" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/transferencia.png"  id="subIcon"> Transferencias</a>
                 <a href="/ProyectoBanco/presentation/cajero/depositos/show" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Depósitos</a>
                 <a href="/ProyectoBanco/presentation/login/movimientos/show" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Rétiros</a>
                 <a href="/ProyectoBanco/presentation/login/movimientos/show" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Acreditar Intréses</a>

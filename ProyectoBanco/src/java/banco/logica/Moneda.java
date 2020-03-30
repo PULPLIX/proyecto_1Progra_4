@@ -72,6 +72,7 @@ public class Moneda implements Serializable {
         this.simbolo = "";
         this.tipoCambioCompra = 0;
         this.tipoCambioVenta = 0;
+        
     }
 
     public Moneda(Integer nombre) {
