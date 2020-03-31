@@ -145,30 +145,58 @@ public class Controller extends HttpServlet {
         banco.presentacion.cajero.transferencia.Model model = (banco.presentacion.cajero.transferencia.Model) request.getAttribute("model");
 
         this.buscarCliente(request, model);
-            this.buscarClienteDestino(request, model);
-            this.buscarCuenta(request, model);
-            this.buscarCuentaDestino(request, model);
-            model.setMonto(Integer.parseInt(String.valueOf(request.getParameter("monto"))));
-            request.setAttribute("model", model);
-            
+        this.buscarClienteDestino(request, model);
+        this.buscarCuenta(request, model);
+        this.buscarCuentaDestino(request, model);
+       // model.setMonto(Double.parseDouble(request.getParameter("monto")));
+        this.setSeleccionadas(request, model);
+
+        request.setAttribute("model", model);
+
         return ("/presentation/cajero/transferencia/View.jsp");
 
     }
 
     public String seleccionar(HttpServletRequest request) {
 
-        banco.presentacion.cajero.depositos.Model model = (banco.presentacion.cajero.depositos.Model) request.getAttribute("model");
-        Integer ID = Integer.parseInt(request.getParameter("idCuenta"));
+        banco.presentacion.cajero.transferencia.Model model = (banco.presentacion.cajero.transferencia.Model) request.getAttribute("model");
 
         try {
-            Cuenta seleccionada = banco.data.CuentaDao.getCuenta(ID);
-            request.setAttribute("cuentaSeleccionada", seleccionada.getNumCuenta().toString());
-            model.setSeleccionada(seleccionada);
 
-            return ("/presentation/cajero/depositos/View.jsp");
+            if (request.getParameter("idCuentaO") != null) {
+                Integer ID_Origen = Integer.parseInt(request.getParameter("idCuentaO"));
+                Cuenta seleccionada = banco.data.CuentaDao.getCuenta(ID_Origen);
+                request.setAttribute("cuentaSeleccionada", seleccionada.getNumCuenta().toString());
+                model.setSeleccionada(seleccionada);
+            }
+
+            if (request.getParameter("idCuentaD") != null) {
+                Integer ID_Destino = Integer.parseInt(request.getParameter("idCuentaD"));
+                Cuenta seleccionadaDestino = banco.data.CuentaDao.getCuenta(ID_Destino);
+                request.setAttribute("cuentaSeleccionadaDestino", seleccionadaDestino.getNumCuenta().toString());
+                model.setSeleccionadaDestino(seleccionadaDestino);
+            }
+            request.setAttribute("model", model);
+            return buscar(request);
 
         } catch (Exception ex) {
-            return ("/presentation/cajero/depositos/View.jsp");
+            return buscar(request);
+        }
+
+    }
+
+    public void setSeleccionadas(HttpServletRequest request, banco.presentacion.cajero.transferencia.Model model) {
+
+        if (request.getParameter("cuentaOrigenSelect") != null) {
+            Cuenta cuentaO = new Cuenta();
+            cuentaO.setNumCuenta(Integer.parseInt(request.getParameter("cuentaOrigenSelect")));
+            model.setSeleccionada(cuentaO);
+        }
+
+        if (request.getParameter("cuentaDestinoSelect") != null) {
+            Cuenta cuentaD = new Cuenta();
+            cuentaD.setNumCuenta(Integer.parseInt(request.getParameter("cuentaDestinoSelect")));
+            model.setSeleccionada(cuentaD);
         }
 
     }

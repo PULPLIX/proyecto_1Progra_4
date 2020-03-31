@@ -19,7 +19,7 @@ public class Model {
 
     Cliente cliente;
     Cliente clienteBuscar;
-     ArrayList<Cuenta> cuentas;
+    ArrayList<Cuenta> cuentas;
     Cuenta seleccionada;
 
     Cliente clienteBuscarDestino;

@@ -84,7 +84,7 @@
                                     <td class="column100 column1" data-column="column3"><%=c.getClienteIdCliente().getNombre() + " " + c.getClienteIdCliente().getApellidos()%></td>
                                     <td class="column100 column1" data-column="column4"><%=c.getLimiteTransferenciaDiaria()%></td>
                                     <td class="column100 column1" data-column="column5"><%=c.getSaldoFinal()%></td>
-                                    <td class="column100 column1" data-column="column6"><a href="/ProyectoBanco/cajero/transferencia/seleccionar?idCuenta=<%=c.getNumCuenta()%>">Seleccionar</a></td>
+                                    <td class="column100 column1" data-column="column6"><a href="/ProyectoBanco/cajero/transferencia/seleccionar?idCuentaO=<%=c.getNumCuenta()%>">Seleccionar</a></td>
                                 </tr>
 
                                 <% }
@@ -95,7 +95,7 @@
                                     <td class="column100 column1" data-column="column3"><%=seleccionada.getClienteIdCliente().getNombre() + " " + seleccionada.getClienteIdCliente().getApellidos()%></td>
                                     <td class="column100 column1" data-column="column4"><%=seleccionada.getLimiteTransferenciaDiaria()%></td>
                                     <td class="column100 column1" data-column="column5"><%=seleccionada.getSaldoFinal()%></td>
-                                    <td class="column100 column1" data-column="column6"><a href="/ProyectoBanco/cajero/transferencia/seleccionar?idCuenta=<%=seleccionada.getNumCuenta()%>">Seleccionar</a></td>
+                                    <td class="column100 column1" data-column="column6"><a href="/ProyectoBanco/cajero/transferencia/seleccionar?idCuentaO=<%=seleccionada.getNumCuenta()%>">Seleccionar</a></td>
 
                                 </tr>
                                 <%}%>
@@ -169,7 +169,7 @@
                                                 <td class="column100 column1" data-column="column3"><%=c.getClienteIdCliente().getNombre() + " " + c.getClienteIdCliente().getApellidos()%></td>
                                                 <td class="column100 column1" data-column="column4"><%=c.getLimiteTransferenciaDiaria()%></td>
                                                 <td class="column100 column1" data-column="column5"><%=c.getSaldoFinal()%></td>
-                                                <td class="column100 column1" data-column="column6"><a href="/ProyectoBanco/cajero/transferencia/seleccionar?idCuenta=<%=c.getNumCuenta()%>">Seleccionar</a></td>
+                                                <td class="column100 column1" data-column="column6"><a href="/ProyectoBanco/cajero/transferencia/seleccionar?idCuentaD=<%=c.getNumCuenta()%>">Seleccionar</a></td>
                                             </tr>
 
                                             <% }
@@ -180,7 +180,7 @@
                                                 <td class="column100 column1" data-column="column3"><%=seleccionadaDestino.getClienteIdCliente().getNombre() + " " + seleccionada.getClienteIdCliente().getApellidos()%></td>
                                                 <td class="column100 column1" data-column="column4"><%=seleccionadaDestino.getLimiteTransferenciaDiaria()%></td>
                                                 <td class="column100 column1" data-column="column5"><%=seleccionadaDestino.getSaldoFinal()%></td>
-                                                <td class="column100 column1" data-column="column6"><a href="/ProyectoBanco/cajero/transferencia/seleccionar?idCuenta=<%=seleccionada.getNumCuenta()%>">Seleccionar</a></td>
+                                                <td class="column100 column1" data-column="column6"><a href="/ProyectoBanco/cajero/transferencia/seleccionar?idCuentaD=<%=seleccionada.getNumCuenta()%>">Seleccionar</a></td>
 
                                             </tr>
                                             <%}%>
@@ -192,18 +192,31 @@
                                 </div>
                             </div>
                         </div>
+                        </center>
+                        </form>
+
+                        <h2>Cuenta de origen</h2> 
+                        <input type="text" name="cuentaOrigenSelect" value="<% if (model.getSeleccionada() != null) {
+                                out.print((String) String.valueOf(model.getSeleccionada().getNumCuenta()));
+                            } else {
+                                out.print("1235");
+                            }%>"  id="inputText" readonly/>
+                        
+                        <h2>Cuenta de destino</h2> 
+                        <input type="text" name="cuentaDestinoSelect" value="<% if (model.getSeleccionadaDestino() != null) {
+                                out.print((String) String.valueOf(model.getSeleccionada().getNumCuenta()));
+                            } else {
+                                out.print("1235");
+                            }%>"  id="inputText" readonly/>
                         <h2>Digite el monto</h2>
                         <input type="text" name="monto" value="<% if ((String) request.getAttribute("monto") != null) {
                                 out.print((String) request.getAttribute("monto"));
                             } else {
                                 out.print("000.00");
                             }%>">
-<input type="submit" value="Ingresar Datos" />
+                        <input type="submit" value="Ingresar Datos" />
                         <br>Si todos los datos están correctos, puede ingresarlos en el sistema y luego se confirmará el depósito.
                         &nbsp
-                        </center>
-                        </form>
 
 
-
-                    </div>  
+</div>  

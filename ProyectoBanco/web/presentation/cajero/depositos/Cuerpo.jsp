@@ -122,7 +122,7 @@
 
                     <form action="/ProyectoBanco/cajero/depositos/ingresar" method="post">
                         <br><br>
-                        <h2>Cuenta seleccionada</h2> <!--POR AQUI VOY-->
+                        <h2>Cuenta seleccionada</h2> 
                         <input type="text" name="cuentaABuscar" value="<% if (model.getSeleccionada() != null) {
                                 out.print((String) String.valueOf(model.getSeleccionada().getNumCuenta()));
                             } else {
