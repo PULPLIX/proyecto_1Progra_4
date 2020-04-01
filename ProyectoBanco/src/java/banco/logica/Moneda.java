@@ -65,6 +65,13 @@ public class Moneda implements Serializable {
     private double tipoCambioVenta;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "monedaNombre")
     private Collection<Cuenta> cuentaCollection;
+    
+    
+    @Column(name = "tasa_intereses")
+    private double tasaIntereses;
+    //@Basic(optional = false)
+    @NotNull
+    
 
     public Moneda() {
         this.nombre = 0;
@@ -72,19 +79,20 @@ public class Moneda implements Serializable {
         this.simbolo = "";
         this.tipoCambioCompra = 0;
         this.tipoCambioVenta = 0;
-        
+        this.tasaIntereses = 0;
     }
 
     public Moneda(Integer nombre) {
         this.nombre = nombre;
     }
 
-    public Moneda(Integer nombre, String descripcion, String simbolo, double tipoCambioCompra, double tipoCambioVenta) {
+    public Moneda(Integer nombre, String descripcion, String simbolo, double tipoCambioCompra, double tipoCambioVenta, double tasaIntereses) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.simbolo = simbolo;
         this.tipoCambioCompra = tipoCambioCompra;
         this.tipoCambioVenta = tipoCambioVenta;
+        this.tasaIntereses = tasaIntereses;
     }
 
     public Integer getNombre() {
@@ -134,6 +142,14 @@ public class Moneda implements Serializable {
 
     public void setCuentaCollection(Collection<Cuenta> cuentaCollection) {
         this.cuentaCollection = cuentaCollection;
+    }
+
+    public double getTasaIntereses() {
+        return tasaIntereses;
+    }
+
+    public void setTasaIntereses(double tasaIntereses) {
+        this.tasaIntereses = tasaIntereses;
     }
 
     @Override

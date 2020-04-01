@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banco.presentacion.cajero.depositos;
+package banco.presentacion.cajero.retiros;
 
 import banco.data.ClienteDao;
 import banco.logica.Cliente;
-import banco.logica.Usuario;
 import banco.logica.Cuenta;
 import banco.logica.Movimiento;
+import banco.logica.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,39 +20,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Ivan
- */
-@WebServlet(name = "controllerCajeroDepositos", urlPatterns = {"/presentation/cajero/depositos/show", "/cajero/depositos/buscarCliente", "/cajero/depositos/buscarCuenta", "/cajero/depositos/ingresar", "/cajero/depositos/seleccionar", "/cajero/depositos/confirmar"})
+@WebServlet(name = "controllerCajeroRetiros", urlPatterns = {"/presentation/cajero/retiros/show", "/cajero/retiros/buscarCliente", "/cajero/retiros/buscarCuenta", "/cajero/retiros/ingresar", "/cajero/retiros/seleccionar", "/cajero/retiros/confirmar"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("model", new banco.presentacion.cajero.depositos.Model());
+        request.setAttribute("model", new banco.presentacion.cajero.retiros.Model());
 
         String viewUrl = "";
         switch (request.getServletPath()) {
-            case "/presentation/cajero/depositos/show":
+            case "/presentation/cajero/retiros/show":
                 viewUrl = this.show(request);
                 break;
-            case "/cajero/depositos/buscarCliente":
+            case "/cajero/retiros/buscarCliente":
                 viewUrl = this.buscarCliente(request);
                 break;
-            case "/cajero/depositos/buscarCuenta":
+            case "/cajero/retiros/buscarCuenta":
                 viewUrl = this.buscarCuenta(request);
                 break;
-            case "/cajero/depositos/ingresar":
+            case "/cajero/retiros/ingresar":
                 viewUrl = this.ingresar(request);
                 break;
-            case "/cajero/depositos/confirmar":
+            case "/cajero/retiros/confirmar":
                 viewUrl = this.confirmar(request);
                 break;
-            case "/cajero/depositos/seleccionar":
+            case "/cajero/retiros/seleccionar":
                 viewUrl = this.seleccionar(request);
                 break;
-
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
@@ -61,7 +55,7 @@ public class Controller extends HttpServlet {
     public String buscarCliente(HttpServletRequest request) {
 
         HttpSession session = request.getSession(true);
-        banco.presentacion.cajero.depositos.Model model = (banco.presentacion.cajero.depositos.Model) request.getAttribute("model");
+        banco.presentacion.cajero.retiros.Model model = (banco.presentacion.cajero.retiros.Model) request.getAttribute("model");
         Integer ID = Integer.parseInt(request.getParameter("clienteABuscar"));
 
         try {
@@ -73,10 +67,10 @@ public class Controller extends HttpServlet {
 
             request.setAttribute("model", model);
 
-            return ("/presentation/cajero/depositos/View.jsp");
+            return ("/presentation/cajero/retiros/View.jsp");
 
         } catch (Exception ex) {
-            return ("/presentation/cajero/depositos/View.jsp");
+            return ("/presentation/cajero/retiros/View.jsp");
         }
 
     }
@@ -84,7 +78,7 @@ public class Controller extends HttpServlet {
     public String buscarCuenta(HttpServletRequest request) {
 
         HttpSession session = request.getSession(true);
-        banco.presentacion.cajero.depositos.Model model = (banco.presentacion.cajero.depositos.Model) request.getAttribute("model");
+        banco.presentacion.cajero.retiros.Model model = (banco.presentacion.cajero.retiros.Model) request.getAttribute("model");
         Integer ID = Integer.parseInt(request.getParameter("cuentaABuscar"));
 
         try {
@@ -93,10 +87,10 @@ public class Controller extends HttpServlet {
             request.setAttribute("cuentaSeleccionada", seleccionada.getNumCuenta().toString());
             model.setSeleccionada(seleccionada);
 
-            return ("/presentation/cajero/depositos/View.jsp");
+            return ("/presentation/cajero/retiros/View.jsp");
 
         } catch (Exception ex) {
-            return ("/presentation/cajero/depositos/View.jsp");
+            return ("/presentation/cajero/retiros/View.jsp");
         }
 
     }
@@ -107,7 +101,7 @@ public class Controller extends HttpServlet {
         String nombreDepositante = request.getParameter("nombreDepositante");
         String monto = request.getParameter("monto");
 
-        banco.presentacion.cajero.depositos.Model model = (banco.presentacion.cajero.depositos.Model) request.getAttribute("model");
+        banco.presentacion.cajero.retiros.Model model = (banco.presentacion.cajero.retiros.Model) request.getAttribute("model");
         Integer ID = Integer.parseInt(request.getParameter("cuentaABuscar"));
 
         try {
@@ -121,18 +115,16 @@ public class Controller extends HttpServlet {
 
             request.setAttribute("mensaje", "Se han ingresado los datos correctamente");
 
-            return ("/presentation/cajero/depositos/View.jsp");
+            return ("/presentation/cajero/retiros/View.jsp");
 
         } catch (Exception ex) {
-            return ("/presentation/cajero/depositos/View.jsp");
+            return ("/presentation/cajero/retiros/View.jsp");
         }
 
     }
 
     public String confirmar(HttpServletRequest request) {
 
-        String motivo = (String) request.getParameter("motivoConf");
-        String nombreDepositante = (String) request.getParameter("nombreDepositanteConf");
         String monto = (String) request.getParameter("montoConf");
         Integer ID = Integer.parseInt(request.getParameter("cuentaConf"));
         java.sql.Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
@@ -141,33 +133,32 @@ public class Controller extends HttpServlet {
 
             Movimiento movimiento = new Movimiento();
             Cuenta seleccionada = banco.data.CuentaDao.getCuenta(ID);
+            if (Integer.valueOf(monto) < seleccionada.getSaldoFinal()) {
+                movimiento.setCuenta(seleccionada);
+                movimiento.setAplicado((short) 1);
+                movimiento.setMonto(Integer.valueOf(monto));
 
-            movimiento.setNombre_depositante(nombreDepositante);
-            movimiento.setCuenta(seleccionada);
-            movimiento.setAplicado((short) 1);
-            movimiento.setMonto(Integer.valueOf(monto));
-            movimiento.setNombre_depositante(nombreDepositante);
-            movimiento.setMotivo(motivo);
-            movimiento.setFecha(fecha);
+                movimiento.setFecha(fecha);
 
-            seleccionada.setSaldoFinal(seleccionada.getSaldoFinal() + Integer.valueOf(monto));
+                seleccionada.setSaldoFinal(seleccionada.getSaldoFinal() - Integer.valueOf(monto));
 
-            banco.data.CuentaDao.insertarMovimiento(movimiento, seleccionada);
-            banco.data.CuentaDao.updateSaldo(seleccionada);
+                banco.data.CuentaDao.insertarMovimiento(movimiento, seleccionada);
+                banco.data.CuentaDao.updateSaldo(seleccionada);
 
-            request.setAttribute("mensaje", "El depósito ha sido éxitoso");
+                request.setAttribute("mensaje", "El depósito ha sido éxitoso");
+            }
 
-            return ("/presentation/cajero/depositos/View.jsp");
+            return ("/presentation/cajero/retiros/View.jsp");
 
         } catch (Exception ex) {
-            return ("/presentation/cajero/depositos/View.jsp");
+            return ("/presentation/cajero/retiros/View.jsp");
         }
 
     }
 
     public String seleccionar(HttpServletRequest request) {
 
-        banco.presentacion.cajero.depositos.Model model = (banco.presentacion.cajero.depositos.Model) request.getAttribute("model");
+        banco.presentacion.cajero.retiros.Model model = (banco.presentacion.cajero.retiros.Model) request.getAttribute("model");
         Integer ID = Integer.parseInt(request.getParameter("idCuenta"));
 
         try {
@@ -175,10 +166,10 @@ public class Controller extends HttpServlet {
             request.setAttribute("cuentaSeleccionada", seleccionada.getNumCuenta().toString());
             model.setSeleccionada(seleccionada);
 
-            return ("/presentation/cajero/depositos/View.jsp");
+            return ("/presentation/cajero/retiros/View.jsp");
 
         } catch (Exception ex) {
-            return ("/presentation/cajero/depositos/View.jsp");
+            return ("/presentation/cajero/retiros/View.jsp");
         }
 
     }
@@ -188,7 +179,7 @@ public class Controller extends HttpServlet {
         Cliente cliente = (Cliente) session.getAttribute("cliente");
         request.setAttribute("clienteNombre", cliente.getNombre());
         request.setAttribute("clienteApellidos", cliente.getApellidos());
-        return "/presentation/cajero/depositos/View.jsp";
+        return "/presentation/cajero/retiros/View.jsp";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

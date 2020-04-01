@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class MonedaDao {
 
     public static boolean registrar(Moneda moneda) throws Exception {
-        String SQL = "insert into moneda (nombre, descripcion, simbolo, tipo_cambio_compra, tipo_cambio_venta) "
-                + "values (?,?,?,?,?);";
+        String SQL = "insert into moneda (nombre, descripcion, simbolo, tipo_cambio_compra, tipo_cambio_venta, tasa_intereses) "
+                + "values (?,?,?,?,?,?);";
         try {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
@@ -25,6 +25,7 @@ public class MonedaDao {
             st.setString(3, moneda.getSimbolo());
             st.setDouble(4, moneda.getTipoCambioCompra());
             st.setDouble(5, moneda.getTipoCambioVenta());
+            st.setDouble(6, moneda.getTasaIntereses());
 
             return st.executeUpdate() != 0;
         } catch (SQLException ex) {
@@ -51,6 +52,7 @@ public class MonedaDao {
                 moneda.setDescripcion(resultado.getString("descripcion"));
                 moneda.setTipoCambioCompra(resultado.getDouble("tipo_cambio_compra"));
                 moneda.setTipoCambioVenta(resultado.getDouble("tipo_cambio_venta"));
+                moneda.setTasaIntereses(resultado.getDouble("tasa_intereses"));
 
             }
             con.close();
@@ -72,6 +74,7 @@ public class MonedaDao {
         moneda.setDescripcion(resultado.getString("descripcion"));
         moneda.setTipoCambioCompra(resultado.getDouble("tipo_cambio_compra"));
         moneda.setTipoCambioVenta(resultado.getDouble("tipo_cambio_venta"));
+        moneda.setTasaIntereses(resultado.getDouble("tasa_intereses"));
 
         return moneda;
     }
@@ -94,6 +97,7 @@ public class MonedaDao {
                 moneda.setDescripcion(resultado.getString("descripcion"));
                 moneda.setTipoCambioCompra(resultado.getDouble("tipo_cambio_compra"));
                 moneda.setTipoCambioVenta(resultado.getDouble("tipo_cambio_venta"));
+                moneda.setTasaIntereses(resultado.getDouble("tasa_intereses"));
 
                 lista.add(moneda);
             }
