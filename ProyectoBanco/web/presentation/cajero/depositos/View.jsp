@@ -16,7 +16,7 @@
 <html>
     <head>
         <%@ include file="/presentation/Template/HojaEstilo.jsp" %>
-        <title>Depósitos</title>
+        <title>Transferencias en cajas</title>
     </head>
 
     <body>
