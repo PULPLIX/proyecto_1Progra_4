@@ -27,15 +27,14 @@ public class movimientosDao {
 
     public static boolean registrarTransferencia(Transferencia transferencia) throws Exception {
         String SQL = "INSERT INTO transferencia (monto,fecha,aplicado,cuenta_destino,cuenta_origen) values "
-                + "(?,?,?,?,?);";
+                + "(?,(select now()),?,?,?);";
         try {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
             st.setString(1, transferencia.getMonto());
-            st.setDate(2, new java.sql.Date(transferencia.getFecha().getDate()));
-            st.setInt(3, transferencia.getAplicado());
-            st.setInt(4, transferencia.getCuenta_Destino().getNumCuenta());
-            st.setInt(5, transferencia.getCuenta().getNumCuenta());
+            st.setInt(2, transferencia.getAplicado());
+            st.setInt(3, transferencia.getCuenta_Destino().getNumCuenta());
+            st.setInt(4, transferencia.getCuenta().getNumCuenta());
             return st.executeUpdate() != 0;
         } catch (SQLException ex) {
             System.out.println(ex);

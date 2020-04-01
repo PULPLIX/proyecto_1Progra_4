@@ -25,21 +25,22 @@ public class Model {
     Cliente clienteBuscarDestino;
     ArrayList<Cuenta> cuentasDestino;
     Cuenta seleccionadaDestino;
-    
+
     double monto;
-    
+
     public Model() {
         this.reset();
     }
 
     private void reset() {
         cliente = null;
-        clienteBuscar =null;
+        clienteBuscar = null;
         cuentas = null;
         seleccionada = null;
-        clienteBuscarDestino= null;
-        cuentasDestino= null;
-        seleccionadaDestino= null;
+        clienteBuscarDestino = null;
+        cuentasDestino = null;
+        seleccionadaDestino = null;
+        this.monto = 0;
     }
 
     public Cliente getCliente() {

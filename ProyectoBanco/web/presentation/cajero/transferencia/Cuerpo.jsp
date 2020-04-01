@@ -17,6 +17,7 @@
     Cliente clienteBuscarDestino = model.getClienteBuscarDestino();
     ArrayList<Cuenta> cuentasDestino = model.getCuentasDestino();
     Cuenta seleccionadaDestino = model.getSeleccionadaDestino();
+    double monto = model.getMonto();
 %>
 <div class="limiter"> 
     <center> <h2> Transferencia </h2><br><br></center>
@@ -211,9 +212,9 @@
                                 out.print((String) String.valueOf(seleccionadaDestino.getNumCuenta()));
                             } %>"  id="inputText" readonly/>
                         <h2>Digite el monto</h2>
-                        <input type="text" name="monto" value="<% if ((String) request.getAttribute("monto") != null) {
-                                out.print((String) request.getAttribute("monto"));
-                            } %>">
+                        <input type="text" name="monto" value="<% if (monto != 0) {
+                                out.print(monto);
+                            }%>">
                         <input type="submit" value="Ingresar Datos" />
                         <br>Si todos los datos están correctos, puede ingresarlos en el sistema y luego se confirmará el depósito.
                         &nbsp

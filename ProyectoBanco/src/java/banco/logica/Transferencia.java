@@ -59,6 +59,7 @@ public class Transferencia implements Serializable {
     @JoinColumn(name = "cuenta_origen", referencedColumnName = "num_cuenta", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Cuenta cuenta_Destino;
+    
     private int id_transferencia;
 
     public Transferencia(String monto, Date fecha, short aplicado, Cuenta cuenta, Cuenta cuenta1, int id_transferencia) {

@@ -69,12 +69,16 @@ public class Controller extends HttpServlet {
                 Calendar calendar = java.util.Calendar.getInstance();
                 t.setFecha(calendar.getTime());
                 if (banco.data.movimientosDao.registrarTransferencia(t)) {
-                    double montoFinal = t.getCuenta().getSaldoFinal() - Double.parseDouble(monto);
+                   double montoFinal = t.getCuenta().getSaldoFinal() - Double.parseDouble(monto);
+                    double montoFinalDestino = t.getCuenta().getSaldoFinal() + Double.parseDouble(monto);
                     double montoTransferencia = t.getCuenta().getLimiteTransferenciaDiaria() - Double.parseDouble(monto);
+                   
                     t.getCuenta().setSaldoFinal(montoFinal);
                     t.getCuenta().setLimiteTransferenciaDiaria(montoFinal);
+                    t.getCuenta_Destino().setSaldoFinal(montoFinalDestino);
 
                     banco.data.CuentaDao.updateSaldo(t.getCuenta());
+                    banco.data.CuentaDao.updateSaldo(t.getCuenta_Destino());
                 }
             }
             return "/presentation/cliente/transferencia/View.jsp";

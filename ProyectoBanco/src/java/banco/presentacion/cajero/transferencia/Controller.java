@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author david
  */
-@WebServlet(name = "controllerTransferenciaCajero", urlPatterns = {"/presentation/cajero/transferencia/show", "/transferir/cajero/confirmar", "/cajero/transferencia/buscar", "/cajero/transferencia/seleccionar"})
+@WebServlet(name = "controllerTransferenciaCajero", urlPatterns = {"/presentation/cajero/transferencia/show", "/cajero/transferir/confirmar", "/cajero/transferencia/buscar", "/cajero/transferencia/seleccionar"})
 
 public class Controller extends HttpServlet {
 
@@ -36,7 +36,7 @@ public class Controller extends HttpServlet {
             case "/presentation/cajero/transferencia/show":
                 viewUrl = this.show(request);
                 break;
-            case "/transferir/confirmar":
+            case "/cajero/transferir/confirmar":
                 viewUrl = this.transferir(request);
                 break;
             case "/cajero/transferencia/buscar":
@@ -51,36 +51,40 @@ public class Controller extends HttpServlet {
     }
 
     public String transferir(HttpServletRequest request) {
-        banco.presentacion.cliente.transferencia.Model model = (banco.presentacion.cliente.transferencia.Model) request.getAttribute("model");
+        banco.presentacion.cajero.transferencia.Model model = (banco.presentacion.cajero.transferencia.Model) request.getAttribute("model");
 
         HttpSession session = request.getSession(true);
-        Cliente cliente = (Cliente) session.getAttribute("cliente");
 
         try {
             Transferencia t = new Transferencia();
-            String numCuentaO = (String) request.getParameter("cuentaOrigenConf");
-            String numCuentaD = (String) request.getParameter("cuentaDestinoConf");
-            String monto = (String) request.getParameter("montoConf");
-            if (!numCuentaO.equals("vacío") && !numCuentaD.equals("vacío") && !monto.equals("vacío")) {
-                t.setCuenta(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaO).get(0));
+            int numCuentaO = Integer.parseInt(request.getParameter("cuentaOrigenConf"));
+            int numCuentaD = Integer.parseInt(request.getParameter("cuentaDestinoConf"));
+            double monto = Double.parseDouble(request.getParameter("montoConf"));
+            Cuenta origen = banco.data.CuentaDao.getCuenta(numCuentaO);
+            if (monto < origen.getSaldoFinal() && monto < origen.getLimiteTransferenciaDiaria()) {
+                t.setCuenta(origen);
 
-                t.setCuenta_Destino(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaD).get(0));
+                t.setCuenta_Destino(banco.data.CuentaDao.getCuenta(numCuentaD));
 
                 t.setAplicado(Short.parseShort("1"));
 
-                t.setMonto(monto);
+                t.setMonto(String.valueOf(monto));
                 Calendar calendar = java.util.Calendar.getInstance();
                 t.setFecha(calendar.getTime());
                 if (banco.data.movimientosDao.registrarTransferencia(t)) {
-                    double montoFinal = t.getCuenta().getSaldoFinal() - Double.parseDouble(monto);
-                    double montoTransferencia = t.getCuenta().getLimiteTransferenciaDiaria() - Double.parseDouble(monto);
+                    double montoFinal = t.getCuenta().getSaldoFinal() - monto;
+                    double montoFinalDestino = t.getCuenta_Destino().getSaldoFinal() + monto;
+                    double montoTransferencia = t.getCuenta().getLimiteTransferenciaDiaria() - monto;
+                   
                     t.getCuenta().setSaldoFinal(montoFinal);
                     t.getCuenta().setLimiteTransferenciaDiaria(montoFinal);
+                    t.getCuenta_Destino().setSaldoFinal(montoFinalDestino);
 
                     banco.data.CuentaDao.updateSaldo(t.getCuenta());
+                    banco.data.CuentaDao.updateSaldo(t.getCuenta_Destino());
                 }
             }
-            return "/presentation/cliente/transferencia/View.jsp";
+            return "/presentation/cajero/transferencia/View.jsp";
         } catch (Exception ex) {
             return "/errorCajeroTransferencia";
         }
@@ -115,7 +119,16 @@ public class Controller extends HttpServlet {
             this.buscarClienteDestino(request, model);
             this.buscarCuentaDestino(request, model);
         }
-
+        if (!request.getParameter("monto").isEmpty()) {
+            try {
+                model.setMonto(Double.parseDouble(request.getParameter("monto")));
+                request.setAttribute("numCuentaO", String.valueOf( model.getSeleccionada().getNumCuenta()));
+                request.setAttribute("numCuentaD", String.valueOf( model.getSeleccionadaDestino().getNumCuenta()));
+                request.setAttribute("monto", String.valueOf(model.getMonto()));
+            } catch (Exception ex) {
+                System.out.print(ex);
+            }
+        }
         request.setAttribute("model", model);
 
         return ("/presentation/cajero/transferencia/View.jsp");
