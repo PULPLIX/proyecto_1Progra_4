@@ -77,7 +77,7 @@ public class Controller extends HttpServlet {
                     double montoTransferencia = t.getCuenta().getLimiteTransferenciaDiaria() - monto;
                    
                     t.getCuenta().setSaldoFinal(montoFinal);
-                    t.getCuenta().setLimiteTransferenciaDiaria(montoFinal);
+                    t.getCuenta().setLimiteTransferenciaDiaria(montoTransferencia);
                     t.getCuenta_Destino().setSaldoFinal(montoFinalDestino);
 
                     banco.data.CuentaDao.updateSaldo(t.getCuenta());
