@@ -50,16 +50,15 @@ public class Controller extends HttpServlet {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Cliente cliente = (Cliente) session.getAttribute("cliente");
 
-
         try {
             cliente = banco.data.ClienteDao.find(cliente.getUsuarioIdUsuario().getIdUsuario());
             model.setCurrent(cliente);
 
             request.setAttribute("clienteNombre", cliente.getNombre());
             request.setAttribute("clienteApellidos", cliente.getApellidos());
-            
+
             model.setCuentas(banco.data.CuentaDao.getCuentasCliente(cliente.getUsuarioIdUsuario().getIdUsuario()));
-            
+
             for (int i = 0; i < model.getCuentas().size(); i++) {
                 for (int j = 0; j < model.getCuentas().get(i).getMovimientoCollection().size(); j++) {
                     model.getMovimientos().add(model.getCuentas().get(i).getMovimientoCollection().get(j));
