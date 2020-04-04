@@ -75,7 +75,7 @@ public class Controller extends HttpServlet {
                     double montoFinal = t.getCuenta().getSaldoFinal() - monto;
                     double montoFinalDestino = t.getCuenta_Destino().getSaldoFinal() + monto;
                     double montoTransferencia = t.getCuenta().getLimiteTransferenciaDiaria() - monto;
-                   
+
                     t.getCuenta().setSaldoFinal(montoFinal);
                     t.getCuenta().setLimiteTransferenciaDiaria(montoTransferencia);
                     t.getCuenta_Destino().setSaldoFinal(montoFinalDestino);
@@ -122,8 +122,8 @@ public class Controller extends HttpServlet {
         if (!request.getParameter("monto").isEmpty()) {
             try {
                 model.setMonto(Double.parseDouble(request.getParameter("monto")));
-                request.setAttribute("numCuentaO", String.valueOf( model.getSeleccionada().getNumCuenta()));
-                request.setAttribute("numCuentaD", String.valueOf( model.getSeleccionadaDestino().getNumCuenta()));
+                request.setAttribute("numCuentaO", String.valueOf(model.getSeleccionada().getNumCuenta()));
+                request.setAttribute("numCuentaD", String.valueOf(model.getSeleccionadaDestino().getNumCuenta()));
                 request.setAttribute("monto", String.valueOf(model.getMonto()));
             } catch (Exception ex) {
                 System.out.print(ex);

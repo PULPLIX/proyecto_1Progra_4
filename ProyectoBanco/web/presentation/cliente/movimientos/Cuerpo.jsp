@@ -32,8 +32,8 @@
                             <th class="column100 column3" data-column="column3">Fecha</th>
                             <th class="column100 column4" data-column="column4">Aplicado</th>
                             <th class="column100 column5" data-column="column5">Numero de cuenta</th>
-                            <th class="column100 column5" data-column="column5">Numero de cuenta Destino</th>
 
+                            
 
                         </tr>
                     </thead>
@@ -45,8 +45,8 @@
                             <td class="column100 column1" data-column="column3"><%=m.getFecha()%></td>
                             <td class="column100 column1" data-column="column4"><%=m.getAplicado()%></td>
                             <td class="column100 column1" data-column="column5"><%=m.getCuenta().getNumCuenta()%></td>
-                            <td class="column100 column1" data-column="column5"><%=m.getCuenta().getNumCuenta()%></td>
 
+                            
                         </tr>
                         <%}%>
                     </tbody>

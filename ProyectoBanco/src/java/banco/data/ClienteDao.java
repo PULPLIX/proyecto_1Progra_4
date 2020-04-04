@@ -98,7 +98,7 @@ public static Cliente find(String id) throws Exception {
                 cli.setNombre(resultado.getString("nombre"));
                 cli.setTelefono(resultado.getString("telefono"));
                 llenarFavoritas(cli);
-
+                
             }
 
             con.close();

@@ -69,10 +69,10 @@ public class Controller extends HttpServlet {
                 Calendar calendar = java.util.Calendar.getInstance();
                 t.setFecha(calendar.getTime());
                 if (banco.data.movimientosDao.registrarTransferencia(t)) {
-                   double montoFinal = t.getCuenta().getSaldoFinal() - Double.parseDouble(monto);
+                    double montoFinal = t.getCuenta().getSaldoFinal() - Double.parseDouble(monto);
                     double montoFinalDestino = t.getCuenta().getSaldoFinal() + Double.parseDouble(monto);
                     double montoTransferencia = t.getCuenta().getLimiteTransferenciaDiaria() - Double.parseDouble(monto);
-                   
+
                     t.getCuenta().setSaldoFinal(montoFinal);
                     t.getCuenta().setLimiteTransferenciaDiaria(montoFinal);
                     t.getCuenta_Destino().setSaldoFinal(montoFinalDestino);
@@ -92,12 +92,11 @@ public class Controller extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-       
 
         try {
-             Cliente cliente = banco.data.ClienteDao.find(usuario.getIdUsuario());
-             session.setAttribute("cliente", cliente);
-             
+            Cliente cliente = banco.data.ClienteDao.find(usuario.getIdUsuario());
+            session.setAttribute("cliente", cliente);
+
             String numCuentaO = (String) request.getParameter("cuentaOrigen");
             String numCuentaD = (String) request.getParameter("cuentaDestino");
             String monto = (String) request.getParameter("monto");

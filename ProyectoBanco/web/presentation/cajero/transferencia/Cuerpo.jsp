@@ -23,7 +23,7 @@
     <center> <h2> Transferencia </h2><br><br></center>
 
     <% if ((String) request.getAttribute("mensaje") != null) {
-            out.print((String) request.getAttribute("mensaje") + "\n");
+            out.print((String) request.getAttribute("mensaje") );
         } %>
     <form action="/ProyectoBanco/cajero/transferencia/buscar" method="post">
 

@@ -15,7 +15,7 @@ import java.util.List;
  * @author Escinf
  */
 public class Model{
-    List<Cuenta> cuentas;
+    ArrayList<Cuenta> cuentas;
     Cuenta seleccionado;
     Cliente current;
 
@@ -24,11 +24,9 @@ public class Model{
     }
 
     public void reset(){ 
-        List<Cuenta> rows = new ArrayList<>();    
-        
+        cuentas = new ArrayList<>();    
         seleccionado=null;  
         current = null;
-        this.setCuentas(rows);
     }
 
     public Cliente getCurrent() {
@@ -39,11 +37,11 @@ public class Model{
         this.current = current;
     }
     
-    public void setCuentas(List<Cuenta> cuentas){
+    public void setCuentas(ArrayList<Cuenta> cuentas){
         this.cuentas =cuentas;    
     }
 
-     public List<Cuenta> getCuentas() {
+     public ArrayList<Cuenta> getCuentas() {
         return cuentas;
     }
 

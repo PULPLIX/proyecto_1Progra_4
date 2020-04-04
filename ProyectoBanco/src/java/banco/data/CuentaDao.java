@@ -155,7 +155,6 @@ public class CuentaDao {
 
     }
 
-    
     public static ArrayList<Cuenta> listarTodo() throws Exception {
         String SQL = "select * from cuenta c  inner join moneda m on "
                 + "c.moneda_nombre = m.nombre inner join cliente cli on "
@@ -190,25 +189,23 @@ public class CuentaDao {
             st.close();
             resultado.close();
             return lista;
-            
+
         } catch (Exception ex) {
             System.out.println(ex);
             return null;
         }
 
     }
-    
-    
-    
+
     public static Moneda creaMoneda(ResultSet resultado) throws SQLException {
         Moneda moneda = new Moneda();
 
-        moneda.setNombre(resultado.getInt("nombre"));
-        moneda.setSimbolo(resultado.getString("simbolo"));
-        moneda.setDescripcion(resultado.getString("descripcion"));
-        moneda.setTipoCambioCompra(resultado.getDouble("tipo_cambio_compra"));
-        moneda.setTipoCambioVenta(resultado.getDouble("tipo_cambio_venta"));
-        moneda.setTasaIntereses(resultado.getDouble("tasa_intereses"));
+        moneda.setNombre(resultado.getInt("m.nombre"));
+        moneda.setSimbolo(resultado.getString("m.simbolo"));
+        moneda.setDescripcion(resultado.getString("m.descripcion"));
+        moneda.setTipoCambioCompra(resultado.getDouble("m.tipo_cambio_compra"));
+        moneda.setTipoCambioVenta(resultado.getDouble("m.tipo_cambio_venta"));
+        moneda.setTasaIntereses(resultado.getDouble("m.tasa_interes"));
 
         return moneda;
     }
@@ -248,10 +245,10 @@ public class CuentaDao {
     public static ArrayList<Cuenta> getCuentasCliente(String id) throws Exception {
         String SQL = "select * from cuenta c "
                 + "inner join moneda m on c.moneda_nombre = m.nombre "
-                + "inner join cliente cli on c.cliente_id_cliente = cli.usuario_id_usuario "
+                + "inner join cliente cli on cli.usuario_id_usuario  =  c.cliente_id_cliente "
                 + "inner join usuario u on cli.usuario_id_usuario = u.id_usuario "
                 + "inner join tipo_cuenta tp on c.idTipoCuenta = tp.id_tipo_cuenta "
-                + "where cliente_id_cliente=?;";
+                + "where cliente_id_cliente=?";
 
         try {
             Connection con = Coneccion.conectar();
@@ -415,13 +412,13 @@ public class CuentaDao {
     }
 
     public static boolean insertarMovimiento(Movimiento movimiento, Cuenta cuenta) {
-        String SQL = "insert into movimiento (monto, fecha, aplicado, cuenta_num_cuenta, motivo, nombre_depositante)" 
+        String SQL = "insert into movimiento (monto, fecha, aplicado, cuenta_num_cuenta, motivo, nombre_depositante)"
                 + "values (?, ?, ?, ?, ?, ?);";
 
         try {
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
-            
+
             st.setDouble(1, movimiento.getMonto());
             st.setDate(2, movimiento.getFecha());
             st.setShort(3, movimiento.getAplicado());
