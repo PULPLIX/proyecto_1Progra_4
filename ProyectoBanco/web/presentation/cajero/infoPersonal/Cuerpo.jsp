@@ -5,6 +5,7 @@
 --%>
 
 <link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/infoPersonal.css">
+<link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/registro.css">
 
 <%@page import="java.util.List"%>
 <%@page import="banco.logica.Cliente"%>
@@ -18,6 +19,24 @@
 
 
 <div class="limiter"> 
+    <p style=" color: red"> <% if ((String) request.getAttribute("errorNombre") != null) {
+            out.print((String) request.getAttribute("errorNombre"));
+        }
+        %>  </p>  
+    <p style=" color: red"> <% if ((String) request.getAttribute("errorApellidos") != null) {
+            out.print((String) request.getAttribute("errorApellidos"));
+        }
+        %>  </p>  
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorTelefono") != null) {
+            out.print((String) request.getAttribute("errorTelefono"));
+        }
+        %>
+    </p> 
+        <p style=" color: red">   <% if ((String) request.getAttribute("errorTelefonoInvalido") != null) {
+            out.print((String) request.getAttribute("errorTelefonoInvalido"));
+        }
+        %>
+    </p> 
     <center> <h2> Informacion Personal </h2></center>
 
     <div class="container-table100">
@@ -61,35 +80,41 @@
 
         <input type="radio" id="hide" name="group">
 
-    
 
-            <div id="content">
-                    <form action="/ProyectoBanco/cajero/infoPersonal/actualizar"> 
+
+        <div id="content">
+            <form action="/ProyectoBanco/cajero/infoPersonal/actualizar"> 
                 <br> Nombre <br>
                 <input type="text" name="nombreE" value="<% if ((String) request.getAttribute("clienteNombre") != null) {
                         out.print((String) request.getAttribute("clienteNombre"));
                     } else {
                         out.print("Nombre");
-                    }%>" >
+                    }%>" class="<%if (request.getAttribute("errorNombre") != null) {
+                    out.print("errorTxt");
+            }%>" >
                 <br><br> Apellidos <br>
                 <input type="text" name="apellidosE" value="<% if ((String) request.getAttribute("clienteApellidos") != null) {
                         out.print((String) request.getAttribute("clienteApellidos"));
                     } else {
                         out.print("Apellidos");
-                    }%>" >
+                    }%>" class="<%if (request.getAttribute("errorApellidos") != null) {
+                out.print("errorTxt");
+            }%>">
                 <br><br> Telefono <br>
                 <input type="text" name="telefonoE" value="<% if ((String) request.getAttribute("clienteTelefono") != null) {
                         out.print((String) request.getAttribute("clienteTelefono"));
                     } else {
                         out.print("Telefono");
-                    }%>" >
-                
-                
+                    }%>" class="<%if (request.getAttribute("errorTelefono") != null || request.getAttribute("errorTelefonoInvalido") != null) {
+                out.print("errorTxt");
+            } %>">
+
+
                 <br><br><input type="submit" value="Actualizar"/>
-                </form>
-                <br><br> <label for="hide">               
-                    <span>[Cancelar]</span>
-                </label><br>
-            </div>
+            </form>
+            <br><br> <label for="hide">               
+                <span>[Cancelar]</span>
+            </label><br>
+        </div>
     </center>             
 </div>  

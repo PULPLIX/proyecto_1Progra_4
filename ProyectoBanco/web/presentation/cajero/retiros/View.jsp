@@ -4,6 +4,8 @@
     Author     : Oscar
 --%>
 
+<link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/registro.css">
+
 <%
     banco.presentacion.cajero.retiros.Model model = (banco.presentacion.cajero.retiros.Model) request.getAttribute("model");
     Cliente clienteBuscar = model.getClienteBuscar();
@@ -26,18 +28,35 @@
                 <div class="img"></div>
                 <div class="container-text">
                     <h1>Retiros</h1>
+                    
+                    
+                                  <p style=" color: red">   <% if ((String) request.getAttribute("errorCuentaInvalidoConfirmar") != null) {
+                            out.print((String) request.getAttribute("errorCuentaInvalidoConfirmar"));
+                        }
+                        %>
+                    </p> 
+                    <p style=" color: red">   <% if ((String) request.getAttribute("errorMontoInvalidoConfirmar") != null) {
+                            out.print((String) request.getAttribute("errorMontoInvalidoConfirmar"));
+                        }
+                        %>
+                    </p> 
+
                     <div class="inputs">
                         <form name="confirm" action="/ProyectoBanco/cajero/retiros/confirmar" method="post">
                             <label>Cuenta:&nbsp</label> <input type="text" name="cuentaConf" value="<% if (model.getSeleccionada() != null) {
                                 out.print((String) String.valueOf(model.getSeleccionada().getNumCuenta()));
                                 } else {
                                     out.print("Vacío");
-                                }%>" id="inputText" readonly/><br>
+                                }%>" class="<%if (request.getAttribute("errorCuentaInvalidoConfirmar") != null) {
+                                        out.print("errorTxt");
+                                    } %>" id="inputText" readonly/><br>
                             <label>Monto:&nbsp&nbsp&nbsp</label> <input type="text" name="montoConf" value="<% if ((String) request.getAttribute("monto") != null) {
                                     out.print((String) request.getAttribute("monto"));
                                 } else {
                                     out.print("Vacío");
-                                }%>" id="inputText" readonly/><br>
+                                }%>" class="<%if (request.getAttribute("errorMontoInvalidoConfirmar") != null || request.getAttribute("errorMontoExcesivo") != null) {
+                                        out.print("errorTxt");
+                                    } %>" id="inputText" readonly/><br>
  
                             <center><input class="btn-confirm" type="submit" value="Confirmar" id="inputBoton"/><br></center>
                         </form>

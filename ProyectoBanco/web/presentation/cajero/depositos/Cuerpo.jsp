@@ -4,6 +4,8 @@
     Author     : Iván
 --%>
 
+<link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/registro.css">
+
 <%@page import="banco.logica.Cuenta"%>
 <%@page import="java.util.List"%>
 <%@page import="banco.logica.Cliente"%>
@@ -11,11 +13,64 @@
 
 
 <div class="limiter"> 
+    <br><br>
     <center> <h2> Depósitos </h2><br><br></center>
 
+    <p style=" color: red"> <% if ((String) request.getAttribute("errorClienteVacio") != null) {
+            out.print((String) request.getAttribute("errorClienteVacio"));
+        }
+        %>  </p>  
+    <p style=" color: red"> <% if ((String) request.getAttribute("errorCuentaVacia") != null) {
+            out.print((String) request.getAttribute("errorCuentaVacia"));
+        }
+        %>  </p>  
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorMontoVacio") != null) {
+            out.print((String) request.getAttribute("errorMontoVacio"));
+        }
+        %>
+    </p> 
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorMotivoVacio") != null) {
+            out.print((String) request.getAttribute("errorMotivoVacio"));
+        }
+        %>
+    </p>         
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorNombreDepositanteVacio") != null) {
+            out.print((String) request.getAttribute("errorNombreDepositanteVacio"));
+        }
+        %>
+    </p> 
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorClienteInvalido") != null) {
+            out.print((String) request.getAttribute("errorClienteInvalido"));
+        }
+        %>
+    </p> 
+
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorCuentaInvalido") != null) {
+            out.print((String) request.getAttribute("errorCuentaInvalido"));
+        }
+        %>
+    </p> 
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorClienteIndefinido") != null) {
+            out.print((String) request.getAttribute("errorClienteIndefinido"));
+        }
+        %>
+    </p> 
+
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorCuentaIndefinido") != null) {
+            out.print((String) request.getAttribute("errorCuentaIndefinido"));
+        }
+        %>
+    </p> 
+        <p style=" color: red">   <% if ((String) request.getAttribute("errorMontoInvalido") != null) {
+            out.print((String) request.getAttribute("errorMontoInvalido"));
+        }
+        %>
+    </p> 
+
+
     <% if ((String) request.getAttribute("mensaje") != null) {
-                out.print((String) request.getAttribute("mensaje") + "\n");
-            } %>
+            out.print((String) request.getAttribute("mensaje") + "\n");
+        } %>
 
     <center>                   
         <h2>Digite el número de cédula del cliente</h2>
@@ -25,7 +80,9 @@
                     out.print((String) request.getAttribute("clienteBuscar"));
                 } else {
                     out.print("Cliente");
-                }%>" >
+                }%>" class="<%if (request.getAttribute("errorClienteVacio") != null || request.getAttribute("errorClienteInvalido") != null|| request.getAttribute("errorClienteIndefinido") != null) {
+                out.print("errorTxt");
+            }%>">
 
             <input type="submit" value="Buscar" /><br><br>
         </form>
@@ -91,7 +148,9 @@
                                 out.print((String) request.getAttribute("cuentaSeleccionada"));
                             } else {
                                 out.print("1235");
-                            }%>" >
+                            }%>" class="<%if (request.getAttribute("errorCuentaVacia") != null || request.getAttribute("errorCuentaInvalido") != null|| request.getAttribute("errorCuentaIndefinido") != null) {
+                out.print("errorTxt");
+            }%>">
 
                         <input type="submit" value="Buscar" /><br><br>
                     </form>
@@ -133,20 +192,26 @@
                                 out.print((String) request.getAttribute("monto"));
                             } else {
                                 out.print("Monto");
-                            }%>">
+                            }%>" class="<%if (request.getAttribute("errorMontoVacio")!= null || request.getAttribute("errorMontoInvalido") != null)  {
+                out.print("errorTxt");
+            }%>">
                         <h2>Digite el motivo</h2>
                         <input type="text" name="motivo" value="<% if ((String) request.getAttribute("motivo") != null) {
                                 out.print((String) request.getAttribute("motivo"));
                             } else {
                                 out.print("Motivo");
-                            }%>" >
+                            }%>" class="<%if (request.getAttribute("errorMotivoVacio") != null) {
+                out.print("errorTxt");
+            }%>">
 
                         <h2>Digite el nombre del depositante</h2>
                         <input type="text" name="nombreDepositante" value="<% if ((String) request.getAttribute("nombreDepositante") != null) {
                                 out.print((String) request.getAttribute("nombreDepositante"));
                             } else {
                                 out.print("Nombre del depositante");
-                            }%>" >
+                            }%>" class="<%if (request.getAttribute("errorNombreDepositanteVacio") != null) {
+                out.print("errorTxt");
+            }%>">
                         <br><br>
                         Si todos los datos están correctos, puede ingresarlos en el sistema y luego se confirmará el depósito.
                         &nbsp<input type="submit" value="Ingresar Datos" />

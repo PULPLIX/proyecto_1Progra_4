@@ -42,37 +42,85 @@ public class Controller extends HttpServlet {
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
 
+    public boolean validar(HttpServletRequest request) {
+        boolean error = false;
+        if (request.getParameter("nombreE").isEmpty()) {
+            request.setAttribute("errorNombre", "El nombre no puede ser vacio");
+            error = true;
+        }
+        if (request.getParameter("apellidosE").isEmpty()) {
+            request.setAttribute("errorApellidos", "Los apellidos no puede ser vacio");
+            error = true;
+        }
+        if (request.getParameter("telefonoE").isEmpty()) {
+            request.setAttribute("errorTelefono", "El telefono no puede ser vacio");
+            error = true;
+        }
+        String telefono = request.getParameter("telefonoE");
+        for (int i = 0; i < telefono.length(); i++) {
+            if (!(telefono.charAt(i) >= 47 && telefono.charAt(i) <= 57 || telefono.charAt(i) == '-' || telefono.charAt(i) == '(' || telefono.charAt(i) == ')' || telefono.charAt(i) == '+'|| telefono.charAt(i) == ' ')) {
+                request.setAttribute("errorTelefonoInvalido", "El formato del telefono no es valido");
+                error = true;
+
+            }
+        }
+        return error;
+    }
+
     public String actualizar(HttpServletRequest request) {
 
-        HttpSession session = request.getSession(true);
-        Cliente cliente = (Cliente) session.getAttribute("cliente");
+        if (!validar(request)) {
+            HttpSession session = request.getSession(true);
+            Cliente cliente = (Cliente) session.getAttribute("cliente");
 
-        try {
-            String nombreE = (String) request.getParameter("nombreE");
-            String apellidosE = (String) request.getParameter("apellidosE");
-            String telefonoE = (String) request.getParameter("telefonoE");
+            try {
+                String nombreE = (String) request.getParameter("nombreE");
+                String apellidosE = (String) request.getParameter("apellidosE");
+                String telefonoE = (String) request.getParameter("telefonoE");
 
-            if (ClienteDao.actualizar(nombreE, apellidosE, telefonoE, cliente.getUsuarioIdUsuario().getIdUsuario())) {
-                cliente.setTelefono(telefonoE);
-                cliente.setNombre(nombreE);
-                cliente.setApellidos(apellidosE);
-                session.setAttribute("cliente", cliente);
+                if (ClienteDao.actualizar(nombreE, apellidosE, telefonoE, cliente.getUsuarioIdUsuario().getIdUsuario())) {
+                    cliente.setTelefono(telefonoE);
+                    cliente.setNombre(nombreE);
+                    cliente.setApellidos(apellidosE);
+                    session.setAttribute("cliente", cliente);
+                }
+
+                return ("/presentation/cajero/infoPersonal/show");
+            } catch (Exception ex) {
+                return ("/presentation/cajero/infoPersonal/View.jsp");
             }
-
-            return ("/presentation/cajero/infoPersonal/show");
-        } catch (Exception ex) {
-            return ("/presentation/cajero/infoPersonal/View.jsp");
+        } else {
+            return this.show(request);
         }
+//        HttpSession session = request.getSession(true);
+//        Cliente cliente = (Cliente) session.getAttribute("cliente");
+//
+//        try {
+//            String nombreE = (String) request.getParameter("nombreE");
+//            String apellidosE = (String) request.getParameter("apellidosE");
+//            String telefonoE = (String) request.getParameter("telefonoE");
+//
+//            if (ClienteDao.actualizar(nombreE, apellidosE, telefonoE, cliente.getUsuarioIdUsuario().getIdUsuario())) {
+//                cliente.setTelefono(telefonoE);
+//                cliente.setNombre(nombreE);
+//                cliente.setApellidos(apellidosE);
+//                session.setAttribute("cliente", cliente);
+//            }
+//
+//            return ("/presentation/cajero/infoPersonal/show");
+//        } catch (Exception ex) {
+//            return ("/presentation/cajero/infoPersonal/View.jsp");
+//        }
 
     }
 
     public String show(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
         Model model = (Model) request.getAttribute("model");
-        
+
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Cliente cliente = null;
-        
+
         try {
             cliente = banco.data.ClienteDao.find(usuario.getIdUsuario());
             model.setCliente(cliente);
@@ -80,7 +128,7 @@ public class Controller extends HttpServlet {
             request.setAttribute("clienteNombre", cliente.getNombre());
             request.setAttribute("clienteApellidos", cliente.getApellidos());
             request.setAttribute("clienteTelefono", cliente.getTelefono());
-            
+
             request.setAttribute("model", model);
             session.setAttribute("cliente", cliente);
 
@@ -88,7 +136,7 @@ public class Controller extends HttpServlet {
             System.out.println(ex);
             cliente = null;
         }
-        
+
         return "/presentation/cajero/infoPersonal/View.jsp";
     }
 

@@ -4,13 +4,68 @@
     Author     : Oscar
 --%>
 
+
+<link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/registro.css">
+
 <%@page import="banco.logica.Cuenta"%>
 <%@page import="java.util.List"%>
 <%@page import="banco.logica.Cliente"%>
 <%@page import="banco.presentacion.cajero.retiros.Model"%>
 
 <div class="limiter"> 
-    <center><h1> Retiros </h1><br><br>
+    <center><h1> Retiros </h1><br><br></center>
+        
+        
+            <p style=" color: red"> <% if ((String) request.getAttribute("errorClienteVacio") != null) {
+            out.print((String) request.getAttribute("errorClienteVacio"));
+        }
+        %>  </p>  
+    <p style=" color: red"> <% if ((String) request.getAttribute("errorCuentaVacia") != null) {
+            out.print((String) request.getAttribute("errorCuentaVacia"));
+        }
+        %>  </p>  
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorMontoVacio") != null) {
+            out.print((String) request.getAttribute("errorMontoVacio"));
+        }
+        %>
+    </p> 
+        
+
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorClienteInvalido") != null) {
+            out.print((String) request.getAttribute("errorClienteInvalido"));
+        }
+        %>
+    </p> 
+
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorCuentaInvalido") != null) {
+            out.print((String) request.getAttribute("errorCuentaInvalido"));
+        }
+        %>
+    </p> 
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorClienteIndefinido") != null) {
+            out.print((String) request.getAttribute("errorClienteIndefinido"));
+        }
+        %>
+    </p> 
+
+    <p style=" color: red">   <% if ((String) request.getAttribute("errorCuentaIndefinido") != null) {
+            out.print((String) request.getAttribute("errorCuentaIndefinido"));
+        }
+        %>
+    </p> 
+        <p style=" color: red">   <% if ((String) request.getAttribute("errorMontoInvalido") != null) {
+            out.print((String) request.getAttribute("errorMontoInvalido"));
+        }
+        %>
+    </p> 
+
+        <p style=" color: red">   <% if ((String) request.getAttribute("errorMontoExcesivo") != null) {
+            out.print((String) request.getAttribute("errorMontoExcesivo"));
+        }
+        %>
+    </p> 
+        
+        
 <% if ((String) request.getAttribute("mensaje") != null) {
                 out.print((String) request.getAttribute("mensaje") + "\n");
             } %>
@@ -23,7 +78,9 @@
                     out.print((String) request.getAttribute("clienteBuscar"));
                 } else {
                     out.print("Cliente");
-                }%>" >
+                }%>" class="<%if (request.getAttribute("errorClienteVacio") != null || request.getAttribute("errorClienteInvalido") != null|| request.getAttribute("errorClienteIndefinido") != null) {
+                out.print("errorTxt");
+            }%>">
 
             <input type="submit" value="Buscar" /><br><br>
         </form>
@@ -89,7 +146,9 @@
                                 out.print((String) request.getAttribute("cuentaSeleccionada"));
                             } else {
                                 out.print("");
-                            }%>" >
+                            }%>" class="<%if (request.getAttribute("errorCuentaVacia") != null || request.getAttribute("errorCuentaInvalido") != null|| request.getAttribute("errorCuentaIndefinido") != null) {
+                out.print("errorTxt");
+            }%>">
 
                         <input type="submit" value="Buscar" /><br><br>
                     </form>
@@ -131,7 +190,9 @@
                                 out.print((String) request.getAttribute("monto"));
                             } else {
                                 out.print("Monto");
-                            }%>">                       
+                            }%>" class="<%if (request.getAttribute("errorMontoVacio")!= null || request.getAttribute("errorMontoInvalido") != null || request.getAttribute("errorMontoExcesivo") != null)  {
+                out.print("errorTxt");
+            }%>">                      
                         <br><br>
                         Si todos los datos están correctos, puede ingresarlos en el sistema y luego se confirmará el retiro. <br><br>
                         &nbsp<input type="submit" value="Ingresar Datos" />

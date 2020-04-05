@@ -4,6 +4,8 @@
     Authors     : Iván Chinchilla - David Aguilar
 --%>
 
+<link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/registro.css">
+
 <%
     banco.presentacion.cajero.depositos.Model model = (banco.presentacion.cajero.depositos.Model) request.getAttribute("model");
     Cliente clienteBuscar = model.getClienteBuscar();
@@ -11,43 +13,80 @@
     Cuenta seleccionada = model.getSeleccionada();
 %>
 
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+
         <%@ include file="/presentation/Template/HojaEstilo.jsp" %>
         <title>Transferencias en cajas</title>
     </head>
 
     <body>
-
         <div class="container-all" id="modal">
             <div class="popup">
                 <div class="img"></div>
                 <div class="container-text">
                     <h1>Depósito</h1>
+
+
+
+
+
+                    <p style=" color: red">   <% if ((String) request.getAttribute("errorCuentaInvalidoConfirmar") != null) {
+                            out.print((String) request.getAttribute("errorCuentaInvalidoConfirmar"));
+                        }
+                        %>
+                    </p> 
+                    <p style=" color: red">   <% if ((String) request.getAttribute("errorMontoInvalidoConfirmar") != null) {
+                            out.print((String) request.getAttribute("errorMontoInvalidoConfirmar"));
+                        }
+                        %>
+                    </p> 
+                    <p style=" color: red">   <% if ((String) request.getAttribute("errorMotivoVacioConfirmar") != null) {
+                            out.print((String) request.getAttribute("errorMotivoVacioConfirmar"));
+                        }
+                        %>
+                    </p> 
+                    <p style=" color: red">   <% if ((String) request.getAttribute("errorNombreDepositanteVacioConfirmar") != null) {
+                            out.print((String) request.getAttribute("errorNombreDepositanteVacioConfirmar"));
+                        }
+                        %>
+                    </p> 
+
                     <div class="inputs">
                         <form name="confirm" action="/ProyectoBanco/cajero/depositos/confirmar" method="post">
                             <label>Cuenta:&nbsp</label> <input type="text" name="cuentaConf" value="<% if (model.getSeleccionada() != null) {
-                                out.print((String) String.valueOf(model.getSeleccionada().getNumCuenta()));
+                                    out.print((String) String.valueOf(model.getSeleccionada().getNumCuenta()));
                                 } else {
-                                    out.print("Vacío");
-                                }%>" id="inputText" readonly/><br>
+                                    out.print("Vacio");
+                                }%>" class="<%if (request.getAttribute("errorCuentaInvalidoConfirmar") != null) {
+                                        out.print("errorTxt");
+                                    } %>" id="inputText" readonly/><br>
                             <label>Monto:&nbsp&nbsp&nbsp</label> <input type="text" name="montoConf" value="<% if ((String) request.getAttribute("monto") != null) {
                                     out.print((String) request.getAttribute("monto"));
                                 } else {
-                                    out.print("Vacío");
-                                }%>" id="inputText" readonly/><br>
+                                    out.print("Vacio");
+                                }%>" class="<%if (request.getAttribute("errorMontoInvalidoConfirmar") != null || request.getAttribute("errorTelefonoInvalido") != null) {
+                                        out.print("errorTxt");
+                                    } %>" id="inputText" readonly/><br>
                             <label>Motivo:&nbsp&nbsp&nbsp</label><input type="text" name="motivoConf" value="<% if ((String) request.getAttribute("motivo") != null) {
                                     out.print((String) request.getAttribute("motivo"));
                                 } else {
-                                    out.print("Vacío");
-                                }%>" id="inputText" readonly/><br>
+                                    out.print("Vacio");
+                                }%>" class="<%if (request.getAttribute("errorMotivoVacioConfirmar") != null || request.getAttribute("errorTelefonoInvalido") != null) {
+                                        out.print("errorTxt");
+                                    } %>" id="inputText" readonly/><br>
                             <label>Nombre:</label><input type="text" name="nombreDepositanteConf" value="<% if ((String) request.getAttribute("nombreDepositante") != null) {
                                     out.print((String) request.getAttribute("nombreDepositante"));
                                 } else {
-                                    out.print("Vacío");
-                            }%>" id="inputText" readonly/><br><br>
+                                    out.print("Vacio");
+                                }%>" class="<%if (request.getAttribute("errorNombreDepositanteVacioConfirmar") != null) {
+                                    out.print("errorTxt");
+                                }
+                               %>" id="inputText" readonly /><br><br>
                             <center><input class="btn-confirm" type="submit" value="Confirmar" id="inputBoton"/><br></center>
                         </form>
                     </div>
