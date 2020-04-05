@@ -46,7 +46,7 @@
         <select  name="tipoCuenta" id="inputSelect" class="<%if (request.getAttribute("errorCuenta") != null) {
                             out.print((String) request.getAttribute("errorCuenta"));
                         }%>">
-            <option id="option" value="0" >
+            <option id="option" value="0">
                 Seleccione el tipo de Cuenta</option>
                 <%for (int i = 0; i < tipoCuenta.size(); i++) {%>
             <option value="<%= tipoCuenta.get(i).getIdTipoCuenta()%>"><%= tipoCuenta.get(i).getDescripción()%> <%=  tipoCuenta.get(i).getTasaInterés()%></option>

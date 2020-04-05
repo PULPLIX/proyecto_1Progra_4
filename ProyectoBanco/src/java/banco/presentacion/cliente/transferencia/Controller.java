@@ -12,6 +12,8 @@ import banco.logica.Usuario;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +49,33 @@ public class Controller extends HttpServlet {
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
 
+    public boolean validar(HttpServletRequest request) {
+        boolean error = false;
+        if (request.getParameter("cuentaDestinoConf").isEmpty()) {
+            request.setAttribute("errorDestino", "errorTxt");
+            error = true;
+        }
+        if (request.getParameter("cuentaOrigenConf").isEmpty()) {
+            request.setAttribute("errorOrigen", "errorTxt");
+            error = true;
+        }
+        if (request.getParameter("montoConf").isEmpty()) {
+            request.setAttribute("errorMonto", "errorTxt");
+            error = true;
+        }
+
+        return error;
+    }
+
     public String transferir(HttpServletRequest request) {
+        if (!this.validar(request)) {
+            return this.transferirAction(request);
+        } else {
+            return "/presentation/cliente/transferencia/View.jsp";
+        }
+    }
+
+    public String transferirAction(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
 
         HttpSession session = request.getSession(true);
@@ -88,13 +116,15 @@ public class Controller extends HttpServlet {
     }
 
     public String buscaCuentas(HttpServletRequest request) {
-        Model model = (Model) request.getAttribute("model");
-
-        HttpSession session = request.getSession(true);
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-
         try {
-            Cliente cliente = banco.data.ClienteDao.find(usuario.getIdUsuario());
+            Model model = (Model) request.getAttribute("model");
+
+            HttpSession session = request.getSession(true);
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+            Cliente cliente;
+
+            cliente = banco.data.ClienteDao.find(usuario.getIdUsuario());
             session.setAttribute("cliente", cliente);
 
             String numCuentaO = (String) request.getParameter("cuentaOrigen");
@@ -102,16 +132,34 @@ public class Controller extends HttpServlet {
             String monto = (String) request.getParameter("monto");
 
             if (!(numCuentaO).equals(numCuentaD)) {
-                model.setSeleccionado(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaO).get(0));
-                request.setAttribute("numCuentaO", numCuentaO);
-                model.setaTransferir(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaD).get(0));
-                request.setAttribute("numCuentaD", numCuentaD);
-                if (Double.parseDouble(monto) < model.getSeleccionado().getLimiteTransferenciaDiaria()) {
-                    request.setAttribute("monto", monto);
+                try {
+                    if (!request.getParameter("cuentaOrigen").isEmpty()) {
+                        model.setSeleccionado(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaO).get(0));
+                        request.setAttribute("numCuentaO", numCuentaO);
+                    }
+
+                } catch (Exception ex) {
+                    request.setAttribute("noExisteOrigen", "error");
                 }
-
+                try {
+                    if (!request.getParameter("cuentaDestino").isEmpty()) {
+                        model.setaTransferir(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaD).get(0));
+                        request.setAttribute("numCuentaD", numCuentaD);
+                    }
+                } catch (Exception ex) {
+                    request.setAttribute("noExisteDestino", "error");
+                }
+                if (!request.getParameter("monto").isEmpty()) {
+                    if (Double.parseDouble(monto) <= model.getSeleccionado().getLimiteTransferenciaDiaria() && (Double.parseDouble(monto) <= model.getSeleccionado().getSaldoFinal())) {
+                        request.setAttribute("monto", monto);
+                        
+                    } else {
+                        request.setAttribute("Excede", "error");
+                    }
+                }
+            } else {
+                request.setAttribute("iguales", "error");
             }
-
             return "/presentation/cliente/transferencia/View.jsp";
         } catch (Exception ex) {
             return "/presentation/cliente/transferencia/View.jsp";

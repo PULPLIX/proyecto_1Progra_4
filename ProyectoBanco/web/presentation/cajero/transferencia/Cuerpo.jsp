@@ -14,6 +14,7 @@
     Cliente clienteBuscar = model.getClienteBuscar();
     ArrayList<Cuenta> cuentas = model.getCuentas();
     Cuenta seleccionada = model.getSeleccionada();
+    
     Cliente clienteBuscarDestino = model.getClienteBuscarDestino();
     ArrayList<Cuenta> cuentasDestino = model.getCuentasDestino();
     Cuenta seleccionadaDestino = model.getSeleccionadaDestino();

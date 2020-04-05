@@ -1,11 +1,11 @@
- <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <%@ include file="/presentation/Template/HojaEstilo.jsp" %>
         <title>Mis cuentas</title>
     </head>
-    
+
     <body>           
         <div class="container-all" id="modal">
             <div class="popup">
@@ -15,21 +15,16 @@
                     <div class="inputs">
                         <form name="confirm" action="/ProyectoBanco/transferir/confirmar" method="post">
                             <label>Cuenta Origen:</label> <input type="text" name="cuentaOrigenConf" value="<% if ((String) request.getAttribute("numCuentaO") != null) {
-                    out.print((String) request.getAttribute("numCuentaO"));
-                } else {
-                    out.print("Vacío");
-                }%>" id="inputText" readonly/><br>
+                                    out.print((String) request.getAttribute("numCuentaO"));
+                                } %>" id="inputText" placeholder="vacío" readonly/><br>
                             <label>Cuenta destino:</label><input type="text" name="cuentaDestinoConf" value="<% if ((String) request.getAttribute("numCuentaD") != null) {
-                    out.print((String) request.getAttribute("numCuentaD"));
-                } else {
-                    out.print("Vacío");
-                }%>" id="inputText" readonly/><br>
+                                    out.print((String) request.getAttribute("numCuentaD"));
+                                } %>" id="inputText" placeholder="vacío" readonly/><br>
                             <center><label>Monto:</label><input type="text" name="montoConf" value="<% if ((String) request.getAttribute("monto") != null) {
-                    out.print((String) request.getAttribute("monto"));
-                } else {
-                    out.print("Vacío");
-                }%>" id="inputText" readonly/><br>
-                            <input class="btn-confirm" type="submit" value="Confirmar" id="inputBoton"/><br></center>
+                                    out.print((String) request.getAttribute("monto"));
+                                }
+                               %>" id="inputText" placeholder="vacío"  readonly/><br>
+                                <input class="btn-confirm" type="submit" value="Confirmar" id="inputBoton"/><br></center>
                         </form>
                     </div>
                 </div>
@@ -53,7 +48,7 @@
         <%@ include file="/presentation/cliente/transferencia/Cuerpo.jsp" %>
 
         <br><br>            
-                <a href="#modal" class="btn-open-popup">Confirmar </a>
+        <a href="#modal" class="btn-open-popup">Confirmar </a>
         <br><br>  
         <br><br>   
         <br><br>   

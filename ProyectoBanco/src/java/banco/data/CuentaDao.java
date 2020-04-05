@@ -434,7 +434,7 @@ public class CuentaDao {
     }
 
     public static void llenarTransferencias(Cuenta cuenta) {
-        String SQL = "select * from transferencia where cuenta_destino=?";
+        String SQL = "select * from transferencia where cuenta_origen=?";
 
         try {
             Connection con = Coneccion.conectar();
@@ -452,8 +452,10 @@ public class CuentaDao {
                 t.setFecha(resultado.getDate("fecha"));
                 t.setAplicado(resultado.getShort("aplicado"));
                 t.setCuenta(cuenta);
+                
                 cuentaDest.setNumCuenta(resultado.getInt("cuenta_destino"));
                 t.setCuenta_Destino(cuentaDest);
+                
                 cuenta.getTransferenciaCollection().add(t);
             }
             con.close();

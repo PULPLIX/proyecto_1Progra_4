@@ -15,7 +15,6 @@
 <%
     banco.presentacion.cliente.cuentas.Model model = (Model) request.getAttribute("model");
     ArrayList<Cuenta> favoritas = model.getCurrent().getFavoritasCollection();
-
 %>
 
 
@@ -38,12 +37,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%for(Cuenta fav: favoritas) {%>
+                        <%for (Cuenta fav : favoritas) {%>
                         <tr  class="row100">
                             <td class="column100 column1" data-column="column1"><%=fav.getNumCuenta()%> </td> 
                             <td class="column100 column1" data-column="column2"><%=fav.getIdTipoCuenta().getIdTipoCuenta()%></td>
-                            <td class="column100 column1" data-column="column3"><%=fav.getIdTipoCuenta().getDescripción() %></td>
-                            <td class="column100 column1" data-column="column4"><%=fav.getClienteIdCliente().getNombre()+" "+ fav.getClienteIdCliente().getApellidos()%></td>
+                            <td class="column100 column1" data-column="column3"><%=fav.getIdTipoCuenta().getDescripción()%></td>
+                            <td class="column100 column1" data-column="column4"><%=fav.getClienteIdCliente().getNombre() + " " + fav.getClienteIdCliente().getApellidos()%></td>
                             <td class="column100 column1" data-column="column5"> <form method="post" > 
                                     <a href="/ProyectoBanco/cuentas/favoritas/eliminar?idCuenta=<%=fav.getNumCuenta()%>" method="post" > <img src="/ProyectoBanco/images/menuIcon/eliminar.png"  width="30" height="30" id="subIcon"></a>
                                 </form></td>
@@ -56,9 +55,9 @@
     </div>
 
     <br><br>      
-             
-</div>  
 
-        <br><br>            
-                <a href="#modal" class="btn-open-popup">Vincular una cuenta </a>
-        <br><br> 
+</div>  
+<%if (request.getAttribute("noExiste") != null) {%><center><label style="color:red;">La cuenta ingresada no existe o ya se encuentra registrada<br></label></center><%}%>       
+<br><br> 
+<a href="#modal" class="btn-open-popup">Vincular una cuenta </a>
+<br><br> 

@@ -1,6 +1,8 @@
 <%@page import="java.util.List"%>
 <%@page import="banco.logica.Cuenta"%>
 <%@page import="banco.presentacion.cliente.transferencia.Model"%>
+<link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/registro.css">
+
 
 <%
     banco.presentacion.cliente.transferencia.Model model = (Model) request.getAttribute("model");
@@ -20,12 +22,12 @@
 
         <center>
             <h2>Elige la cuenta de origen de los fondos</h2>
-
+            <%if (request.getAttribute("noExisteOrigen") != null) {%><label style="color:red;">La cuenta ingresada no existe o no le pertence<br></label><%}%>
             <input type="text" name="cuentaOrigen" value="<% if ((String) request.getAttribute("numCuentaO") != null) {
                     out.print((String) request.getAttribute("numCuentaO"));
-                } else {
-                    out.print("Cuenta Origen");
-                }%>" >
+                                   }%>" placeholder="origen" class="<%if (request.getAttribute("errorOrigen") != null) {
+                                                              out.print((String) request.getAttribute("errorOrigen"));
+                                                          }%>"/>
             <input type="submit" value="Buscar" /><br><br>
 
             <div class="container-table100">
@@ -60,13 +62,17 @@
             </div>
         </center>
         <center>
-            <br><br><br><br><br><h2>Elige a la que desea hacer la transferencia</h2><br>
+
+            <br><br>
+            <%if (request.getAttribute("iguales") != null) {%><label style="color:red; font-size: 30px;">Has escogido la misma cuenta dos veces<br></label><%}%>
+            <br><br><br><h2>Elige a la que desea hacer la transferencia</h2><br>
+            <%if (request.getAttribute("noExisteDestino") != null) {%><label style="color:red;">La cuenta ingresada no existe<br></label><%}%>
 
             <input type="text" name="cuentaDestino" value="<% if ((String) request.getAttribute("numCuentaD") != null) {
                     out.print((String) request.getAttribute("numCuentaD"));
-                } else {
-                    out.print("Cuenta Destino");
-                }%>" > 
+                } %>"  placeholder=" Destino" class="<%if (request.getAttribute("errorDestino") != null) {
+                        out.print((String) request.getAttribute("errorDestino"));
+                    }%>"/> 
             <input type="submit" value="Buscar" />
 
             <br><br>
@@ -103,11 +109,13 @@
             </div>
             <br><br><h2>Inserte el monto: </h2>
             <p><i>El monto debe ser menor o igual a los fondos <br>pertenecientes a la cuenta origen</i></p>
+            <%if (request.getAttribute("Excede") != null) {%><label style="color:red;">El monto es mayor al limite de transferencia o al de los fondos de la cuenta de origen<br></label><%}%>
+
             <input type="text" name="monto" value="<% if ((String) request.getAttribute("monto") != null) {
                     out.print((String) request.getAttribute("monto"));
-                } else {
-                    out.print("Monto");
-                }%>"  />
+                                   }%>" placeholder="Monto" class="<%if (request.getAttribute("errorMonto") != null) {
+                                                              out.print((String) request.getAttribute("errorMonto"));
+                                                          }%>"/>
             <input type="submit" value="Ingresar" />
         </center>
     </form>

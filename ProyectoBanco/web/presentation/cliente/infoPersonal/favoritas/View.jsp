@@ -19,13 +19,14 @@
                 <div class="imgV"></div>
                 <div class="container-text">
                     <center><h1>Vicular una cuenta</h1> </center>
-                   <div class="inputs">
-                            <form name="confirm" action="/ProyectoBanco/cliente/cuentas/favoritas" method="post">
-                                <center> <label>Número de cuenta a vincular:</label> <input type="text" name="cuentaVincular" value="" id="inputTextV" placeholder="Id cuenta"/><br><br><br><br>
+                    <div class="inputs">
+                        <form name="confirm" action="/ProyectoBanco/cliente/cuentas/favoritas" method="post">
+                            <center>
+                                <label>Número de cuenta a vincular:</label> <input type="text" name="cuentaVincular" value="" id="inputTextV" placeholder="Id cuenta"/><br><br><br><br>
                                 <input class="btn-confirm" type="submit" value="Confirmar" id="inputBoton"/><br>
-                                </center>
-                            </form>
-                        </div>
+                            </center>
+                        </form>
+                    </div>
                 </div>
                 <a href="#" class="btn-close-popup">X</a>
             </div>

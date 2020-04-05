@@ -54,31 +54,32 @@ public class Controller extends HttpServlet {
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
     }
-public String registrarFavorita(HttpServletRequest request) {
 
+    public String registrarFavorita(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
         Cliente cliente = (Cliente) session.getAttribute("cliente");
 
         try {
-            String cuentaVincular = (String) request.getParameter("cuentaVincular");
-
-            if (banco.data.CuentaDao.getCuentaUnica(cuentaVincular) != null) {
-                banco.data.FavoritaDao.agregarFavorita(Integer.parseInt(cuentaVincular), cliente.getUsuarioIdUsuario().getIdUsuario());
-                return "/presentation/cliente/cuentasFav";
-            } else {
-                return "errorVincular";
+            if (!request.getParameter("cuentaVincular").isEmpty()) {
+                String cuentaVincular = (String) request.getParameter("cuentaVincular");
+                if (banco.data.CuentaDao.getCuentaUnica(cuentaVincular) != null) {
+                    banco.data.FavoritaDao.agregarFavorita(Integer.parseInt(cuentaVincular), cliente.getUsuarioIdUsuario().getIdUsuario());
+                } else {
+                    request.setAttribute("noExiste", "error");
+                }
             }
-
+            return "/presentation/cliente/cuentasFav";
         } catch (Exception ex) {
             return "errorVincular";
         }
-    }
-    public String eliminarFavorita(HttpServletRequest request) {
 
+    }
+
+    public String eliminarFavorita(HttpServletRequest request) {
         try {
             String idCuenta = (String) request.getParameter("idCuenta");
             banco.data.FavoritaDao.eliminar(Integer.parseInt(idCuenta));
-                return "/presentation/cliente/cuentasFav";
+            return "/presentation/cliente/cuentasFav";
 
         } catch (NumberFormatException ex) {
             return "errorVincular";
@@ -90,9 +91,11 @@ public String registrarFavorita(HttpServletRequest request) {
 
         HttpSession session = request.getSession(true);
         Cliente cliente = (Cliente) session.getAttribute("cliente");
+        if (request.getAttribute("noExiste") != null) {
+            request.setAttribute("noExiste", "error");
+        }
         try {
             if (cliente != null) {
-
                 cliente = banco.data.ClienteDao.find(cliente.getUsuarioIdUsuario().getIdUsuario());
                 session.setAttribute("cliente", cliente);
                 model.setCurrent(cliente);
@@ -105,6 +108,7 @@ public String registrarFavorita(HttpServletRequest request) {
             return "errorVicularCliente";
         }
     }
+
     public String transferencia(HttpServletRequest request) {
 
         return "/presentation/login/transferencia/show";

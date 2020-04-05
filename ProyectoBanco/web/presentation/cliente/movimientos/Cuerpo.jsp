@@ -55,11 +55,11 @@
                 <table data-vertable="ver1">
                     <thead>
                         <tr class="row100 head">
-                            <th class="column100 column1" data-column="column1">Id movimiento </th>
+                            <th class="column100 column1" data-column="column1">Id transferencia </th>
                             <th class="column100 column2" data-column="column2">Monto</th>
                             <th class="column100 column3" data-column="column3">Fecha</th>
                             <th class="column100 column4" data-column="column4">Aplicado</th>
-                            <th class="column100 column5" data-column="column5">Numero de cuenta</th>
+                            <th class="column100 column5" data-column="column5">Numero de cuenta Origen</th>
                             <th class="column100 column5" data-column="column5">Numero de cuenta Destino</th>
 
                         </tr>
