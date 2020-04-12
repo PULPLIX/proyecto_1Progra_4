@@ -22,7 +22,9 @@
                     <div class="inputs">
                         <form name="confirm" action="/ProyectoBanco/cliente/cuentas/favoritas" method="post">
                             <center>
-                                <label>Número de cuenta a vincular:</label> <input type="text" name="cuentaVincular" value="" id="inputTextV" placeholder="Id cuenta"/><br><br><br><br>
+                                <label>Número de cuenta a vincular:</label> <input type="text" name="cuentaVincular" value="<%if (request.getAttribute("idCuenta") != null) {
+                                out.print(request.getAttribute("idCuenta"));
+                       }%>" id="inputText" placeholder="Id cuenta"/><br><br><br><br>
                                 <input class="btn-confirm" type="submit" value="Confirmar" id="inputBoton"/><br>
                             </center>
                         </form>

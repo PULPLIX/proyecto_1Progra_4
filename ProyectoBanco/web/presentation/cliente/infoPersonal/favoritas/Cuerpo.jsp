@@ -50,6 +50,18 @@
                         <%}%>
                     </tbody>
                 </table>
+                <br><br>      
+                <br><br>
+                <center>      
+                    <form action="/ProyectoBanco/favoritas/buscar">
+                       <label>Id Cuenta: </label> <input type="text" name="buscaCuenta" value="" placeholder="id Cuenta" class="<%if (request.getAttribute("noExiste") != null) {
+                                out.print(request.getAttribute("noExiste"));
+                       }%>"/><br><br><input type="submit" value="Buscar" class="btn-confirm"/><br><br>
+                       <label>Propietario: </label> <input id="inputText" type="text" name="Propietario" placeholder="No se ha buscado" value="<%if (request.getAttribute("nombre") != null) {
+                                out.print(request.getAttribute("nombre"));
+                            }%>" />
+                    </form>
+                </center> 
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@
 package banco.presentacion.cliente.cuentas;
 
 import banco.logica.Cliente;
+import banco.logica.Cuenta;
 import banco.logica.Usuario;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ESCINF
  */
-@WebServlet(name = "controllerCuentasShow", urlPatterns = {"/presentation/cliente/datos/show", "/presentation/login/transferencia", "/presentation/login/infoPersonal", "/presentation/login/movimientos", "/presentation/cliente/cuentasFav", "/cliente/cuentas/favoritas", "/cuentas/favoritas/eliminar"})
+@WebServlet(name = "controllerCuentasShow", urlPatterns = {"/presentation/cliente/datos/show", "/presentation/login/transferencia", "/presentation/login/infoPersonal", "/presentation/login/movimientos", "/presentation/cliente/cuentasFav", "/cliente/cuentas/favoritas", "/cuentas/favoritas/eliminar", "/favoritas/buscar"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -51,8 +52,34 @@ public class Controller extends HttpServlet {
             case "/cuentas/favoritas/eliminar":
                 viewUrl = this.eliminarFavorita(request);
                 break;
+            case "/favoritas/buscar":
+                viewUrl = this.buscarFavorita(request);
+                break;
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
+    }
+
+    public String buscarFavorita(HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
+        Cliente cliente = (Cliente) session.getAttribute("cliente");
+
+        try {
+            if (!request.getParameter("buscaCuenta").isEmpty()) {
+                String cuentaVincular = (String) request.getParameter("buscaCuenta");
+                if (banco.data.CuentaDao.getCuentaUnica(cuentaVincular) != null) {
+                    Cuenta cuenta = banco.data.CuentaDao.getCuentaUnica(cuentaVincular);
+                    String propietario = cuenta.getClienteIdCliente().getNombre()+" "+cuenta.getClienteIdCliente().getApellidos();
+                    request.setAttribute("nombre",propietario);
+                    request.setAttribute("idCuenta", cuenta.getNumCuenta());
+                } else {
+                    request.setAttribute("noExiste", "errorTxt");
+                }
+            }
+            return "/presentation/cliente/cuentasFav";
+        } catch (Exception ex) {
+            return "/presentation/cliente/cuentasFav";
+        }
+
     }
 
     public String registrarFavorita(HttpServletRequest request) {
