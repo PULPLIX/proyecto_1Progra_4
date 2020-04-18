@@ -13,7 +13,8 @@
 <%@page import="banco.presentacion.cajero.retiros.Model"%>
 
 <div class="limiter"> 
-    <center><h1> Retiros </h1><br><br></center>
+    <br><br><br>
+    <center><h2> Retiros </h2><br><br></center>
         
         
             <p style=" color: red"> <% if ((String) request.getAttribute("errorClienteVacio") != null) {
