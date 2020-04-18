@@ -3,6 +3,7 @@
 /*----------------------------------------*/
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700,700i|Roboto:300,300i,400,400i,500,700,900');
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 
 @font-face {
     font-family: "Axis Bold";
@@ -12,23 +13,90 @@
 /*----------------------------------------*/
 /*  GLOBAL
 /*----------------------------------------*/
-.panel{width:100%;margin: auto;   padding: 10px;}
-
-.fila{width:100%}
-
-.encabezado{ text-align:center; font-size: 1.5em;}
-
-.etiqueta{width:20%;display:inline-block}
-
-.campo{width:60%;padding: 5px;display:inline-block}
 
 
-input[type=text].is-invalid,input[type=password].is-invalid{
-    /*border-color: #dc3545;*/
-    padding-right: 20px;
-    background-repeat: no-repeat;
-    background-position: center right;
-    background-size: 12;
-    background-image: url("/ProyectoBanco/images/is-invalid.png");   
-   
+
+* {
+    margin:0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
 }
+.cabeza{
+    background: linear-gradient(to bottom, #3C95EB , rgba(104, 126, 169,0.1));
+}
+.logoimg2{
+    width: 200px;
+    height: 88px;
+    margin-left: 2%;
+}
+
+.img-log{
+    background-image: url(/ProyectoBanco/images/loginIco.png);
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    text-align: center;
+    margin-left: 45%;
+}
+body {
+    background-image: url(/ProyectoBanco/images/bgLog.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+
+}
+
+.btn{
+    text-decoration: none;
+    margin-top: 5%;
+    background: linear-gradient(to bottom, #3C95EB , #406E94);
+    padding: 20px 50px;
+    border-radius: 50px;
+    transition: all 1s;
+}
+.btn:hover{
+    color:  #ffffff;
+    background: linear-gradient(to bottom, #3C95EB , #B4DAFF);
+}
+
+h1{
+    color: whitesmoke;
+    margin-bottom: 3%;
+}
+
+.wrap {
+    color: whitesmoke;
+    position: relative;
+    left:30%;
+    margin-top: 10%;
+    margin-left: 4%;
+    margin-bottom: 5%;
+    text-align: center;
+    background: rgba(0,0,0,.5);
+    width: 30%;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    -webkit-box-shadow: -8px 13px 11px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -8px 13px 11px 0px rgba(0,0,0,0.75);
+    box-shadow: -8px 13px 11px 0px rgba(0,0,0,0.75);
+    display: block;
+}
+
+
+input[type=text],input[type=password]{
+    width: 33%;
+    transition: width 0.4s ease-in-out;
+    padding: 10px;
+    margin-bottom: 3%;
+}
+
+input[type=text]:focus,input[type=password]:focus{
+    border: 1.5px solid #3B5998;
+    text-align: center;
+    width: 39%;
+}
+
+

@@ -12,13 +12,11 @@
     <br>
     <ul class="mainMenu">
         <li class="item" id="account">
-            <a href="#account" class="btn"><i class="fas fa-user-circle"></i> <img src="/ProyectoBanco/images/menuIcon/transFlecha.png"  width="20" height="20" id="icon"> Movimientos</a>
+            <a href="#account" class="btn"><i class="fas fa-user-circle"></i> <img src="/ProyectoBanco/images/menuIcon/transFlecha.png"  width="20" height="20" id="icon"> Acciones</a>
             <div class="subMenu">
                 <form>
                     <a  href="/ProyectoBanco/presentation/login/transferencia" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/transferencia.png"  id="subIcon"> Transferencias</a>
                </form>
-
-                    <a href="/ProyectoBanco/presentation/login/movimientos/show" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/debito.png"  id="subIcon"> Mis movimientos</a>
             </div>
         </li>
         <li class="item" id="about">

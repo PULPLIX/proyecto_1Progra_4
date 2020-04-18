@@ -4,6 +4,7 @@
     <head>
         <%@ include file="/presentation/Template/HojaEstilo.jsp" %>
         <title>Mis cuentas</title>
+        <link rel="stylesheet" href="/ProyectoBanco/css/Template/registro.css"/>
     </head>
 
     <body>           

@@ -97,7 +97,7 @@ public class MonedaDao {
                 moneda.setDescripcion(resultado.getString("descripcion"));
                 moneda.setTipoCambioCompra(resultado.getDouble("tipo_cambio_compra"));
                 moneda.setTipoCambioVenta(resultado.getDouble("tipo_cambio_venta"));
-                moneda.setTasaIntereses(resultado.getDouble("tasa_intereses"));
+                moneda.setTasaIntereses(resultado.getDouble("tasa_interes"));
 
                 lista.add(moneda);
             }

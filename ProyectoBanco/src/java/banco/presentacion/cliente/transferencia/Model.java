@@ -14,27 +14,30 @@ import java.util.Objects;
  *
  * @author Escinf
  */
-public class Model{
+public class Model {
+
     List<Cuenta> cuentas;
     Cuenta seleccionado;
     Cuenta aTransferir;
+    ArrayList<Cuenta> favoritas;
 
     public Model() {
         this.reset();
     }
 
-    public void reset(){ 
-        List<Cuenta> rows = new ArrayList<>();        
-        seleccionado=null;  
-        aTransferir=null;
+    public void reset() {
+        List<Cuenta> rows = new ArrayList<>();
+        seleccionado = null;
+        aTransferir = null;
         this.setCuentas(rows);
-    }
-    
-    public void setCuentas(List<Cuenta> cuentas){
-        this.cuentas =cuentas;    
+        this.favoritas = new ArrayList<>();
     }
 
-     public List<Cuenta> getCuentas() {
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
+    }
+
+    public List<Cuenta> getCuentas() {
         return cuentas;
     }
 
@@ -52,6 +55,14 @@ public class Model{
 
     public void setaTransferir(Cuenta aTransferir) {
         this.aTransferir = aTransferir;
+    }
+
+    public ArrayList<Cuenta> getFavoritas() {
+        return favoritas;
+    }
+
+    public void setFavoritas(ArrayList<Cuenta> favoritas) {
+        this.favoritas = favoritas;
     }
 
     @Override
@@ -77,5 +88,5 @@ public class Model{
         final Model other = (Model) obj;
         return true;
     }
-    
+
 }

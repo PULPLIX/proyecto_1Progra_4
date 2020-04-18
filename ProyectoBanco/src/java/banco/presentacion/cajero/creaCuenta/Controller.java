@@ -12,6 +12,7 @@ import banco.logica.TipoCuenta;
 import banco.logica.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -83,6 +84,9 @@ public class Controller extends HttpServlet {
                 cuenta.setIdTipoCuenta(tipoCuenta);
                 cuenta.setClienteIdCliente(cliente);
                 if (banco.data.CuentaDao.registrar(cuenta)) {
+                    ArrayList<Cuenta> array = banco.data.CuentaDao.getCuentasCliente(cliente.getUsuarioIdUsuario().getIdUsuario());
+                    int cuentaVincu = array.get(array.size()-1).getNumCuenta();
+                    banco.data.FavoritaDao.agregarFavorita(cuentaVincu, cliente.getUsuarioIdUsuario().getIdUsuario());
                     return "/presentation/cajero/crearCuenta/View.jsp";
                 }
             }
@@ -94,11 +98,11 @@ public class Controller extends HttpServlet {
 
     public boolean validar(HttpServletRequest request) {
         boolean error = false;
-        if ("0".equals((String)request.getParameter("moneda"))) {
+        if ("0".equals((String) request.getParameter("moneda"))) {
             request.setAttribute("errorMoneda", "errorSelect");
             error = true;
         }
-        if ("0".equals((String)request.getParameter("tipoCuenta"))) {
+        if ("0".equals((String) request.getParameter("tipoCuenta"))) {
             request.setAttribute("errorCuenta", "errorSelect");
             error = true;
         }

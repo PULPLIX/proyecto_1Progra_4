@@ -73,20 +73,21 @@ public class Controller extends HttpServlet {
     }
 
     public String acreditar(HttpServletRequest request) {
-        banco.presentacion.cajero.acreditarIntereses.Model model = (banco.presentacion.cajero.acreditarIntereses.Model) request.getAttribute("model");        
+        banco.presentacion.cajero.acreditarIntereses.Model model = (banco.presentacion.cajero.acreditarIntereses.Model) request.getAttribute("model");
         try {
-            ArrayList<Cuenta> cuentas =  banco.data.CuentaDao.listarTodo();
+            ArrayList<Cuenta> cuentas = banco.data.CuentaDao.listarTodo();
             model.setCuentas(cuentas);
             for (int i = 0; i < model.getCuentas().size(); i++) {
                 Cuenta seleccionada = banco.data.CuentaDao.getCuenta(model.getCuentas().get(i).getNumCuenta());
-                seleccionada.setSaldoFinal(model.getCuentas().get(i).getSaldoFinal()+((model.getCuentas().get(i).getSaldoFinal())*(model.getCuentas().get(i).getMonedaNombre().getTasaIntereses())));
-                //seleccionada.setSaldoFinal(260000);
+                seleccionada.setSaldoFinal(model.getCuentas().get(i).getSaldoFinal() + ((model.getCuentas().get(i).getSaldoFinal()) * (model.getCuentas().get(i).getMonedaNombre().getTasaIntereses())));
                 banco.data.CuentaDao.updateSaldo(seleccionada);
             }
-            request.setAttribute("mensaje", "Se han acreditado los intereses correctamente");
+            request.setAttribute("mensaje", "✅ Se han acreditado los intereses correctamente");
             return ("/presentation/cajero/acreditarIntereses/show");
 
         } catch (Exception ex) {
+            request.setAttribute("error", "⚠ Hubo un error en acreditar todos los intereses");
+
             return ("/presentation/cajero/acreditarIntereses/show");
         }
     }
@@ -104,9 +105,9 @@ public class Controller extends HttpServlet {
             model.setListaMonedas(listaM);
             cliente = banco.data.ClienteDao.find(usuario.getIdUsuario());
             model.setCliente(cliente);
-            ArrayList<Cuenta> cuentas =  banco.data.CuentaDao.listarTodo();
+            ArrayList<Cuenta> cuentas = banco.data.CuentaDao.listarTodo();
             model.setCuentas(cuentas);
-            
+
             request.setAttribute("clienteNombre", cliente.getNombre());
             request.setAttribute("clienteApellidos", cliente.getApellidos());
             request.setAttribute("clienteTelefono", cliente.getTelefono());

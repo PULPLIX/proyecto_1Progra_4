@@ -5,83 +5,65 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@ include file="/presentation/Template/HojaEstilo.jsp" %>
         <title>Iniciar sesión</title>
     </head>
     <body>
+        <link rel="stylesheet" href="/ProyectoBanco/css/Template/cuerpo.css"/>
+        <link rel="stylesheet" href="/ProyectoBanco/css/Template/registro.css"/>
+        <link rel="stylesheet" href="/ProyectoBanco/css/login/login.css"/>
 
-        <%! private String erroneo(String campo, Map<String, String> errores) {
-                if ((errores != null) && (errores.get(campo) != null)) {
-                    return "is-invalid";
-                } else {
-                    return "";
-                }
-            }
-        %>
-        <%!   private String title(String campo, Map<String, String> errores) {
-                if ((errores != null) && (errores.get(campo) != null)) {
-                    return errores.get(campo);
-                } else {
-                    return "";
-                }
-            }
-        %>
+        <div class="cabeza">               
+            <a href="/ProyectoBanco/login/logout"><img src="/ProyectoBanco/images/logo/logoBlanco.png" class="logoimg2"></a>  
+        </div>
+        <div class="wrap">
 
-        <% Model model = (Model) request.getAttribute("model"); %>
-        <% Map<String, String> errores = (Map<String, String>) request.getAttribute("errores");%>
 
-        <!-- SECCION DE MENU
-                ============================================ -->
-        <%@ include file="/presentation/login/Menu.jsp" %>
-
-        <div class="cuerpo"> 
-
-            <div class="cuerpo-caja cuerpo-cabeza">
-                <center>
-                    <br><br>
-                    <br>
-
-                    <h2>INICIAR SESIÓN</h2>
-                </center>
+            <div class="titulo">
+                <h1>INICIAR SESIÓN</h1>
             </div>
-            
-            <div class="cuerpo-caja cuerpo-derecho">
-                <center>
-                    <br><br>
-                    <form name="form" action="/ProyectoBanco/presentation/login/login" method="post" > 
-                        <div class="panel" style="width:30%;">
-                            <div class="fila">
-                                <div class="etiqueta">Cédula</div>
-                                <div class="campo"><input class="<%=erroneo("cedulaFld", errores)%>" placeholder="Cedula del usuario" type="text" name="cedulaFld" value="" title="<%=title("cedulaFld", errores)%>"></div>
-                            </div>
-                            <br>
-                            <div class="fila">
-                                <div class="etiqueta">Clave</div>
-                                <div class="campo"><input class="<%=erroneo("claveFld", errores)%>" placeholder="Clave del usuario" type="password" name="claveFld" value="" title="<%=title("claveFld", errores)%>"></div>
-                            </div>
-                            <br><br>
-                            <div class="fila encabezado"><button class="button">Ingresar</button> </div>
-                            <div>
-                                <%=(request.getAttribute("mensaje") != null) ? request.getAttribute("mensaje") : " No se ha hecho ningun cambio"%>
-                            </div>
+            <div class="img-log"></div>
+            <div class="formulario">
+                <form name="form" action="/ProyectoBanco/presentation/login/login" method="post" > 
+                    <div class="fila">
+                        <div class="etiqueta"><label>Cédula: </label></div>
+                        <div class="campo">
+                            <input class="<%if ((String) request.getAttribute("errorCedula") != null) {
+                                    out.print((String) request.getAttribute("errorCedula"));
+                                } %>" placeholder="Cedula del usuario" type="text" name="cedulaFld" value="" title="">
+                            <%if ((String) request.getAttribute("errorCedula") != null) {
+                                    out.print("<br>" + "<p style=\"color:red; font-size: 14px;\">* Cedula requerida</p>");
+                                } %>
+
                         </div>
-                    </form>
-                </center>
-                <br><br>
-                <br><br>
+                    </div>
+                    <div class="fila">
+                        <div class="etiqueta">Clave: </div>
+                        <div class="campo">
+                            <input class="<%if ((String) request.getAttribute("errorClave") != null) {
+                                    out.print((String) request.getAttribute("errorClave"));
+                                }%>" placeholder="Clave del usuario" type="password" name="claveFld" value="" title="">
+                            <%if ((String) request.getAttribute("errorClave") != null) {
+                                    out.print("<br>" + "<p style=\"color:red; font-size: 14px;\">* Clave requerida</p>");
+                                }%>
+                        </div>
+                    </div>
+                    <div class="error">
+                        <%if ((String) request.getAttribute("errorRegistrar") != null) {
+                                out.print("<br>" + "<p style=\"color:red; font-size: 14px;\">" + (String) request.getAttribute("errorRegistrar") + " </p>");
+                            }%>
+                    </div>
+                    <div class="fila encabezado"><button class="btn">Ingresar</button> </div>
+                </form>
             </div>
-
-            <div class="cuerpo-caja pie">
-                <h2>Banco Central</h2>
-            </div>
-
-            <!-- SECCION DE COPYRIGHT
-                    ============================================ -->
-            <div class="cuerpo-caja copyright">
-                <h3> Copyright ©2020 All rights reserved | Iván Chinchilla y David Aguilar</h3>
-            </div>
-
+        </div>
+        <div class="cuerpo-caja pie">
+            <h2>Banco Central</h2>
         </div>
 
+        <!-- SECCION DE COPYRIGHT
+                ============================================ -->
+        <div class="cuerpo-caja copyright">
+            <h3> Copyright ©2020 All rights reserved | Iván Chinchilla y David Aguilar</h3>
+        </div>
     </body>
 </html>

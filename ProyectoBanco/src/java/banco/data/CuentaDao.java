@@ -37,23 +37,22 @@ public class CuentaDao {
      */
     public static boolean registrar(Cuenta cuenta) throws Exception {
         String SQL = "insert into cuenta (fecha_creacion,limite_transferencia_diaria,activa,saldo_inicial,fecha_ultima_aplicacion,saldo_final,moneda_nombre,cliente_id_cliente, idTipoCuenta)"
-                + "values (?,?,?,?,?,?,?,?,?);";
+                + "values ((select now()),?,?,?,?,?,?,?,?);";
         try {
             //Se crea la coneccion y luego se prepara el query que se ejecutará en la BD
             Connection con = Coneccion.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
             //Se sustituyen los valores que existían en el String.
 
-            st.setDate(1, new java.sql.Date(cuenta.getFechaCreacion().getDate()));
-            st.setDouble(2, cuenta.getLimiteTransferenciaDiaria());
-            st.setInt(3, cuenta.getActiva());
-            st.setDouble(4, cuenta.getSaldoInicial());
-            st.setDate(5, new java.sql.Date(cuenta.getFechaUltimaAplicacion().getDate()));
-            st.setDouble(6, cuenta.getSaldoFinal());
+            st.setDouble(1, cuenta.getLimiteTransferenciaDiaria());
+            st.setInt(2, cuenta.getActiva());
+            st.setDouble(3, cuenta.getSaldoInicial());
+            st.setDate(4, new java.sql.Date(cuenta.getFechaUltimaAplicacion().getDate()));
+            st.setDouble(5, cuenta.getSaldoFinal());
 //Atributos de objetos
-            st.setInt(7, cuenta.getMonedaNombre().getNombre());
-            st.setString(8, cuenta.getClienteIdCliente().getUsuarioIdUsuario().getIdUsuario());
-            st.setInt(9, cuenta.getIdTipoCuenta().getIdTipoCuenta());
+            st.setInt(6, cuenta.getMonedaNombre().getNombre());
+            st.setString(7, cuenta.getClienteIdCliente().getUsuarioIdUsuario().getIdUsuario());
+            st.setInt(8, cuenta.getIdTipoCuenta().getIdTipoCuenta());
 
             return st.executeUpdate() != 0;
         } catch (Exception ex) {

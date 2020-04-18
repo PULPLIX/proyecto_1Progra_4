@@ -7,6 +7,7 @@ package banco.presentacion.cliente.transferencia;
 
 import banco.logica.Cliente;
 import banco.logica.Cuenta;
+import banco.logica.Moneda;
 import banco.logica.Transferencia;
 import banco.logica.Usuario;
 import java.io.IOException;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ESCINF
  */
-@WebServlet(name = "controllerTransferencia", urlPatterns = {"/presentation/login/transferencia/show", "/transferir/busca/cuentas", "/transferir/confirmar"})
+@WebServlet(name = "controllerTransferencia", urlPatterns = {"/presentation/login/transferencia/show", "/transferir/selecciona/cuentas", "/transferir/confirmar", "/transferir/ingresar"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request,
@@ -38,29 +39,73 @@ public class Controller extends HttpServlet {
             case "/presentation/login/transferencia/show":
                 viewUrl = this.show(request);
                 break;
-            case "/transferir/busca/cuentas":
-                viewUrl = this.buscaCuentas(request);
+            case "/transferir/selecciona/cuentas":
+                viewUrl = this.seleccionaCuenta(request);
                 break;
             case "/transferir/confirmar":
                 viewUrl = this.transferir(request);
                 break;
-
+            case "/transferir/ingresar":
+                viewUrl = this.ingresar(request);
+                break;
         }
         request.getRequestDispatcher(viewUrl).forward(request, response);
+    }
+
+    public String ingresar(HttpServletRequest request) {
+        try {
+            Model model = (Model) request.getAttribute("model");
+
+            String numCuentaO = (String) request.getParameter("cuentaOrigenSelect");
+            String numCuentaD = (String) request.getParameter("cuentaDestinoSelect");
+            String monto = (String) request.getParameter("monto");
+
+            if (!(numCuentaO).equals(numCuentaD)) {
+                try {
+                    model.setSeleccionado(banco.data.CuentaDao.getCuentaUnica(numCuentaO));
+                    request.setAttribute("numCuentaO", numCuentaO);
+                } catch (Exception e) {
+                    request.setAttribute("vaciaO", "errorTxt");
+                }
+                try {
+                    model.setaTransferir(banco.data.CuentaDao.getCuentaUnica(numCuentaD));
+                    request.setAttribute("numCuentaD", numCuentaD);
+                } catch (Exception e) {
+                    request.setAttribute("vacioD", "errorTxt");
+                }
+
+                if (!request.getParameter("monto").isEmpty()) {
+                    if (Double.parseDouble(monto) <= model.getSeleccionado().getLimiteTransferenciaDiaria() && (Double.parseDouble(monto) <= model.getSeleccionado().getSaldoFinal())) {
+                        request.setAttribute("monto", monto);
+                    } else {
+                        request.setAttribute("errorMonto", "errorTxt");
+                    }
+                } else {
+                    request.setAttribute("vacioM", "errorTxt");
+                }
+            } else {
+                request.setAttribute("iguales", "errorTxt");
+            }
+            request.setAttribute("mode1", model);
+
+            return this.show(request);
+        } catch (Exception ex) {
+            return this.show(request);
+        }
     }
 
     public boolean validar(HttpServletRequest request) {
         boolean error = false;
         if (request.getParameter("cuentaDestinoConf").isEmpty()) {
-            request.setAttribute("errorDestino", "errorTxt");
+            request.setAttribute("vacioD", "errorTxt");
             error = true;
         }
         if (request.getParameter("cuentaOrigenConf").isEmpty()) {
-            request.setAttribute("errorOrigen", "errorTxt");
+            request.setAttribute("vacioO", "errorTxt");
             error = true;
         }
         if (request.getParameter("montoConf").isEmpty()) {
-            request.setAttribute("errorMonto", "errorTxt");
+            request.setAttribute("vacioM", "errorTxt");
             error = true;
         }
 
@@ -75,94 +120,84 @@ public class Controller extends HttpServlet {
         }
     }
 
-    public String transferirAction(HttpServletRequest request) {
+       public String transferirAction(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
 
         HttpSession session = request.getSession(true);
-        Cliente cliente = (Cliente) session.getAttribute("cliente");
 
         try {
             Transferencia t = new Transferencia();
-            String numCuentaO = (String) request.getParameter("cuentaOrigenConf");
-            String numCuentaD = (String) request.getParameter("cuentaDestinoConf");
-            String monto = (String) request.getParameter("montoConf");
-            if (!numCuentaO.equals("vacío") && !numCuentaD.equals("vacío") && !monto.equals("vacío")) {
-                t.setCuenta(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaO).get(0));
+            int numCuentaO = Integer.parseInt(request.getParameter("cuentaOrigenConf"));
+            int numCuentaD = Integer.parseInt(request.getParameter("cuentaDestinoConf"));
+            double monto = Double.parseDouble(request.getParameter("montoConf"));
+            Cuenta origen = banco.data.CuentaDao.getCuenta(numCuentaO);
+            if (monto < origen.getSaldoFinal() && monto < origen.getLimiteTransferenciaDiaria()) {
+                t.setCuenta(origen);
 
-                t.setCuenta_Destino(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaD).get(0));
+                t.setCuenta_Destino(banco.data.CuentaDao.getCuenta(numCuentaD));
 
                 t.setAplicado(Short.parseShort("1"));
 
-                t.setMonto(monto);
+                t.setMonto(String.valueOf(monto));
                 Calendar calendar = java.util.Calendar.getInstance();
                 t.setFecha(calendar.getTime());
+
                 if (banco.data.movimientosDao.registrarTransferencia(t)) {
-                    double montoFinal = t.getCuenta().getSaldoFinal() - Double.parseDouble(monto);
-                    double montoFinalDestino = t.getCuenta().getSaldoFinal() + Double.parseDouble(monto);
-                    double montoTransferencia = t.getCuenta().getLimiteTransferenciaDiaria() - Double.parseDouble(monto);
+                    double montoFinal = t.getCuenta().getSaldoFinal() - monto;
+                    double montoTransferencia = t.getCuenta().getLimiteTransferenciaDiaria() - monto;
+                    double montoFinalDestino = this.conversion(monto, t.getCuenta().getMonedaNombre(), t.getCuenta_Destino().getMonedaNombre()) + t.getCuenta_Destino().getSaldoFinal();
 
                     t.getCuenta().setSaldoFinal(montoFinal);
-                    t.getCuenta().setLimiteTransferenciaDiaria(montoFinal);
+                    t.getCuenta().setLimiteTransferenciaDiaria(montoTransferencia);
                     t.getCuenta_Destino().setSaldoFinal(montoFinalDestino);
 
                     banco.data.CuentaDao.updateSaldo(t.getCuenta());
                     banco.data.CuentaDao.updateSaldo(t.getCuenta_Destino());
+                    request.setAttribute("mensaje", " ✅ Transferencia Exitosa !!!");
                 }
+            } else {
+                request.setAttribute("estadoTransferencia", " ⚠ No se pudo realizar la transferencia debido a que el monto ingresedo fue invalido.");
             }
-            return "/presentation/cliente/transferencia/View.jsp";
+            return this.show(request);
         } catch (Exception ex) {
-            return "/presentation/cliente/transferencia/View.jsp";
+            request.setAttribute("estadoTransferencia", "⚠No se pudo realizar la transferencia");
+            return this.show(request);
         }
     }
 
-    public String buscaCuentas(HttpServletRequest request) {
+    public double conversion(double monto, Moneda monedaOrg, Moneda monedaDest) {
+
+        if (Objects.equals(monedaOrg.getNombre(), monedaDest.getNombre())) {
+            return monto;
+        } else if (Objects.equals(monedaOrg.getNombre(), 2)) {
+            double montoConvertido = monto * monedaDest.getTipoCambioCompra();
+            return montoConvertido;
+        } else if (Objects.equals(monedaDest.getNombre(), 2)) {
+            double montoDolar = monto / monedaOrg.getTipoCambioCompra();
+            return montoDolar;
+        } else {
+            double montoDolar = monto / monedaOrg.getTipoCambioCompra();
+            double montoConvertido = montoDolar * monedaDest.getTipoCambioCompra();
+            return montoConvertido;
+        }
+
+    }
+
+    public String seleccionaCuenta(HttpServletRequest request) {
+        Model model = (Model) request.getAttribute("model");
+
         try {
-            Model model = (Model) request.getAttribute("model");
-
-            HttpSession session = request.getSession(true);
-            Usuario usuario = (Usuario) session.getAttribute("usuario");
-
-            Cliente cliente;
-
-            cliente = banco.data.ClienteDao.find(usuario.getIdUsuario());
-            session.setAttribute("cliente", cliente);
-
-            String numCuentaO = (String) request.getParameter("cuentaOrigen");
-            String numCuentaD = (String) request.getParameter("cuentaDestino");
-            String monto = (String) request.getParameter("monto");
-
-            if (!(numCuentaO).equals(numCuentaD)) {
-                try {
-                    if (!request.getParameter("cuentaOrigen").isEmpty()) {
-                        model.setSeleccionado(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaO).get(0));
-                        request.setAttribute("numCuentaO", numCuentaO);
-                    }
-
-                } catch (Exception ex) {
-                    request.setAttribute("noExisteOrigen", "error");
-                }
-                try {
-                    if (!request.getParameter("cuentaDestino").isEmpty()) {
-                        model.setaTransferir(banco.data.CuentaDao.getCuenta(cliente.getUsuarioIdUsuario().getIdUsuario(), numCuentaD).get(0));
-                        request.setAttribute("numCuentaD", numCuentaD);
-                    }
-                } catch (Exception ex) {
-                    request.setAttribute("noExisteDestino", "error");
-                }
-                if (!request.getParameter("monto").isEmpty()) {
-                    if (Double.parseDouble(monto) <= model.getSeleccionado().getLimiteTransferenciaDiaria() && (Double.parseDouble(monto) <= model.getSeleccionado().getSaldoFinal())) {
-                        request.setAttribute("monto", monto);
-                        
-                    } else {
-                        request.setAttribute("Excede", "error");
-                    }
-                }
-            } else {
-                request.setAttribute("iguales", "error");
+            if (request.getParameter("idCuentaOrigen") != null) {
+                model.setSeleccionado(banco.data.CuentaDao.getCuentaUnica((String) request.getParameter("idCuentaOrigen")));
             }
-            return "/presentation/cliente/transferencia/View.jsp";
-        } catch (Exception ex) {
-            return "/presentation/cliente/transferencia/View.jsp";
+            if (request.getParameter("idCuentaDestino") != null) {
+                model.setaTransferir(banco.data.CuentaDao.getCuentaUnica((String) request.getParameter("idCuentaDestino")));
+            }
+            request.setAttribute("model", model);
+            return this.show(request);
+
+        } catch (Exception e) {
+            return this.show(request);
         }
     }
 
@@ -171,6 +206,18 @@ public class Controller extends HttpServlet {
         Cliente cliente = (Cliente) session.getAttribute("cliente");
         request.setAttribute("clienteNombre", cliente.getNombre());
         request.setAttribute("clienteApellidos", cliente.getApellidos());
+
+        Model model = (Model) request.getAttribute("model");
+
+        try {
+            model.setCuentas(banco.data.CuentaDao.getCuentasCliente(cliente.getUsuarioIdUsuario().getIdUsuario()));
+            model.setFavoritas(cliente.getFavoritasCollection());
+
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+
         return "/presentation/cliente/transferencia/View.jsp";
     }
 

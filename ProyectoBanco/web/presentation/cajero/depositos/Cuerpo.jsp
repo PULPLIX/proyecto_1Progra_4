@@ -78,11 +78,9 @@
         <form action="/ProyectoBanco/cajero/depositos/buscarCliente" method="post">
             <input type="text" name="clienteABuscar" value="<% if ((String) request.getAttribute("clienteBuscar") != null) {
                     out.print((String) request.getAttribute("clienteBuscar"));
-                } else {
-                    out.print("Cliente");
-                }%>" class="<%if (request.getAttribute("errorClienteVacio") != null || request.getAttribute("errorClienteInvalido") != null|| request.getAttribute("errorClienteIndefinido") != null) {
+                } %>" class="<%if (request.getAttribute("errorClienteVacio") != null || request.getAttribute("errorClienteInvalido") != null|| request.getAttribute("errorClienteIndefinido") != null) {
                 out.print("errorTxt");
-            }%>">
+                }%>" placeholder="Cliente">
 
             <input type="submit" value="Buscar" /><br><br>
         </form>
@@ -146,11 +144,9 @@
                     <form action="/ProyectoBanco/cajero/depositos/buscarCuenta" method="post">
                         <input type="text" name="cuentaABuscar" value="<% if ((String) request.getAttribute("cuentaSeleccionada") != null) {
                                 out.print((String) request.getAttribute("cuentaSeleccionada"));
-                            } else {
-                                out.print("1235");
-                            }%>" class="<%if (request.getAttribute("errorCuentaVacia") != null || request.getAttribute("errorCuentaInvalido") != null|| request.getAttribute("errorCuentaIndefinido") != null) {
+                            } %>" class="<%if (request.getAttribute("errorCuentaVacia") != null || request.getAttribute("errorCuentaInvalido") != null|| request.getAttribute("errorCuentaIndefinido") != null) {
                 out.print("errorTxt");
-            }%>">
+                            }%>" placeholder="Cuenta">
 
                         <input type="submit" value="Buscar" /><br><br>
                     </form>
@@ -190,28 +186,22 @@
                         <h2>Digite el monto</h2>
                         <input type="text" name="monto" value="<% if ((String) request.getAttribute("monto") != null) {
                                 out.print((String) request.getAttribute("monto"));
-                            } else {
-                                out.print("Monto");
-                            }%>" class="<%if (request.getAttribute("errorMontoVacio")!= null || request.getAttribute("errorMontoInvalido") != null)  {
+                            } %>" class="<%if (request.getAttribute("errorMontoVacio")!= null || request.getAttribute("errorMontoInvalido") != null)  {
                 out.print("errorTxt");
-            }%>">
+                            }%>" placeholder="Monto">
                         <h2>Digite el motivo</h2>
                         <input type="text" name="motivo" value="<% if ((String) request.getAttribute("motivo") != null) {
                                 out.print((String) request.getAttribute("motivo"));
-                            } else {
-                                out.print("Motivo");
-                            }%>" class="<%if (request.getAttribute("errorMotivoVacio") != null) {
+                            } %>" class="<%if (request.getAttribute("errorMotivoVacio") != null) {
                 out.print("errorTxt");
-            }%>">
+                            }%>" placeholder="motivo">
 
                         <h2>Digite el nombre del depositante</h2>
                         <input type="text" name="nombreDepositante" value="<% if ((String) request.getAttribute("nombreDepositante") != null) {
                                 out.print((String) request.getAttribute("nombreDepositante"));
-                            } else {
-                                out.print("Nombre del depositante");
-                            }%>" class="<%if (request.getAttribute("errorNombreDepositanteVacio") != null) {
+                            } %>" class="<%if (request.getAttribute("errorNombreDepositanteVacio") != null) {
                 out.print("errorTxt");
-            }%>">
+                            }%>" placeholder="Nombre del depositante">
                         <br><br>
                         Si todos los datos están correctos, puede ingresarlos en el sistema y luego se confirmará el depósito.
                         &nbsp<input type="submit" value="Ingresar Datos" />

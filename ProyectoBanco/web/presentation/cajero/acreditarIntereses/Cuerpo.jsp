@@ -20,14 +20,17 @@
 <%
     banco.presentacion.cajero.acreditarIntereses.Model model = (Model) request.getAttribute("model");
     ArrayList<Moneda> monedaList = model.getListaMonedas();
-    ArrayList<Cuenta> cuentas = model.getCuentas();
-//Cliente cliente = (Cliente) session.getAttribute("cliente");
 %>
 
 <div class="limiter"> 
     <center>
 
-
+        <% if ((String) request.getAttribute("mensaje") != null) {
+            out.print("<center><p style=\"color:green; font-size: 30px;\">" + (String) request.getAttribute("mensaje") + "</p></center>");
+        } %>
+        <% if ((String) request.getAttribute("error") != null) {
+            out.print("<center><p style=\"color:red; font-size: 30px;\">" + (String) request.getAttribute("estadoTransferencia") + "</p></center>");
+        } %>
         <h1> Acreditar Intereses </h1>
 
 
@@ -59,39 +62,6 @@
                                 }%>
                         </tbody>
                     </table>
-
-
-                    <h2>Cuentas del cliente</h2>
-                    <br><br>
-                    <table data-vertable="ver1">
-                        <thead>
-                            <tr class="row100 head">
-                                <th class="column100 column1" data-column="column1">Id cuenta </th>
-                                <th class="column100 column2" data-column="column2">Tipo de Cuenta</th>
-                                <th class="column100 column4" data-column="column4"> Límite de transferencia</th>
-                                <th class="column100 column5" data-column="column5">Saldo Neto</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% if (cuentas != null) {%>
-                            <% for (Cuenta c : cuentas) {%>
-                            <tr  class="row100">
-                                <td class="column100 column1" data-column="column1"><%=c.getNumCuenta()%> </td> 
-                                <td class="column100 column1" data-column="column2"><%=c.getIdTipoCuenta().getDescripción()%></td>
-                                <td class="column100 column1" data-column="column4"><%=c.getLimiteTransferenciaDiaria()%></td>
-                                <td class="column100 column1" data-column="column5"><%=c.getSaldoFinal()%></td>
-                            </tr>
-                            <%}
-                                }%>
-                        </tbody>
-
-                    </table>
-
-
-
-
-
                 </div>
             </div>
         </div>
@@ -103,6 +73,5 @@
         </form>
 
         <br><br>
-
     </center>
 </div>

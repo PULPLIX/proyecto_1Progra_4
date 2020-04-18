@@ -49,29 +49,31 @@ public class Controller extends HttpServlet {
 
     private String login(HttpServletRequest request) {
         try {
-            Map<String, String> errores = this.validar(request);
-            if (errores.isEmpty()) {
+            if (!this.validar(request)) {
                 this.updateModel(request);
                 return this.loginAction(request);
-            } else {
-                request.setAttribute("errores", errores);
-                return "/presentation/cliente/datos/View.jsp";
             }
+            return "/presentation/login/View.jsp";
+
         } catch (Exception e) {
-            return "/presentation/Error.jsp";
+            request.setAttribute("errorRegistrar", "* Clave o Usuario erroneo o inexistente.");
+            return "/presentation/login/View.jsp";
         }
     }
 
-    Map<String, String> validar(HttpServletRequest request) {
-        Map<String, String> errores = new HashMap<>();
+    boolean validar(HttpServletRequest request) {
+        boolean error = false;
+
         if (request.getParameter("cedulaFld").isEmpty()) {
-            errores.put("cedulaFld", "Cedula requerida");
+            request.setAttribute("errorCedula", "errorTxt");
+            error = true;
         }
 
         if (request.getParameter("claveFld").isEmpty()) {
-            errores.put("claveFld", "Clave requerida");
+            request.setAttribute("errorClave", "errorTxt");
+            error = true;
         }
-        return errores;
+        return error;
     }
 
     void updateModel(HttpServletRequest request) {
@@ -88,12 +90,14 @@ public class Controller extends HttpServlet {
         try {
 
             Usuario real = banco.data.UsuarioDao1.find(model.getCurrent().getIdUsuario(), model.getCurrent().getClaveAcceso());
+            if (real == null) {
+                throw new Exception();
+            }
             session.setAttribute("usuario", real);
             String viewUrl = "";
             switch (real.getRol()) {
                 case 1:
                     viewUrl = "/presentation/cliente/datos/show";
-                    request.setAttribute("mensaje", "SE INGRESO CORRECTAMENTE");
                     break;
                 case 2:
                     viewUrl = "/presentation/cajero/infoPersonal/show";
@@ -102,8 +106,7 @@ public class Controller extends HttpServlet {
 
             return viewUrl;
         } catch (Exception ex) {
-            request.setAttribute("mensaje", ex.toString());
-            request.setAttribute("error", "error");
+            request.setAttribute("errorRegistrar", "* Clave o Usuario erroneo o inexistente.");
             return "/presentation/login/View.jsp";
         }
     }

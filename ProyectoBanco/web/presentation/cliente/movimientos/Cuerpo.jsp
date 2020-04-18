@@ -30,7 +30,7 @@
                             <th class="column100 column1" data-column="column1">Id movimiento </th>
                             <th class="column100 column2" data-column="column2">Monto</th>
                             <th class="column100 column3" data-column="column3">Fecha</th>
-                            <th class="column100 column4" data-column="column4">Aplicado</th>
+                            <th class="column100 column4" data-column="column4">Tipo Moviento</th>
                             <th class="column100 column5" data-column="column5">Numero de cuenta</th>
 
                             
@@ -43,10 +43,8 @@
                             <td class="column100 column1" data-column="column1"><%=m.getId_movimiento()%> </td> 
                             <td class="column100 column1" data-column="column2"><%=m.getMonto()%></td>
                             <td class="column100 column1" data-column="column3"><%=m.getFecha()%></td>
-                            <td class="column100 column1" data-column="column4"><%=m.getAplicado()%></td>
-                            <td class="column100 column1" data-column="column5"><%=m.getCuenta().getNumCuenta()%></td>
-
-                            
+                            <td class="column100 column1" data-column="column4"><%if(m.getAplicado() ==1){out.print("<p style=\"color:green;\">Deposito</p>");}else if(m.getAplicado() ==2){out.print("<p style= \"color:red;\">Retiro</p>");}%></td>
+                            <td class="column100 column1" data-column="column5"><%=m.getCuenta().getNumCuenta()%></td>              
                         </tr>
                         <%}%>
                     </tbody>
@@ -58,7 +56,6 @@
                             <th class="column100 column1" data-column="column1">Id transferencia </th>
                             <th class="column100 column2" data-column="column2">Monto</th>
                             <th class="column100 column3" data-column="column3">Fecha</th>
-                            <th class="column100 column4" data-column="column4">Aplicado</th>
                             <th class="column100 column5" data-column="column5">Numero de cuenta Origen</th>
                             <th class="column100 column5" data-column="column5">Numero de cuenta Destino</th>
 
@@ -70,9 +67,8 @@
                             <td class="column100 column1" data-column="column1"><%=t.getId_transferencia()%> </td> 
                             <td class="column100 column1" data-column="column2"><%=t.getMonto()%></td>
                             <td class="column100 column1" data-column="column3"><%=t.getFecha()%></td>
-                            <td class="column100 column1" data-column="column4"><%=t.getAplicado()%></td>
                             <td class="column100 column1" data-column="column5"><%=t.getCuenta().getNumCuenta()%></td>
-                            <td class="column100 column1" data-column="column5"><%=t.getCuenta_Destino().getNumCuenta()%></td>
+                            <td class="column100 column1" data-column="column6"><%=t.getCuenta_Destino().getNumCuenta()%></td>
                         </tr>
                         <%}%>
                     </tbody>

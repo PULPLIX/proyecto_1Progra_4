@@ -15,7 +15,10 @@
     //Cliente cliente = (Cliente) session.getAttribute("cliente");
 
 %>
-
+<!--
+//LOS ERRORES QUE APARECEN CON RESPECTO AL CLIENTE ES PORQUE EL ATRIBUTO SE 
+//ENCUENTRA DECLARADO PREVIAMENTE EN EL ARCHIVO DE "InfoPersonal.jsp". El -->
+<!--//CUAL SE INCLUYE EN EL ARCHIVO DE VIEW.JSP -->
 
 
 <div class="limiter"> 

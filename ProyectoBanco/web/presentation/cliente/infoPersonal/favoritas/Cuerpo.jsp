@@ -30,7 +30,6 @@
                         <tr class="row100 head">
                             <th class="column100 column1" data-column="column1">Id cuenta </th>
                             <th class="column100 column2" data-column="column2">Tipo de Cuenta</th>
-                            <th class="column100 column3" data-column="column3">Estado</th>
                             <th class="column100 column4" data-column="column4">Propietario</th>
                             <th class="column100 column5" data-column="column5">Eliminar</th>
 
@@ -40,8 +39,7 @@
                         <%for (Cuenta fav : favoritas) {%>
                         <tr  class="row100">
                             <td class="column100 column1" data-column="column1"><%=fav.getNumCuenta()%> </td> 
-                            <td class="column100 column1" data-column="column2"><%=fav.getIdTipoCuenta().getIdTipoCuenta()%></td>
-                            <td class="column100 column1" data-column="column3"><%=fav.getIdTipoCuenta().getDescripción()%></td>
+                            <td class="column100 column1" data-column="column2"><%=fav.getIdTipoCuenta().getDescripción()%></td>
                             <td class="column100 column1" data-column="column4"><%=fav.getClienteIdCliente().getNombre() + " " + fav.getClienteIdCliente().getApellidos()%></td>
                             <td class="column100 column1" data-column="column5"> <form method="post" > 
                                     <a href="/ProyectoBanco/cuentas/favoritas/eliminar?idCuenta=<%=fav.getNumCuenta()%>" method="post" > <img src="/ProyectoBanco/images/menuIcon/eliminar.png"  width="30" height="30" id="subIcon"></a>

@@ -7,10 +7,12 @@ package banco.presentacion.cajero.transferencia;
 
 import banco.logica.Cliente;
 import banco.logica.Cuenta;
+import banco.logica.Moneda;
 import banco.logica.Transferencia;
 import banco.logica.Usuario;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Objects;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -71,10 +73,11 @@ public class Controller extends HttpServlet {
                 t.setMonto(String.valueOf(monto));
                 Calendar calendar = java.util.Calendar.getInstance();
                 t.setFecha(calendar.getTime());
+
                 if (banco.data.movimientosDao.registrarTransferencia(t)) {
                     double montoFinal = t.getCuenta().getSaldoFinal() - monto;
-                    double montoFinalDestino = t.getCuenta_Destino().getSaldoFinal() + monto;
                     double montoTransferencia = t.getCuenta().getLimiteTransferenciaDiaria() - monto;
+                    double montoFinalDestino = this.conversion(monto, t.getCuenta().getMonedaNombre(), t.getCuenta_Destino().getMonedaNombre()) + t.getCuenta_Destino().getSaldoFinal();
 
                     t.getCuenta().setSaldoFinal(montoFinal);
                     t.getCuenta().setLimiteTransferenciaDiaria(montoTransferencia);
@@ -82,43 +85,48 @@ public class Controller extends HttpServlet {
 
                     banco.data.CuentaDao.updateSaldo(t.getCuenta());
                     banco.data.CuentaDao.updateSaldo(t.getCuenta_Destino());
+                    request.setAttribute("mensaje", " ✅ Transferencia Exitosa !!!");
                 }
+            } else {
+                request.setAttribute("estadoTransferencia", " ⚠ No se pudo realizar la transferencia debido a que el monto ingresedo fue invalido.");
             }
             return "/presentation/cajero/transferencia/View.jsp";
         } catch (Exception ex) {
+            request.setAttribute("estadoTransferencia", "⚠No se pudo realizar la transferencia");
             return "/errorCajeroTransferencia";
         }
     }
 
-    public String buscar(HttpServletRequest request) {
-        banco.presentacion.cajero.transferencia.Model model = (banco.presentacion.cajero.transferencia.Model) request.getAttribute("model");
-//volver a poner al cliente aqui para evitar que luego no se pueda cambiar de cuenta.
-//Porque si se deja asi solamente se podra elegir una vez y no es la gracia.
-        if (!request.getParameter("cuentaOrigenSelect").isEmpty()) {
-            try {
-                Cuenta seleccionada = banco.data.CuentaDao.getCuenta(Integer.parseInt(request.getParameter("cuentaOrigenSelect")));
-                model.setSeleccionada(seleccionada);
-                model.setClienteBuscar(seleccionada.getClienteIdCliente());
-            } catch (Exception ex) {
-                System.out.print(ex);
-            }
+    public double conversion(double monto, Moneda monedaOrg, Moneda monedaDest) {
+
+        if (Objects.equals(monedaOrg.getNombre(), monedaDest.getNombre())) {
+            return monto;
+        } else if (Objects.equals(monedaOrg.getNombre(), 2)) {
+            double montoConvertido = monto * monedaDest.getTipoCambioCompra();
+            return montoConvertido;
+        } else if (Objects.equals(monedaDest.getNombre(), 2)) {
+            double montoDolar = monto / monedaOrg.getTipoCambioCompra();
+            return montoDolar;
         } else {
-            this.buscarCliente(request, model);
-            this.buscarCuenta(request, model);
+            double montoDolar = monto / monedaOrg.getTipoCambioCompra();
+            double montoConvertido = montoDolar * monedaDest.getTipoCambioCompra();
+            return montoConvertido;
         }
 
-        if (!request.getParameter("cuentaDestinoSelect").isEmpty()) {
-            try {
-                Cuenta seleccionada = banco.data.CuentaDao.getCuenta(Integer.parseInt(request.getParameter("cuentaDestinoSelect")));
-                model.setSeleccionadaDestino(seleccionada);
-                model.setClienteBuscarDestino(seleccionada.getClienteIdCliente());
-            } catch (Exception ex) {
-                System.out.print(ex);
-            }
-        } else {
-            this.buscarClienteDestino(request, model);
+    }
+
+    public String buscar(HttpServletRequest request) {
+        banco.presentacion.cajero.transferencia.Model model = (banco.presentacion.cajero.transferencia.Model) request.getAttribute("model");
+        if (!((String) request.getParameter("cuentaABuscar")).equals((String) request.getParameter("cuentaABuscarDestino"))) {
+            this.buscarCuenta(request, model);
             this.buscarCuentaDestino(request, model);
+        } else if(!request.getParameter("cuentaABuscar").isEmpty()) {
+            request.setAttribute("errorIguales", "*El número de las cuentas no puede ser el mismo");
         }
+
+        this.buscarCliente(request, model);
+        this.buscarClienteDestino(request, model);
+
         if (!request.getParameter("monto").isEmpty()) {
             try {
                 model.setMonto(Double.parseDouble(request.getParameter("monto")));
@@ -184,10 +192,17 @@ public class Controller extends HttpServlet {
 
         try {
             Cliente clienteBuscar = banco.data.ClienteDao.buscarPorCliente(Integer.parseInt(request.getParameter("clienteABuscar")));
+            if (clienteBuscar == null) {
+                request.setAttribute("errorClienteO", "errorTxt");
+            }
             model.setClienteBuscar(clienteBuscar);
             model.setCuentas(banco.data.CuentaDao.getCuentasCliente(clienteBuscar.getUsuarioIdUsuario().getIdUsuario()));
 
         } catch (Exception ex) {
+            if (!(request.getParameter("clienteABuscar").isEmpty())) {
+                request.setAttribute("errorClienteO", "errorTxt");
+
+            }
             System.out.print(ex);
         }
 
@@ -196,11 +211,16 @@ public class Controller extends HttpServlet {
     public void buscarCuenta(HttpServletRequest request, banco.presentacion.cajero.transferencia.Model model) {
 
         try {
-
             Cuenta seleccionada = banco.data.CuentaDao.getCuenta(Integer.parseInt(request.getParameter("cuentaABuscar")));
+            if (seleccionada == null) {
+                request.setAttribute("errorOrigen", "errorTxt");
+            }
             model.setSeleccionada(seleccionada);
-
         } catch (Exception ex) {
+            if (!(request.getParameter("cuentaABuscar").isEmpty())) {
+                request.setAttribute("errorOrigen", "errorTxt");
+
+            }
             System.out.print(ex);
         }
 
@@ -210,10 +230,17 @@ public class Controller extends HttpServlet {
 
         try {
             Cliente clienteBuscarDestino = banco.data.ClienteDao.buscarPorCliente(Integer.parseInt(request.getParameter("clienteABuscarDestino")));
+            if (clienteBuscarDestino == null) {
+                request.setAttribute("errorClienteD", "errorTxt");
+            }
             model.setClienteBuscarDestino(clienteBuscarDestino);
             model.setCuentasDestino(banco.data.CuentaDao.getCuentasCliente(clienteBuscarDestino.getUsuarioIdUsuario().getIdUsuario()));
 
         } catch (Exception ex) {
+            if (!(request.getParameter("clienteABuscarDestino").isEmpty())) {
+                request.setAttribute("errorClienteD", "errorTxt");
+
+            }
             System.out.print(ex);
         }
 
@@ -223,8 +250,14 @@ public class Controller extends HttpServlet {
 
         try {
             Cuenta seleccionadaDestino = banco.data.CuentaDao.getCuenta(Integer.parseInt(request.getParameter("cuentaABuscarDestino")));
+            if (seleccionadaDestino == null) {
+                request.setAttribute("errorDestino", "errorTxt");
+            }
             model.setSeleccionadaDestino(seleccionadaDestino);
         } catch (Exception ex) {
+            if (!(request.getParameter("cuentaABuscarDestino").isEmpty())) {
+                request.setAttribute("errorDestino", "errorTxt");
+            }
             System.out.print(ex);
         }
     }

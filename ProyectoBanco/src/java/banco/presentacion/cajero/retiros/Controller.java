@@ -216,7 +216,7 @@ public class Controller extends HttpServlet {
                 Cuenta seleccionada = banco.data.CuentaDao.getCuenta(ID);
                 if (Integer.valueOf(monto) < seleccionada.getSaldoFinal()) {
                     movimiento.setCuenta(seleccionada);
-                    movimiento.setAplicado((short) 1);
+                    movimiento.setAplicado((short) 2);
                     movimiento.setMonto(Integer.valueOf(monto));
 
                     movimiento.setFecha(fecha);

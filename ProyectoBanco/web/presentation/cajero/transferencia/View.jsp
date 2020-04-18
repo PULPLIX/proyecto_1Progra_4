@@ -13,6 +13,7 @@
     <head>
         <%@ include file="/presentation/Template/HojaEstilo.jsp" %>
         <title>Depósitos</title>
+        <link rel="stylesheet" href="/ProyectoBanco/css/Template/registro.css"/>
     </head>
 
     <body>

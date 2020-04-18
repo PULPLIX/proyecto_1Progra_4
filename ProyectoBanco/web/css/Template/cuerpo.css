@@ -70,6 +70,7 @@
     height: 120px;
 }
 .copyright {
+    
     grid-area: cr;
     background-color: rgb(84, 116, 159);
     /* background-color: #134C58;*/

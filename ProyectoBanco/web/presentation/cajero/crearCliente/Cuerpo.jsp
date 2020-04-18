@@ -22,15 +22,15 @@
 
     <center><h1> Registro de Cliente </h1>
         <form action="/ProyectoBanco/registrar/cliente">
-            <label>usuario:</label><input type="text" name="usuario" value="" placeholder="usuario" id="inputTextR"  
+            <label>Usuario:</label><input type="text" name="usuario" value="" placeholder="usuario" id="inputTextR"  
                                           class="<%if (request.getAttribute("errorUsuario") != null) {
                                                   out.print((String) request.getAttribute("errorUsuario"));
                                               }%>"/><br>
-            <label>nombre:</label><input type="text" name="nombre" value="" placeholder="Nombre" id="inputTextR"  
+            <label>Nombre:</label><input type="text" name="nombre" value="" placeholder="Nombre" id="inputTextR"  
                                          class="<%if (request.getAttribute("errorNombre") != null) {
                                                  out.print((String) request.getAttribute("errorNombre"));
                                              }%>"/><br>
-            <label>apellidos:</label><input type="text" name="apellidos" value="" placeholder="Apellidos" id="inputTextR"  
+            <label>Apellidos:</label><input type="text" name="apellidos" value="" placeholder="Apellidos" id="inputTextR"  
                                             class="<%if (request.getAttribute("errorApellidos") != null) {
                                                     out.print((String) request.getAttribute("errorApellidos"));
                                                 }%>"/><br>
