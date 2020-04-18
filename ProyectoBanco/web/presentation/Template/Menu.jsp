@@ -30,7 +30,7 @@
         <li class="item" id="support">
             <a href="#support" class="btn"><i class="fas fa-info"></i><img src="/ProyectoBanco/images/menuIcon/ayuda.png"  width="25" height="25" id="icon"> Ayuda</a>
             <div class="subMenu">
-                <a href="" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/about.png"  width="25" height="25" id="subIcon"> Sobre nosotros</a>
+                <a href="/ProyectoBanco/presentation/nosotros/View.jsp" id="textoSub"><img src="/ProyectoBanco/images/menuIcon/about.png"  width="25" height="25" id="subIcon"> Sobre nosotros</a>
             </div>
         </li>
         <li class="item">

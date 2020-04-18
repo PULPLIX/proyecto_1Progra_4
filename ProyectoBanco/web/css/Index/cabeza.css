@@ -15,10 +15,9 @@
     z-index: 5;
     background-color: rgb(84, 116, 159);
     background-image: url("/ProyectoBanco/images/chanchoazul.jpg");
-    background-size:auto;
-    background-size:cover;
-    /* background-repeat: no-repeat; 
-     background-position: center;*/
+    background-size: 100% 115%;
+    background-repeat: no-repeat; 
+     background-position: center;
     display: grid;
     grid-template-areas: "left right";
     color: white;

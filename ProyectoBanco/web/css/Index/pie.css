@@ -4,7 +4,7 @@
 
 .pie {
     background-color:#444545;
-    padding: 40px 0;
+    padding: 20px;
 }
 
 .pie h2 {
@@ -21,13 +21,14 @@
 }
 
 .pie .fa {
-  padding: 13px;
-  font-size: 30px;
-  width: 55px;
-  height: 55px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 40px;
+  width: 45px;
+  height: 45px;
   text-align: center;
   text-decoration: none;
-  margin: 5px 2px;
+  margin: 5px 5px;
   border-radius: 50%;
 }
 
