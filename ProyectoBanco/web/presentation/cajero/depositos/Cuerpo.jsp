@@ -13,7 +13,7 @@
 
 
 <div class="limiter"> 
-    <br><br>
+    <br><br><br>
     <center> <h2> Depósitos </h2><br><br></center>
 
     <p style=" color: red"> <% if ((String) request.getAttribute("errorClienteVacio") != null) {
