@@ -1,8 +1,4 @@
-<%-- 
-    Document   : View
-    Created on : Mar 28, 2020, 11:21:22 PM
-    Author     : Oscar
---%>
+
 
 <link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/registro.css">
 

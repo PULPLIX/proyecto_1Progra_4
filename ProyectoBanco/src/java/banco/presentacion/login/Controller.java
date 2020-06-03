@@ -19,10 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author jsanchez
- */
+
 @WebServlet(name = "LoginController", urlPatterns = {"/presentation/login/show", "/presentation/login/login", "/login/logout"})
 public class Controller extends HttpServlet {
 

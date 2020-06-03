@@ -1,8 +1,4 @@
-<%-- 
-    Document   : Cuerpo
-    Created on : Mar 23, 2020, 3:21:32 PM
-    Author     : Oscar
---%>
+
 
 <link rel="stylesheet" type="text/css" href="/ProyectoBanco/css/Template/infoPersonal.css">
 

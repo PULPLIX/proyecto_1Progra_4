@@ -8,10 +8,7 @@ package banco.presentacion.login;
 import banco.logica.Usuario;
 
 
-/**
- *
- * @author jsanchez
- */
+
 public class Model {
     Usuario current;
 

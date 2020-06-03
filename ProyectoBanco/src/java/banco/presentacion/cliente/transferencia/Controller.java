@@ -22,10 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author ESCINF
- */
+
 @WebServlet(name = "controllerTransferencia", urlPatterns = {"/presentation/login/transferencia/show", "/transferir/selecciona/cuentas", "/transferir/confirmar", "/transferir/ingresar"})
 public class Controller extends HttpServlet {
 

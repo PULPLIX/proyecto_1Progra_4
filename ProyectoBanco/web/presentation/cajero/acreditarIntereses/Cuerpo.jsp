@@ -1,8 +1,3 @@
-<%-- 
-    Document   : Cuerpo
-    Created on : Mar 28, 2020, 11:21:38 PM
-    Author     : Oscar
---%>
 
 <%@page import="banco.logica.Cuenta"%>
 <%@page import="banco.logica.TipoCuenta"%>

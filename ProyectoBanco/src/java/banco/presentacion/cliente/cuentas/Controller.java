@@ -16,10 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author ESCINF
- */
+
 @WebServlet(name = "controllerCuentasShow", urlPatterns = {"/presentation/cliente/datos/show", "/presentation/login/transferencia", "/presentation/login/infoPersonal", "/presentation/login/movimientos", "/presentation/cliente/cuentasFav", "/cliente/cuentas/favoritas", "/cuentas/favoritas/eliminar", "/favoritas/buscar"})
 public class Controller extends HttpServlet {
 

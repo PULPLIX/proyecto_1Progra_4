@@ -1,8 +1,4 @@
-<%-- 
-    Document   : Cuerpo
-    Created on : Mar 24, 2020, 8:14:25 PM
-    Author     : Oscar
---%>
+
 
 <%@page import="banco.logica.Transferencia"%>
 <%@page import="banco.logica.Movimiento"%>

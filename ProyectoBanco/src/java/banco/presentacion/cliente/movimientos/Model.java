@@ -13,10 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- *
- * @author Oscar
- */
+
 public class Model {
 
     List<Cuenta> cuentas;

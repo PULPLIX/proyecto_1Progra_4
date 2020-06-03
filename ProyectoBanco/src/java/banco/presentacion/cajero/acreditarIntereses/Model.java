@@ -12,10 +12,7 @@ import banco.logica.TipoCuenta;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/**
- *
- * @author Oscar
- */
+
 public class Model {
 
     Cliente cliente;

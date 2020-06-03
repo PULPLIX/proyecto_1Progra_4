@@ -17,10 +17,6 @@ package banco.presentacion.cajero.creaCliente;
 import banco.logica.Cliente;
 import java.util.Objects;
 
-/**
- *
- * @author Oscar
- */
 public class Model {
 
     Cliente cliente;

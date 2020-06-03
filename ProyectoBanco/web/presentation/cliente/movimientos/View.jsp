@@ -1,8 +1,4 @@
-<%-- 
-    Document   : View
-    Created on : Mar 24, 2020, 8:14:49 PM
-    Author     : Oscar
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

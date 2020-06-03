@@ -7,10 +7,6 @@ import banco.logica.Cuenta;
 import java.util.List;
 import java.util.Objects;
 
-/**
- *
- * @author Oscar
- */
 public class Model {
     
     Cliente cliente;

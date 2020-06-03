@@ -11,10 +11,6 @@ import banco.logica.Cuenta;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/**
- *
- * @author Escinf
- */
 public class Model {
 
     Cliente cliente;

@@ -10,10 +10,7 @@ import banco.logica.Cuenta;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Escinf
- */
+
 public class Model {
 
     ArrayList<Cuenta> cuentas;

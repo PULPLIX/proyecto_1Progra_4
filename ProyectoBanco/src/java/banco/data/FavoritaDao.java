@@ -8,10 +8,7 @@ package banco.data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-/**
- *
- * @author Oscar
- */
+
 public class FavoritaDao {
 
     public static void agregarFavorita(int cuentaId, String clienteId) throws Exception {

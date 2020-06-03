@@ -1,8 +1,4 @@
-<%-- 
-    Document   : Cuerpo
-    Created on : Mar 23, 2020, 3:21:32 PM
-    Author     : Oscar
---%>
+
 
 <%@page import="banco.logica.Cuenta"%>
 <%@page import="java.util.ArrayList"%>

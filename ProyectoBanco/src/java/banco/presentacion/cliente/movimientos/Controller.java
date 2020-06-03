@@ -16,10 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Oscar
- */
 @WebServlet(name = "controllerMovimientos", urlPatterns = {"/presentation/login/movimientos/show", "/movimientos/actualizar"})
 public class Controller extends HttpServlet {
 
